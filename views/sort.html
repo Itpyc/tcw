@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
+		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css"/>
+		<script src="../js/require.js" data-main="sort" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+		
+			.filter {
+				position: fixed;
+				height: 300px;
+				bottom: 0;
+				left: 0px;
+				width: 100%;
+				padding: 0px;
+				box-sizing: border-box;
+				background-color: #efefef;
+				-webkit-transition: .3s;
+				-webkit-transform: translateY(300px);
+				z-index: 9999;
+				box-shadow: 0px -5px 7px 0px rgba(0, 0, 0, 0.1);
+			}
+			.filter.active {
+				-webkit-transform: translateY(0px);
+			}
+			
+			.sort-header-item .active{
+				color: blue;
+			}
+		</style>
+	</head>
+	
+	<body id="sort">
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="margin-top: 30px; top: 50px;">
+			<!--<div class="mui-scroll">-->
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-media" v-for="item in items" id="item.id">
+						<a v-details="item.id">
+							<img class="mui-media-object mui-pull-left" src="../image/tcwLogo.png">
+							<div class="mui-media-body">
+								{{item.name}}
+								<p class="mui-ellipsis">价格：{{item.price}}￥</p>
+								<p class="mui-ellipsis">销量：{{item.sales}} 斤</p>
+								<p class="mui-ellipsis">综合：{{item.comprehensive}}</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+			<!--</div>-->
+		</div>
+			<!--筛选面板-->
+		<div id="filter" class="filter">
+			<ul class="mui-table-view" style="margin: 0px; padding: 0px;">
+				<li class="mui-table-view-cell">
+					<!--<a class="mui-navigate-right">
+			                Item 1
+			            </a>-->
+			            价格区间:
+			            <input type="text" name="" id="" value="" style="width: 30%;height: 30px;"/>
+			            ---
+			            <input type="text" style="width: 30%;height: 30px;" />
+			            	￥
+				</li>
+				<li class="mui-table-view-cell" id="location">
+					<a  class="mui-navigate-right">
+						发货地:<span style="color: red;">{{location}}</span>
+					</a>
+					
+				</li>
+				
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+			                 Item 3
+			            </a>
+				</li>
+			</ul>
+			<div class="mui-content-padded">
+				<button id="button" v-on:click="hide" class="mui-btn mui-btn-blue mui-btn-block">确定</button>
+			</div>
+		</div>
+		<header class="sort-header">
+			<ul class="sort-header-item mui-slider">
+				<li v-sort.literal="comprehensive" id="comprehensive">距我最近</li>
+				<li v-sort.literal="sales">销量优先</li>
+				<li v-sort.literal="price">价格排序<i class="fa fa-sort-{{arrow}}"></i></li>
+				<li id="test" v-sort.literal="filter" v-on:click="show">筛选</li>
+			</ul>
+		</header>
+		
+		
+	</body>
+
+</html>

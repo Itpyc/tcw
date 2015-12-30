@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/default.css" />
+		<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" />
+		<style>
+			.mui-content>.mui-table-view:first-child {
+				margin-top: 0px;
+			}
+			.mui-content {
+				padding-bottom: 50px;
+			}
+			.mui-control-content {
+				background-color: white;
+				min-height: 215px;
+			}
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+		</style>
+		
+	</head>
+
+	<body id="details">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">{{title}}</h1>
+		</header>
+		<div class="mui-content" style="margin-top: -20px;">
+			<div id="slider" class="mui-slider" style="height: 200px">
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../image/tcwLogo.png">
+						</a>
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/tcwLogo.png">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/tcwLogo.png">
+						</a>
+					</div>
+					<!-- 第三张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/tcwLogo.png">
+						</a>
+					</div>
+					<!-- 第四张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/tcwLogo.png">
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../images/shuijiao.jpg">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+
+			<ul class="mui-table-view" style="margin-bottom: 10px;">
+				<li class="mui-table-view-cell">
+					<h4>百姓同村网</span>
+					<span style="float: right;">
+						<i class="fa fa-share"></i>
+						<p>分享</p>
+					</span>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+
+				<!--<li class="mui-table-view-cell">
+					<span style="position: absolute;width: 80%;height: 80%;">
+						<h4>包邮山西特产精品骏枣 500克袋装免洗大红枣子</h4>
+						<p class="mui-ellipsis">山西骏枣是全国四大名枣之一骏枣,号称枣中之王。</p>
+					</span>
+					<span style="float: right;">
+						<i class="fa fa-share"></i>
+						<p>分享</p>
+					</span>
+
+				</li>-->
+
+				<!--<li class="mui-table-view-cell">
+					<div style="margin-top: 20px;">
+						<span style="font-size: 23px; top:10px;color: red;">￥60.0/吨</span>
+						<p style="font-size: 12px;">市场价：￥100.0</p>
+					</div>
+				</li>-->
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+							配送范围：全国
+						</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+							起送：一吨以上起送
+						</a>
+				</li>
+			</ul>
+
+			<ul class="mui-table-view" style="margin-top: 10px;">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						选择数量 发货地址
+					</a>
+				</li>
+			</ul>
+
+			<ul class="mui-table-view" style="margin-top: 10px;">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+							图文详情
+						</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+							查看评价(100)
+						</a>
+				</li>
+			</ul>
+			
+			<!--商品详情和卖家信息-->
+			<div  style="margin-top: 10px; background: #FFFFFF; z-index: 10; box-shadow: #000000;" class="mui-slider">
+				
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item mui-active" href="#productInfo">商品详情</a>
+					<a class="mui-control-item" href="#sellerInfo">卖家信息	</a>
+				</div>
+				<!--条状-->
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<!--显示子页面-->
+				<div class="mui-slider-group">
+					<div id="productInfo" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-1
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-2
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-3
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-4
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-5
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-6
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-7
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-8
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-9
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-10
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-11
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-12
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-13
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-14
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-15
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-16
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-17
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-18
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-19
+									</li>
+									<li class="mui-table-view-cell">
+										第一个选项卡子项-20
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					
+					<div id="sellerInfo" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<!--<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>-->
+								
+								<div class="mui-card" >
+								    <ul class="mui-table-view">
+								        <li class="mui-table-view-cell">
+								        	联系人：张三
+								        </li>
+								        <li class="mui-table-view-cell">
+								        	联系电话：12312312312
+								        </li>
+								        <li class="mui-table-view-cell">
+								        	地址：北京海淀知春路盈都大厦
+								        </li>
+								    </ul>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer class="footer" style="z-index: 9999;">
+			<ul class="footer-menu footer-menu-c2">
+				<li style="color:white;background: orangered;" v-on:click="chat"><i class="fa fa-comment-o"></i>在线咨询</li>
+				<li style="background: #FFFFFF;"><i class="fa fa-shopping-cart"></i>立即购买</li>
+			</ul>
+		</footer>
+
+		<script type="text/javascript" src="../js/require.js" data-main="details.js"></script>
+	</body>
+
+</html>
