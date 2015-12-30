@@ -253,18 +253,29 @@
 					"js/require.js",
 					"views/tab-about.html",
 					"views/tab-settings.html",
-					"views/tab-shop.html"
+					"views/tab-shop.html",
+					"views/tab-zhifu.html",
+					"views/tab-cunzhi.html"
 				],
-				"refer": [],
+				"refer": [
+					"views/shop.html"
+				],
 				"priority": 0
 			},
 			"views/tab-home.html": {
 				"resources": [
 					"js/mui.min.js",
 					"css/mui.min.css",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"font-awesome/fonts/fontawesome-webfont.woff",
+					"font-awesome/css/font-awesome.min.css",
+					"views/tab-home.js",
+					"js/require.js"
 				],
-				"refer": [],
+				"refer": [
+					"views/tab-shop.html",
+					"views/shop.html"
+				],
 				"priority": 0
 			},
 			"views/tab-about.html": {
@@ -291,7 +302,8 @@
 					"css/mui.css",
 					"views/tab-shop.js",
 					"js/require.js",
-					"js/vue.js"
+					"js/vue.js",
+					"fonts/mui.ttf"
 				],
 				"refer": [
 					"views/product-list.html"
@@ -378,6 +390,36 @@
 					"css/mui.min.css"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"views/tab-cunzhi.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/tab-zhifu.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/shop.html": {
+				"resources": [
+					"css/mui.css",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/require.js",
+					"views/shop.js",
+					"js/vue.js"
+				],
+				"refer": [
+					"views/product-list.html"
+				],
 				"priority": 0
 			}
 		},

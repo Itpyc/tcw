@@ -10,7 +10,6 @@ define(function(require, exports, module) {
 		console.log(vm.title);
 	});
 	
-	
 	var Vue = require('../js/vue.js');
 	var vm = new Vue({
 		el:'#details',

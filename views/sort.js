@@ -21,11 +21,12 @@ define(function(require, exports, module) {
 	});
 	//监听事件，接受来自于product-list的传值
 	window.addEventListener('product', function(event) {
+		vm.productName = event.detail.title;
 		console.log(event.detail.title);
 	});
 	window.addEventListener('getCity',function(event){
 		console.log(event.detail.city);
-		vm.location = event.detail.city;
+		vm.sellerPos = event.detail.city;
 	})
 	var self = exports;
 	//排序
@@ -80,67 +81,67 @@ define(function(require, exports, module) {
 	var Vue = require('../js/vue.js');
 	var data = [{
 		id: 1,
-		name: "苹果1",
+		name: "1",
 		price: 13,
 		sales: 100,
 		comprehensive: 3
 	}, {
 		id: 2,
-		name: "苹果2",
+		name: "2",
 		price: 12,
 		sales: 80,
 		comprehensive: 5
 	}, {
 		id: 3,
-		name: "苹果3",
+		name: "3",
 		price: 14,
 		sales: 60,
 		comprehensive: 5
 	}, {
 		id: 4,
-		name: "苹果4",
+		name: "4",
 		price: 9,
 		sales: 20,
 		comprehensive: 4
 	}, {
 		id: 5,
-		name: "苹果5",
+		name: "5",
 		price: 1,
 		sales: 50,
 		comprehensive: 2
 	}, {
 		id: 6,
-		name: "苹果6",
+		name: "6",
 		price: 23,
 		sales: 50,
 		comprehensive: 4
 	}, {
 		id: 7,
-		name: "苹果7",
+		name: "7",
 		price: 100,
 		sales: 5,
 		comprehensive: 2
 	}, {
 		id: 8,
-		name: "苹果8",
+		name: "8",
 		price: 11,
 		sales: 502,
 		comprehensive: 5
 	}, {
 		id: 9,
-		name: "苹果9",
+		name: "9",
 		price: 1,
 		sales: 50,
 		comprehensive: 2
 	}, {
 		id: 10,
-		name: "苹果10",
+		name: "10",
 		price: 1,
 		sales: 50,
 		comprehensive: 2
 	}, {
 		id: 11,
-		name: "苹果11",
+		name: "11",
 		price: 1,
 		sales: 50,
 		comprehensive: 2
@@ -178,6 +179,12 @@ define(function(require, exports, module) {
 		}
 	);
 	//自定义跳转指令
+	
+	mui.preload({
+		url:'details.html',
+		id:'details.html'
+	})
+	
 	Vue.directive('details', function(value) {
 		console.log(value);
 		this.el.addEventListener('tap', function() {
@@ -192,20 +199,36 @@ define(function(require, exports, module) {
 				url:'details.html',
 				id: 'details',
 				extras:{
-					data:value
+					data:vm.productName
 				}
 			});
 		});
 	});
-
-
+	
+	var target1 = document.querySelector('.amount-active');
+	//改变颜色
+	Vue.directive('change',function(value){
+		this.el.addEventListener('tap',function(){
+			console.log(value);
+			vm.amount=this.innerText;
+			if(this != target1){
+				target1.classList.remove('amount-active');
+				this.classList.add('amount-active');
+			}
+			target1 = this;
+		});
+	});
+	
 	var vm = new Vue({
 		el: '#sort',
 		data: {
 			items: self.sortByType(data, "comprehensive", "desc"),
 			productName:' ',
 			arrow: 'desc',
-			location:'选择发货地'
+			sellerPos:'选择发货地',
+			amount:'不限',
+			minPrice:'',
+			maxPrice:''
 		},
 		methods: {
 			show: function(event) {
@@ -217,6 +240,9 @@ define(function(require, exports, module) {
 		}
 	});
 	
+	document.getElementById("button").addEventListener('tap',function(){
+		alert("价格:"+vm.minPrice+"-"+vm.maxPrice+"---"+"发货地方:"+vm.sellerPos+"---"+"起送量:"+vm.amount);
+	});
 	
 	document.getElementById("location").addEventListener('tap',function(){
 		mui.openWindow({
@@ -224,7 +250,6 @@ define(function(require, exports, module) {
 			id:'city'
 		});
 	});
-	
 	function pullupRefresh() {
 		/*vm.items = ['苹果', '梨子', '香蕉', '西瓜'];*/
 		mui('#pullrefresh').pullRefresh().endPullupToRefresh();

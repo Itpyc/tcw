@@ -6,6 +6,7 @@
 		<title></title>
 		<script src="../js/mui.min.js"></script>
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css"/>
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 		</script>
@@ -60,42 +61,41 @@
 					<div class="mui-indicator"></div>
 				</div>
 			</div>
-
 			<div>
-				<ul class="mui-table-view mui-grid-view mui-grid-9" style="background: white; ">
+				<ul id="grid" class="mui-table-view mui-grid-view mui-grid-9" style="background: white; ">
 					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
 						<a href="#">
-							<span class="mui-icon mui-icon-home"></span>
-							<div class="mui-media-body">我的村志</div>
+							<span class="fa fa-fighter-jet"></span>
+							<div class="mui-media-body">蔬菜瓜果</div>
 						</a>
 					</li>
 					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
 						<a href="#">
-							<span class="mui-icon mui-icon-email"></span>
-							<div class="mui-media-body">买家</div>
+							<span class="fa fa-shopping-cart"></span>
+							<div class="mui-media-body">粮油米面</div>
 						</a>
 					</li>
 					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
 						<a href="#">
-							<span class="mui-icon mui-icon-chatbubble"></span>
-							<div class="mui-media-body">卖家</div>
+							<span class="fa fa-user"></span>
+							<div class="mui-media-body">畜牧水产</div>
 						</a>
 					</li>
 					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
 						<a href="#">
-							<span class="mui-icon mui-icon-location"></span>
-							<div class="mui-media-body">商铺</div>
+							<span class="fa fa-building"></span>
+							<div class="mui-media-body">花卉苗木</div>
 						</a>
 					</li>
 					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
 						<a href="#">
-							<span class="mui-icon mui-icon-chatbubble"></span>
-							<div class="mui-media-body">商品</div>
+							<span class="fa fa-mobile"></span>
+							<div class="mui-media-body">中草药</div>
 						</a>
 					</li>
 					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
 						<a href="#">
-							<span class="mui-icon mui-icon-location"></span>
+							<span class="fa fa-dashboard"></span>
 							<div class="mui-media-body">更多</div>
 						</a>
 					</li>
@@ -127,7 +127,6 @@
 				</li>
 			</ul>
 		</div>
-
 		<div id="ganjifang">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
@@ -185,7 +184,7 @@
 			</ul>
 		</div>
 		</div>
-
+	<script src="../js/require.js" data-main="tab-home.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 
 </html>

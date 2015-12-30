@@ -1,11 +1,19 @@
 define(function(require, exports, module) {
+	
+	mui.init({
+		preloadPages:[{
+			url:'shop.html',
+			id:'shop.html'
+		}]
+	});
+	
 	var self = exports;
 	var Vue = require('../js/vue.js');
 	/**
 	 * 创建子页面
 	 */
-	var sub_pages = ['tab-home.html', 'tab-shop.html', 'tab-settings.html'];
-	var sub_title = ["首页", "商铺", "设置"];
+	var sub_pages = ['tab-home.html', 'tab-cunzhi.html', 'tab-zhifu.html','tab-settings.html'];
+	var sub_title = ["首页", "村志","致富经", "设置"];
 	self.createSubPages = function() {
 
 		console.log(sub_pages.valueOf());
