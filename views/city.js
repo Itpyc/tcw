@@ -12,15 +12,11 @@ define(function(require, exports, module) {
 		var btnArr = ['是', '否']
 		mui.confirm('当前位置：' + city, '定位', btnArr, function(e) {
 			if (e.index == 0) {
-				
 				mui.fire(backPage, 'getCity', {
 					city: city
 				})
 				mui.back();
-
-
 			} else {
-				
 			}
 		});
 	};

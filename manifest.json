@@ -270,7 +270,8 @@
 					"font-awesome/fonts/fontawesome-webfont.woff",
 					"font-awesome/css/font-awesome.min.css",
 					"views/tab-home.js",
-					"js/require.js"
+					"js/require.js",
+					"font-awesome/fonts/fontawesome-webfont.ttf"
 				],
 				"refer": [
 					"views/tab-shop.html",
@@ -395,9 +396,20 @@
 			"views/tab-cunzhi.html": {
 				"resources": [
 					"js/mui.min.js",
-					"css/mui.min.css"
+					"css/mui.min.css",
+					"image/shunwaicun.jpg",
+					"image/tcwLogo.png",
+					"js/vue.js",
+					"views/tab-cunzhi.js",
+					"js/require.js",
+					"views/tab-cunzhi-inner.html",
+					"views/tab-cunzhi-inner.js",
+					"css/mui.css",
+					"fonts/mui.ttf"
 				],
-				"refer": [],
+				"refer": [
+					"views/cunzhiInner.html"
+				],
 				"priority": 0
 			},
 			"views/tab-zhifu.html": {
@@ -420,6 +432,33 @@
 				"refer": [
 					"views/product-list.html"
 				],
+				"priority": 0
+			},
+			"views/tab-cunzhi-inner.html": {
+				"resources": [
+					"js/vue.js",
+					"views/tab-cunzhi-inner.js",
+					"css/mui.css",
+					"image/tcwLogo.png",
+					"js/mui.min.js",
+					"js/require.js",
+					"fonts/mui.ttf",
+					"image/shunwaicun.jpg"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/cunzhiInner.html": {
+				"resources": [
+					"views/cunzhiInner.js",
+					"css/mui.min.css",
+					"js/vue.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/require.js",
+					"image/shunwaicun.jpg"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},
