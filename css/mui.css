@@ -1569,7 +1569,7 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
     display: table-cell;
     overflow: hidden;
 
-    width: 1%;
+   /* width: 1%;*/
     height: 50px;
 
     text-align: center;
@@ -1585,7 +1585,6 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
 .mui-bar-tab .mui-tab-item .mui-icon
 {
     top: 3px;
-
     width: 24px;
     height: 24px;
     padding-top: 0;

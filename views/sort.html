@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
@@ -8,130 +9,109 @@
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../css/default.css" />
 		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css" />
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/require.js" data-main="sort" type="text/javascript" charset="utf-8"></script>
-		<style type="text/css">
-			.filter {
-				position: fixed;
-				height: 300px;
-				bottom: 0;
-				left: 0px;
-				width: 100%;
-				padding: 0px;
-				box-sizing: border-box;
-				background-color: #efefef;
-				-webkit-transition: .3s;
-				-webkit-transform: translateY(300px);
-				z-index: 9999;
-				box-shadow: 0px -5px 7px 0px rgba(0, 0, 0, 0.1);
-				border: 1px lightcyan solid;
-			}
-			
-			.filter.active {
-				-webkit-transform: translateY(0px);
-			}
-			
-			.hotel-price-filter .legend {
-				font-size: 15px;
-				color: #555;
-				padding-bottom: 0px;
-			}
-			
-			.sort-header-item .active {
-				color: blue;
-			}
-			
-			.large-filter {
-				margin: 0px;
-				padding: 0px;
-			}
-			.large-filter li {
-				border-radius: 5px;
-				border: solid 1px #ccc;
-				background: red;
-				padding: 8px;
-				display: inline-block;
-				margin: 0px 3px 5px 0px;
-				font-size: 12px;
-				background-color: #fff;
-				color: #666;
-				text-align: center;
-				min-width: 60px;
-			}
-			.mui-table-view-cell-copy {
-				position: relative;
-				overflow: hidden;
-				padding: 11px 15px;
-				-webkit-touch-callout: none;
-			}
-			.mui-table-view-cell-copy:after {
-				position: absolute;
-				right: 0;
-				bottom: 0;
-				left: 15px;
-				height: 1px;
-				content: '';
-				-webkit-transform: scaleY(.5);
-				transform: scaleY(.5);
-				background-color: #c8c7cc;
-			}
-			.amount-active{
-				border: 1px #007AFF solid !important;
-				color: red;
-			}
-		</style>
 	</head>
+
 	<body id="sort">
-		<div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="margin-top: 30px; top: 50px;">
-			<!--<div class="mui-scroll">-->
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell mui-media" v-for="item in items" id="item.id">
-					<a v-details="item.id">
-						<img class="mui-media-object mui-pull-left" src="../image/tcwLogo.png">
-						<div class="mui-media-body">
-							{{productName}}--{{item.name}}
-							<p class="mui-ellipsis">价格：{{item.price}}￥</p>
-							<p class="mui-ellipsis">销量：{{item.sales}} 斤</p>
-							<p class="mui-ellipsis">综合：{{item.comprehensive}}</p>
-						</div>
-					</a>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<ul class="mui-table-view mui-table-view-chevron" id="list">
+					<li class="mui-table-view-cell mui-media" v-for="item in items | orderBy type desc" id="{{item.id}}">
+						<a>
+							<img class="mui-media-object mui-pull-left" src="../image/tcwLogo.png">
+							<div class="mui-media-body">
+								{{type}}
+								{{productName}}--{{item.name}}
+								<p class="mui-ellipsis">价格：{{item.price}}￥</p>
+								<p class="mui-ellipsis">综合：{{item.distance}}</p>
+								<p class="mui-ellipsis">销量：{{item.sales}}</p>
+								<p class="mui-ellipsis">起送量：{{item.minAmount}}斤</p>
+								<p class="mui-ellipsis">配送范围：{{item.distance}}</p>
+								<p class="mui-ellipsis">产地：{{item.sellerPos}}</p>
+							</div>
+						</a>
+					</li>
+
+				</ul>
+			</div>
+		
+		
+		<!--<header id="footer" style="position: fixed;top: 0px;left: 0px;height: 40px;width: 100%;z-index: 999;">
+			<ul style="list-style: none;margin: 0;border: 1px black solid;padding: 0;position: relative;text-align: center;padding: 0px;background: #F3F3F3;height: 40px;line-height: 40px;">
+				<li v-sort.literal="distance" id="distance" style="display: inline-block;left: 0%;position: absolute;width: 25%;text-align: right;padding-right:10px ;color: #DD524D;">
+					距我最近
+				</li>
+				<li v-sort.literal="sales"  style="display: inline-block;left: 25%;position: absolute;width: 25%;text-align: right;padding-right:10px ;color: #DD524D;">
+					销量排序
+				</li>
+				<li v-sort.literal="price" style="display: inline-block;left: 50%;position: absolute;width: 25%;text-align: right;padding-right:10px ;color: #DD524D;">
+					价格排序
+					<i class="fa fa-sort-{{arrow}}"></i> 
+				</li>
+				<li v-on:click="show()" style="display: inline-block;border-left:1px #DD524D solid !important; left: 75%;position: absolute;width: 25%;background: #DD524D;color: white;">
+					筛选
 				</li>
 			</ul>
-			<!--</div>-->
-		</div>
+		</header>-->
+		<!--<div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="margin-top: 40px; top: 50px;">
+			<div class="mui-scroll">
+				<ul class="mui-table-view" id="list">
+					<li class="mui-table-view-cell mui-media" v-for="item in items | orderBy sortBy desc" id="{{item.id}}">
+						<a>
+							<img class="mui-media-object mui-pull-left" src="../image/tcwLogo.png">
+							<div class="mui-media-body">
+								{{productName}}--{{item.name}}
+								<p class="mui-ellipsis">价格：{{item.price}}￥</p>
+								<p class="mui-ellipsis">综合：{{item.distance}}</p>
+								<p class="mui-ellipsis">销量：{{item.sales}}</p>
+								<p class="mui-ellipsis">起送量：{{item.minAmount}}斤</p>
+								<p class="mui-ellipsis">配送范围：{{item.distance}}</p>
+								<p class="mui-ellipsis">产地：{{item.sellerPos}}</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>-->
+
+
 		<!--筛选面板-->
-		<div id="filter" class="filter">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell-copy">
-					价格区间(元):
-					<input type="text" v-model="minPrice" style="width: 20%;height: 30px; margin-left: 5px; background: gainsboro;" /> ——
-					<input type="text" v-model="maxPrice" style="width: 20%;height: 30px;background: gainsboro;" /> ￥
-				</li>
-				<li class="mui-table-view-cell-copy">
-					<div>发货地:<a id="location">{{sellerPos}}</a></div>
-				</li>
-				<li class="mui-table-view-cell-copy" >
-					<div >起送量:<span style="color: red;">{{amount}}</span></div>
-					<ul class="large-filter" id="amount">
-						<li class="amount-active" v-change.literal="0">不限</li>
-						<li v-change.literal="">1吨以下</li>
-						<li v-change.literal="2">1-5吨</li>
-						<li v-change.literal="3">5吨以上</li>
-					</ul>
-				</li>
-			</ul>
+		<!--<div id="filter" class="filter">
+			<div style="-webkit-overflow-scrolling: touch;">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell-copy">
+						<div>发货地:<a id="location">{{sellerPos}}</a></div>
+					</li>
+					<li class="mui-table-view-cell-copy">
+						<div>配送范围:<span style="color: blue;">{{distance}}</span></div>
+						<ul class="large-filter" id="distance">
+							<li class="large-filter" v-change="0">不限</li>
+							<li v-change="1">配送范围内</li>
+							<li v-change="2">超出配送范围</li>
+							<li v-change="3">可送达最近社区</li>
+						</ul>
+					</li>
+					<li class="mui-table-view-cell-copy">
+						<div>起送量:<span style="color: red;">{{deliveryCapacity}}</span></div>
+						<ul class="large-filter" id="amount">
+							<li class="amount-active" v-change="{min:0,max:9999999999}">不限</li>
+							<li v-change="{min:0,max:1000}">1吨以下</li>
+							<li v-change="{min:1001,max:5000}">1-5吨</li>
+							<li v-change="{min:5000,max:9999999999}">5吨以上</li>
+						</ul>
+					</li>
+					<li class="mui-table-view-cell-copy" style="padding-top: 5px;padding-bottom: 5px;" id="price">
+						价格区间(元):
+						<input type="text" id="minPrice" lazy style="width: 20%;height: 20px; margin-left: 5px; background: gainsboro;" /> ——
+						<input type="text" id="maxPrice" lazy style="width: 20%;height: 20px;background: gainsboro;" /> ￥
+					</li>
+				</ul>
+			</div>
 			<div class="mui-content-padded">
 				<button id="button" v-on:click="hide" class="mui-btn mui-btn-blue mui-btn-block">确定</button>
 			</div>
-		</div>
-		<header class="sort-header">
-			<ul class="sort-header-item mui-slider">
-				<li v-sort.literal="comprehensive" id="comprehensive">距我最近</li>
-				<li v-sort.literal="sales">销量优先</li>
-				<li v-sort.literal="price">价格排序<i class="fa fa-sort-{{arrow}}"></i></li>
-				<li id="test" v-sort.literal="filter" v-on:click="show">筛选</li>
-			</ul>
-		</header>
-
+		</div>-->
 	</body>
-
 </html>

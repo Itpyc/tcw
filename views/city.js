@@ -22,14 +22,9 @@ define(function(require, exports, module) {
 	};
 
 	var backPage = null;
-
-
-
-
-
-
 	mui.plusReady(function() {
-		backPage = plus.webview.getWebviewById('sort.html');
+		backPage = plus.webview.currentWebview().opener();
+		console.log(backPage.id);
 	});
 	//元素与名称映射
 	elementMaper.init(self);
@@ -41,10 +36,8 @@ define(function(require, exports, module) {
 		var city = this.innerText;
 		mui.fire(backPage, 'getCity', {
 			city: city
-		})
+		});
 		mui.back();
-		/*alert(city);*/
-
 	});
 
 
@@ -58,10 +51,8 @@ define(function(require, exports, module) {
 			this.classList.add('active');
 			target.classList.remove('active')
 		}
-
 		target = this;
 	})
-
 
 
 	mui.plusReady(function() {
@@ -69,10 +60,7 @@ define(function(require, exports, module) {
 			plus.nativeUI.showWaiting('正在定位中..');
 			plus.geolocation.getCurrentPosition(function(pos) {
 				plus.nativeUI.closeWaiting();
-
 				self.alertPos(pos.address.city+"  "+pos.address.street);
-
-
 			}, function() {
 
 			}, {
@@ -81,9 +69,4 @@ define(function(require, exports, module) {
 		});
 
 	})
-
-	
-
-
-
 });

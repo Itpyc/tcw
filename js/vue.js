@@ -8,7 +8,6 @@
   typeof define === 'function' && define.amd ? define(factory) :
   global.Vue = factory();
 }(this, function () { 'use strict';
-
   function set(obj, key, val) {
     if (hasOwn(obj, key)) {
       obj[key] = val;
@@ -5040,7 +5039,7 @@
      * wathcer's dependency collection phase because we want
      * the v-for to update when the source Object is mutated.
      */
-
+	
     _postProcess: function _postProcess(value) {
       if (isArray(value)) {
         return value;

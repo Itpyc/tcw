@@ -3,9 +3,40 @@
  * 在实际项目开发时，建议为App单独写一个css文件，从而实现项目的自定义皮肤功能；
  * 
  * */
-.mui-plus.mui-android header.mui-bar{
-	display: none;
+
+.mui-backdrop {
+	position: fixed;
+	z-index: 998;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: none;
 }
-.mui-plus.mui-android .mui-bar-nav~.mui-content{
-	padding: 0;
+
+.mui-popover {
+	position: absolute;
+	z-index: 999;
+	display: none;
+	right: 2px;
+	width: 180px;
+	-webkit-transition: opacity .3s;
+	transition: opacity .3s;
+	-webkit-transition-property: opacity;
+	transition-property: opacity;
+	-webkit-transform: none;
+	transform: none;
+	opacity: 0;
+	border-radius: 0px;
+	/*background-color: red;*/
+	/*background-color: black;
+				color: white;*/
+	-webkit-box-shadow: 0 0 15px rgba(0, 0, 0, .1);
+	box-shadow: 0 0 15px rgba(0, 0, 0, .1);
+}
+
+.mui-popover .mui-table-view {
+	border-radius: 0px;
+	background: black;
+	color: white;
 }

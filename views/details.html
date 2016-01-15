@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../css/default.css" />
 		<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css" />
@@ -13,75 +14,157 @@
 			.mui-content>.mui-table-view:first-child {
 				margin-top: 0px;
 			}
+			
 			.mui-content {
 				padding-bottom: 50px;
 			}
+			
 			.mui-control-content {
 				background-color: white;
 				min-height: 215px;
 			}
+			
 			.mui-control-content .mui-loading {
 				margin-top: 50px;
 			}
+			
+			.chose {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			.chose li {
+				min-width: 40px;
+				border: 1px red solid;
+				border-radius: 2px;
+				text-align: center;
+				margin-left: 4px;
+				padding: 5px;
+			}
+			
+			.my-popover {
+				border-radius: 5px;
+				border: 1px #EFEFF4 solid;
+				position: fixed;
+				height: 400px;
+				left: 0;
+				width: 100%;
+				bottom: 0px;
+				-webkit-transform: translateY(900px);
+				background-color: #fff;
+				z-index: 9999;
+			}
+			
+			.my-popover.active {
+				-webkit-transform: translateY(0px);
+			}
+			
+			.productInfo {
+				position: relative;
+			}
+			
+			.productInfo img {
+				border: 1px green solid;
+				max-height: 80px;
+				margin-top: -16px;
+				margin-left: 10px;
+				border-radius: 5px;
+			}
+			.howToPay li {
+				display: inline-block;
+				min-width: 40px;
+				border: 1px #E3E3E3 solid;
+				text-align: center;
+				border-radius: 4px;
+				padding: 5px;
+				margin: 3px 10px 0px 10px;
+				font-size: 12px;
+				background-color: #fff;
+			}
+			.howToGet li {
+				display: inline-block;
+				min-width: 40px;
+				border: 1px #E3E3E3 solid;
+				text-align: center;
+				border-radius: 4px;
+				padding: 5px;
+				margin: 3px 10px 0px 10px;
+				font-size: 12px;
+				background-color: #fff;
+			}
+			
+			.chosen {
+				color: blue;
+			}
+			
+			.mui-table-view-cell.mui-active {
+				background-color: #FFFFFF;
+			}
 		</style>
 	</head>
-
 	<body id="details">
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">{{title}}</h1>
+			<h1 class="mui-title"><!--{{title}}-->
+				<div id="sliderSegmentedControl1" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a id="product" class="mui-control-item mui-active" href="details-product.html">商品</a>
+					<a id="detail" class="mui-control-item" href="details-detail.html">详情	</a>
+					<a id="comment" class="mui-control-item" href="details-comment.html">评论	</a>
+				</div>
+			</h1>
 		</header>
-		<div class="mui-content" style="margin-top: -20px;">
-			<div id="slider" class="mui-slider" style="height: 200px">
-				<div class="mui-slider-group mui-slider-loop">
-					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img src="../image/tcwLogo.png">
-						</a>
+		<div class="mui-content mui-scroll-wrapper" style="margin-top: -20px;display: none;">
+			<div class="mui-scroll">
+				<div id="slider" class="mui-slider" style="height: 200px">
+					<div class="mui-slider-group mui-slider-loop">
+						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="../image/tcwLogo.png">
+							</a>
+						</div>
+						<!-- 第一张 -->
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="../image/tcwLogo.png">
+							</a>
+						</div>
+						<!-- 第二张 -->
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="../image/tcwLogo.png">
+							</a>
+						</div>
+						<!-- 第三张 -->
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="../image/tcwLogo.png">
+							</a>
+						</div>
+						<!-- 第四张 -->
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="../image/tcwLogo.png">
+							</a>
+						</div>
+						<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="../images/shuijiao.jpg">
+							</a>
+						</div>
 					</div>
-					<!-- 第一张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../image/tcwLogo.png">
-						</a>
-					</div>
-					<!-- 第二张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../image/tcwLogo.png">
-						</a>
-					</div>
-					<!-- 第三张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../image/tcwLogo.png">
-						</a>
-					</div>
-					<!-- 第四张 -->
-					<div class="mui-slider-item">
-						<a href="#">
-							<img src="../image/tcwLogo.png">
-						</a>
-					</div>
-					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-					<div class="mui-slider-item mui-slider-item-duplicate">
-						<a href="#">
-							<img src="../images/shuijiao.jpg">
-						</a>
+					<div class="mui-slider-indicator">
+						<div class="mui-indicator mui-active"></div>
+						<div class="mui-indicator"></div>
+						<div class="mui-indicator"></div>
+						<div class="mui-indicator"></div>
 					</div>
 				</div>
-				<div class="mui-slider-indicator">
-					<div class="mui-indicator mui-active"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
-				</div>
-			</div>
 
-			<ul class="mui-table-view" style="margin-bottom: 10px;">
-				<li class="mui-table-view-cell">
-					<h4>百姓同村网</span>
+				<ul class="mui-table-view" style="margin-bottom: 10px;">
+					<li class="mui-table-view-cell">
+						<h4>百姓同村网</span>
 					<span style="float: right;">
 						<i class="fa fa-share"></i>
 						<p>分享</p>
@@ -89,25 +172,6 @@
 				</li>
 			</ul>
 			<ul class="mui-table-view">
-
-				<!--<li class="mui-table-view-cell">
-					<span style="position: absolute;width: 80%;height: 80%;">
-						<h4>包邮山西特产精品骏枣 500克袋装免洗大红枣子</h4>
-						<p class="mui-ellipsis">山西骏枣是全国四大名枣之一骏枣,号称枣中之王。</p>
-					</span>
-					<span style="float: right;">
-						<i class="fa fa-share"></i>
-						<p>分享</p>
-					</span>
-
-				</li>-->
-
-				<!--<li class="mui-table-view-cell">
-					<div style="margin-top: 20px;">
-						<span style="font-size: 23px; top:10px;color: red;">￥60.0/吨</span>
-						<p style="font-size: 12px;">市场价：￥100.0</p>
-					</div>
-				</li>-->
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">
 							配送范围：全国
@@ -224,11 +288,6 @@
 					<div id="sellerInfo" class="mui-slider-item mui-control-content">
 						<div id="scroll2" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<!--<div class="mui-loading">
-									<div class="mui-spinner">
-									</div>
-								</div>-->
-								
 								<div class="mui-card" >
 								    <ul class="mui-table-view">
 								        <li class="mui-table-view-cell">
@@ -249,14 +308,73 @@
 				</div>
 			</div>
 		</div>
-
-		<footer class="footer" style="z-index: 9999;">
-			<ul class="footer-menu footer-menu-c2">
-				<li style="color:white;background: orangered;" v-on:click="chat"><i class="fa fa-comment-o"></i>在线咨询</li>
-				<li style="background: #FFFFFF;"><i class="fa fa-shopping-cart"></i>立即购买</li>
+		</div>
+		<nav class="mui-bar mui-bar-tab">
+		    <a class="mui-tab-item mui-active" style="width: 11%;">
+		        <span class="mui-icon mui-icon-contact"></span>
+		        <span class="mui-tab-label">商铺</span>
+		    </a>
+		    <a id="chat" class="mui-tab-item" style="width: 11%;">
+		        <span class="mui-icon mui-icon-chatbubble"></span>
+		        <span class="mui-tab-label">咨询</span>
+		    </a>
+		    <a class="mui-tab-item" style="width: 11%; ">
+		        <span class="mui-icon mui-icon-star"></span>
+		        <span class="mui-tab-label">收藏</span>
+		    </a>
+		    <a class="mui-tab-item" style="width: 33%;border: 1px red solid;font: '微软雅黑';font-size: 15px; background: orange;color: white;">
+		        <span class="mui-tab-label" style="width: 10%;">设置</span>
+		        加入购物车
+		    </a>
+		     <a id="buyNow" class="mui-tab-item" style="width: 33%; border: 1px red solid;font: '微软雅黑';font-size: 15px;background: #DD524D;color: white;">
+		        立即购买
+		    </a>
+		</nav>
+		<div class="my-popover" id="popover">
+			<ul class="mui-table-view">
+				<div style="position: relative;" class="productInfo">
+					<img src="../images/grape.jpg" />
+					 <div  style="position: absolute; left: 30%;top: 10px;">
+			                	商品名称
+			                <p>商品说明如库存量，价格等</p>
+			            </div>
+				</div>
+			    <li class="mui-table-view-cell mui-media">
+			         <div class="mui-media-body">
+			                	购买数量:&nbsp;
+				        <div class="mui-numbox">
+						<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+						<input class="mui-input-numbox" type="number" />
+						<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+						</div>
+			        </div>
+			    </li>
+			    <li class="mui-table-view-cell mui-media">
+			            <div class="mui-media-body">
+			            	    选择付款方式
+			            	    <ul class="howToPay" style="list-style: none;">
+			            	    	<li id="0">支付宝</li>
+			            	    	<li id="1">微信支付</li>
+			            	    	<li id="2">银行卡</li>
+			            	    </ul>
+			            </div>
+			    </li>
+			    <li class="mui-table-view-cell mui-media">
+			            <div class="mui-media-body">
+			            	    选择取货方式
+			            	    <ul class="howToGet" style="list-style: none;">
+			            	    	<li id="0">社区店自取</li>
+			            	    	<li id="1">送货上门（加付4元）</li>
+			            	    </ul>
+			            </div>
+			    </li>
 			</ul>
-		</footer>
-
+			<div style="position: fixed;bottom: -10px;width: 100%;padding: 0;" >
+				<button id="submit" type="button" class="mui-btn mui-btn-danger mui-btn-block" style="padding: 5px;">确定</button>
+			</div>
+		</div>
+		
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="../js/require.js" data-main="details.js"></script>
 	</body>
 

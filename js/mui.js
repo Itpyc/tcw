@@ -5848,9 +5848,9 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 
 		var arrow = popover.querySelector('.' + CLASS_POPOVER_ARROW);
 		if (!arrow) {
-			arrow = document.createElement('div');
+			/*arrow = document.createElement('div');
 			arrow.className = CLASS_POPOVER_ARROW;
-			popover.appendChild(arrow);
+			popover.appendChild(arrow);*/
 		}
 		var arrowSize = arrow && arrow.offsetWidth / 2 || 0;
 

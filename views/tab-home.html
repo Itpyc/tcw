@@ -4,15 +4,29 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
-		<script src="../js/mui.min.js"></script>
-		<link href="../css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css"/>
-		<script type="text/javascript" charset="utf-8">
-			mui.init();
-		</script>
+		<script src="../js/mui.js"></script>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css" />
 	</head>
-
 	<body>
+		<!--<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-person"></a>
+		    <div class="mui-title">
+		    	<div class="mui-search" id="search" >
+		    	    <input type="search" class="mui-input-clear" placeholder="输入您要搜索的内容">
+		    	</div>
+		    </div>
+		</header>-->
+		<div id="popover" class="mui-popover">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell"><a href="#">Item1</a></li>
+				<li class="mui-table-view-cell"><a href="#">Item2</a></li>
+				<li class="mui-table-view-cell"><a href="#">Item3</a></li>
+				<li class="mui-table-view-cell"><a href="#">Item4</a></li>
+				<li class="mui-table-view-cell"><a href="#">Item5</a></li>
+			</ul>
+		</div>
 		<div class="mui-content">
 			<!--图片轮播-->
 			<div id="slider" class="mui-slider" style="height: 120px; border: 1px solid black;">
@@ -20,37 +34,37 @@
 					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 					<div class="mui-slider-item mui-slider-item-duplicate">
 						<a href="#">
-							<img src="../../image/duncun.jpg" style="height: 120px;">
+							<img src="../image/shunwaicun.jpg" style="height: 120px;">
 						</a>
 					</div>
 					<!-- 第一张 -->
 					<div class="mui-slider-item">
 						<a href="#">
-							<img src="../../image/lidongcun.jpg">
+							<img src="../images/apple.jpg">
 						</a>
 					</div>
 					<!-- 第二张 -->
 					<div class="mui-slider-item">
 						<a href="#">
-							<img src="../../image/shunwaicun.jpg">
+							<img src="../images/banana.jpg">
 						</a>
 					</div>
 					<!-- 第三张 -->
 					<div class="mui-slider-item">
 						<a href="#">
-							<img src="../../image/shunwaicun.jpg">
+							<img src="../images/grape.jpg">
 						</a>
 					</div>
 					<!-- 第四张 -->
 					<div class="mui-slider-item">
 						<a href="#">
-							<img src="../../image/duncun.jpg">
+							<img src="../images/muwu.jpg">
 						</a>
 					</div>
 					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 					<div class="mui-slider-item mui-slider-item-duplicate">
 						<a href="#">
-							<img src="../../image/lidongcun.jpg">
+							<img src="../images/cbd.jpg">
 						</a>
 					</div>
 				</div>
@@ -63,47 +77,49 @@
 			</div>
 			<div>
 				<ul id="grid" class="mui-table-view mui-grid-view mui-grid-9" style="background: white; ">
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
+					<li id="content0" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
 						<a href="#">
 							<span class="fa fa-fighter-jet"></span>
 							<div class="mui-media-body">蔬菜瓜果</div>
 						</a>
 					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
+					<li id="content1" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
 						<a href="#">
 							<span class="fa fa-shopping-cart"></span>
 							<div class="mui-media-body">粮油米面</div>
 						</a>
 					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
+					
+					<li id="content3" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
 						<a href="#">
 							<span class="fa fa-user"></span>
 							<div class="mui-media-body">畜牧水产</div>
 						</a>
 					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
+					<li id="content4" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
 						<a href="#">
 							<span class="fa fa-building"></span>
 							<div class="mui-media-body">花卉苗木</div>
 						</a>
 					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
+					
+					<li id="content2" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
 						<a href="#">
 							<span class="fa fa-mobile"></span>
-							<div class="mui-media-body">中草药</div>
+							<div class="mui-media-body">副食</div>
 						</a>
 					</li>
-					<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
+					<li id="content0" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
 						<a href="#">
 							<span class="fa fa-dashboard"></span>
-							<div class="mui-media-body">更多</div>
+							<div class="mui-media-body">全部分类</div>
 						</a>
 					</li>
 				</ul>
 			</div <div id="ganjifang">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
-						蔬菜瓜果
+					蔬菜瓜果
 				</li>
 			</ul>
 			<ul class="mui-table-view">
@@ -130,7 +146,7 @@
 		<div id="ganjifang">
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
-						粮食
+					粮食
 				</li>
 			</ul>
 			<ul class="mui-table-view">
@@ -184,7 +200,7 @@
 			</ul>
 		</div>
 		</div>
-	<script src="../js/require.js" data-main="tab-home.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/require.js" data-main="tab-home.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 
 </html>

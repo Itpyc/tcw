@@ -1,276 +1,214 @@
 define(function(require, exports, module) {
 	mui.init({
+		preloadPages: [{
+			url: 'details.html',
+			id: 'details.html'
+		}],
 		pullRefresh: {
 			container: '#pullrefresh',
+			down: {
+				callback: pulldownRefresh
+			},
 			up: {
 				contentrefresh: '正在加载...',
 				callback: pullupRefresh
 			}
 		}
 	});
-	//预加载页面
-	/*var detalisPage = mui.preload({
-		url: 'details.html',
-		id: 'details'
-	});*/
-
-	mui.plusReady(function(){
-		/*console.log(plus.webview.getWebviewById('product-list.html'));*/
-		vm.productName = plus.storage.getItem("productName");	
-		console.log(vm.productName);
-	});
-	//监听事件，接受来自于product-list的传值
-	window.addEventListener('product', function(event) {
-		vm.productName = event.detail.title;
-		console.log(event.detail.title);
-	});
-	window.addEventListener('getCity',function(event){
-		console.log(event.detail.city);
-		vm.sellerPos = event.detail.city;
-	})
 	var self = exports;
-	//排序
-	self.sortByType = function(array, type, sortType) {
-		array.sort(function(a, b) {
-			var result = null;
-			switch (type) {
-				case 'price':
-					result = (sortType == "desc") ? (a.price - b.price) : (b.price - a.price);
-					break;
-				case 'sales':
-					result = sortType == "desc" ? (a.sales - b.sales) : (b.sales - a.sales);
-					break;
-				case 'comprehensive':
-					result = sortType == "desc" ? (a.comprehensive - b.comprehensive) : (b.comprehensive - a.comprehensive);
-					break;
-				default:
-					break;
-			}
-			return result;
-		});
-		return array;
-	};
-	
-	var filter = document.getElementById("filter");
-	var mask = mui.createMask();
-	/**
-	 *筛选面板 
-	 */
-	//显示面板
-	self.show = function() {
-		mask.show();
-		filter.classList.add('active');
-		self._back = mui.back;
-		mui.back = function(){
-			self.hide();
-		}
-	}
-	//隐藏面板
-	self.hide = function() {
-		mask.close();
-		filter.classList.remove('active');
-		mui.back = self._back;
-	}
-	/**
-	 * mask 是一个数组
-	 */
-	mask[0].addEventListener('tap', function() {
-		self.hide();
-	}, false);
-
 	var Vue = require('../js/vue.js');
-	var data = [{
+	var testData = [];
+	var parentPage = null;
+	//测试用的数据，实际可以通过ajax从后台获取
+	testData = [{
 		id: 1,
 		name: "1",
-		price: 13,
-		sales: 100,
-		comprehensive: 3
+		price: 13, //价格
+		sales: 100, //销量
+		minAmount: 500, //起送量
+		distance: '配送范围内', //距离
+		sellerPos: '北京'
 	}, {
 		id: 2,
 		name: "2",
 		price: 12,
 		sales: 80,
-		comprehensive: 5
+		minAmount: 1500, //起送量
+		distance: '超出配送范围', //距离
+		sellerPos: '上海'
 	}, {
 		id: 3,
 		name: "3",
 		price: 14,
 		sales: 60,
-		comprehensive: 5
+		minAmount: 5000, //起送量
+		distance: '可送达最近社区', //距离
+		sellerPos: '广州'
 	}, {
 		id: 4,
 		name: "4",
 		price: 9,
 		sales: 20,
-		comprehensive: 4
+		minAmount: 50, //起送量
+		distance: '配送范围内', //距离4
+		sellerPos: '菏泽'
 	}, {
 		id: 5,
 		name: "5",
 		price: 1,
 		sales: 50,
-		comprehensive: 2
+		minAmount: 1500, //起送量
+		distance: '超出配送范围', //距离2
+		sellerPos: '上海'
 	}, {
 		id: 6,
 		name: "6",
 		price: 23,
 		sales: 50,
-		comprehensive: 4
+		minAmount: 500, //起送量
+		distance: '超出配送范围', //距离4
+		sellerPos: '济南'
 	}, {
 		id: 7,
 		name: "7",
 		price: 100,
 		sales: 5,
-		comprehensive: 2
+		minAmount: 50, //起送量
+		distance: '配送范围内', //距离2
+		sellerPos: '上海'
 	}, {
 		id: 8,
 		name: "8",
 		price: 11,
 		sales: 502,
-		comprehensive: 5
+		minAmount: 500, //起送量
+		distance: '可送达最近社区', //距离
+		sellerPos: '北京'
 	}, {
 		id: 9,
 		name: "9",
 		price: 1,
 		sales: 50,
-		comprehensive: 2
+		minAmount: 12500, //起送量
+		distance: '可送达最近社区', //距离2
+		sellerPos: '上海'
 	}, {
 		id: 10,
 		name: "10",
 		price: 1,
 		sales: 50,
-		comprehensive: 2
+		minAmount: 3500, //起送量
+		distance: '配送范围内', //距离2
+		sellerPos: '北京'
 	}, {
 		id: 11,
 		name: "11",
 		price: 1,
 		sales: 50,
-		comprehensive: 2
+		minAmount: 23500, //起送量
+		distance: '配送范围内', //距离2
+		sellerPos: '青岛'
 	}];
 
-	for (var i = 0; i < data.length; i++) {
-		console.log(self.sortByType(data, "price")[i].price);
-	}
-	//定义初始状态，即默认状态
-	var target = document.getElementById("comprehensive");
-	var sortType = "desc";
-	//自定义指令要放置在Vue实例之后,自定义排序指令
-	Vue.directive('sort',
-		function(value) {
-			this.el.addEventListener('tap', function() {
-				//点击时更改字体颜色
-				target.style.color = null;
-				target = this;
-				this.style.color = 'blue';
-				//点击时更改排序方式
-				sortType = sortType == "desc" ? "asce" : "desc"
-					//价格排序时，更改箭头指向
-				if (value == "price") {
-					vm.arrow = vm.arrow == 'desc' ? 'up' : 'desc';
-				}
-
-				if (value != "filter") {
-					//生成数据
-					vm.items = self.sortByType(data, value, sortType);
-					/*document.getElementById("filter").classList.add('active');
-					console.log(value);*/
-				}
-
-			});
-		}
-	);
-	//自定义跳转指令
-	
-	mui.preload({
-		url:'details.html',
-		id:'details.html'
-	})
-	
-	Vue.directive('details', function(value) {
-		console.log(value);
-		this.el.addEventListener('tap', function() {
-			/*console.log(value);
-			console.log(detalisPage);*/
-			//传值，通过自定义事件的方式.将商品的ID传给详情页
-			/*mui.fire(detalisPage, 'details', {
-				id: value
-			});*/
-			//打开详情页面
-			mui.openWindow({
-				url:'details.html',
-				id: 'details',
-				extras:{
-					data:vm.productName
-				}
-			});
-		});
-	});
-	
-	var target1 = document.querySelector('.amount-active');
-	//改变颜色
-	Vue.directive('change',function(value){
-		this.el.addEventListener('tap',function(){
-			console.log(value);
-			vm.amount=this.innerText;
-			if(this != target1){
-				target1.classList.remove('amount-active');
-				this.classList.add('amount-active');
-			}
-			target1 = this;
-		});
-	});
-	
 	var vm = new Vue({
 		el: '#sort',
 		data: {
-			items: self.sortByType(data, "comprehensive", "desc"),
-			productName:' ',
-			arrow: 'desc',
-			sellerPos:'选择发货地',
-			amount:'不限',
-			minPrice:'',
-			maxPrice:''
-		},
-		methods: {
-			show: function(event) {
-				self.show();
-			},
-			hide: function(event) {
-				self.hide();
-			}
+			items: testData,
+			desc: -1,
+			type: 'sales'
 		}
 	});
-	
-	document.getElementById("button").addEventListener('tap',function(){
-		alert("价格:"+vm.minPrice+"-"+vm.maxPrice+"---"+"发货地方:"+vm.sellerPos+"---"+"起送量:"+vm.amount);
+	window.addEventListener('noticeFromParent', function(e) {
+		var data = e.detail.data;
+		console.log(JSON.stringify(e.detail.data));
+		vm.desc = data.desc;
+		vm.type = data.name;
+		console.log(vm.desc);
 	});
-	
-	document.getElementById("location").addEventListener('tap',function(){
-		mui.openWindow({
-			url:'city.html',
-			id:'city'
+
+
+	mui.plusReady(function() {
+		parentPage = plus.webview.getWebviewById('product-list.html');
+		$('#list').on('tap', 'li', function() {
+			mui.fire(plus.webview.getWebviewById('details.html'), 'productName:sort.html', {
+				data: $(this).attr('id')
+			});
+			mui.openWindow({
+				id: 'details.html'
+			});
 		});
 	});
-	function pullupRefresh() {
-		/*vm.items = ['苹果', '梨子', '香蕉', '西瓜'];*/
-		mui('#pullrefresh').pullRefresh().endPullupToRefresh();
 
+	/**
+	 *	接收和筛选 
+	 */
+	window.addEventListener('filterFromMenu', function(e) {
+		//通知product-list页面关闭弹出菜单
+		mui.fire(parentPage, 'fromSort', {
+			data: ''
+		});
+
+		var filterData = e.detail.data;
+		console.log(JSON.stringify(filterData));
+		var bol = {
+			byPos: true,
+			byDistance: true,
+			byAmount: true,
+			byPrice: true
+		};
+		console.log(filterData.sellerPos + "***" + filterData.distance + '***' + filterData.amount.min + '***' + filterData.amount.max + "********" + filterData.minPrice + '***' + filterData.maxPrice);
+		vm.items = testData.filter(function(item) {
+			//发货地筛选
+			if (filterData.sellerPos != "不限") {
+				if (filterData.sellerPos == item.sellerPos) {
+					bol.sellerPos = true;
+				} else {
+					bol.sellerPos = false;
+				}
+			} else {
+				bol.sellerPos = true;
+			}
+			//配送范围筛选
+			if (filterData.distance != "不限") {
+				if (filterData.distance == item.distance) {
+					bol.distance = true;
+				} else {
+					bol.distance = false;
+				}
+			} else {
+				bol.distance = true;
+			}
+			//起送量筛选
+			if (filterData.deliveryCapacity != "不限") {
+				if ((item.minAmount >= filterData.amount.min) && (item.minAmount <= filterData.amount.max)) {
+					bol.byAmount = true;
+				} else {
+					bol.byAmount = false;
+				}
+			} else {
+				bol.byAmount = true;
+			}
+			//价格筛选
+			if ((item.price >= filterData.minPrice) && (item.price <= filterData.maxPrice)) {
+				bol.byPrice = true;
+			} else {
+				bol.byPrice = false;
+			}
+			console.log(bol.sellerPos + "位置" + bol.distance + '距离' + bol.byAmount + "数量" + bol.byPrice + "价格");
+			return bol.sellerPos && bol.distance && bol.byAmount && bol.byPrice;
+		});
+	});
+
+
+	function pulldownRefresh() {
+		mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	/**
+	 * 上拉加载具体业务实现
+	 */
+	function pullupRefresh() {
+		mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+	}
 
 
 });

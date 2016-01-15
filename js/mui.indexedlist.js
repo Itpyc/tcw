@@ -6,18 +6,16 @@
  * by Houfeng
  * Houfeng@DCloud.io
  **/
-
 (function($, window, document) {
-
 	var classSelector = function(name) {
 		return '.' + $.className(name);
 	}
-
 	var IndexedList = $.IndexedList = $.Class.extend({
 		/**
 		 * 通过 element 和 options 构造 IndexedList 实例
 		 **/
 		init: function(holder, options) {
+			//这里的this指的是函数执行者,即当前函数
 			var self = this;
 			self.options = options || {};
 			self.box = holder;
@@ -120,6 +118,7 @@
 			var liArray = self.el.liArray;
 			var itemTotal = liArray.length;
 			self.hiddenGroups = [];
+			
 			var checkGroup = function(currentIndex, last) {
 				if (itemCount >= currentIndex - groupIndex - (last ? 0 : 1)) {
 					selectorBuffer.push(classSelector('indexed-list-inner li') + ':nth-child(' + (groupIndex + 1) + ')');
@@ -128,12 +127,14 @@
 				groupIndex = currentIndex;
 				itemCount = 0;
 			}
+			
 			liArray.forEach(function(item) {
 				var currentIndex = liArray.indexOf(item);
 				if (item.classList.contains($.className('indexed-list-group'))) {
 					checkGroup(currentIndex, false);
 				} else {
 					var text = (item.innerText || '').toLowerCase();
+					console.log(text.indexOf(keyword));
 					var value = (item.getAttribute('data-value') || '').toLowerCase();
 					var tags = (item.getAttribute('data-tags') || '').toLowerCase();
 					if (keyword && text.indexOf(keyword) < 0 &&
@@ -147,6 +148,7 @@
 					}
 				}
 			});
+			
 			if (selectorBuffer.length >= itemTotal) {
 				self.el.inner.classList.add('empty');
 			} else if (selectorBuffer.length > 0) {
@@ -161,6 +163,7 @@
 			var self = this;
 			self.el.searchInput.addEventListener('input', function() {
 				var keyword = this.value;
+				console.log(keyword);
 				self.search(keyword);
 			}, false);
 			$(self.el.search).on('tap', classSelector('icon-clear'), function() {

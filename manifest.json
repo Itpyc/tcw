@@ -104,17 +104,17 @@
 		},
 		"NativeObj": {
 			"description": "原生对象"
-		}
+		},"OAuth":{}
 	},
 	"plus": {
 		"splashscreen": {
-			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
+			"autoclose": false,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
 			"waiting": true
 		},
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
 		"distribute": {
-			"plugins": {
+			"plugins": {"oauth":{"qq":{"appid":"1105003240"}},
 				"maps": {
 					"baidu": {
 						"appkey_ios": "",
@@ -255,10 +255,19 @@
 					"views/tab-settings.html",
 					"views/tab-shop.html",
 					"views/tab-zhifu.html",
-					"views/tab-cunzhi.html"
+					"views/tab-cunzhi.html",
+					"font-awesome/fonts/fontawesome-webfont.woff",
+					"font-awesome/css/font-awesome.min.css",
+					"font-awesome/fonts/fontawesome-webfont.ttf",
+					"js/jquery.js"
 				],
 				"refer": [
-					"views/shop.html"
+					"views/shop.html",
+					"views/search.html",
+					"views/city.html",
+					"views/sellerHome.html",
+					"views/welcome.html",
+					"views/offcanvas.html"
 				],
 				"priority": 0
 			},
@@ -271,7 +280,17 @@
 					"font-awesome/css/font-awesome.min.css",
 					"views/tab-home.js",
 					"js/require.js",
-					"font-awesome/fonts/fontawesome-webfont.ttf"
+					"font-awesome/fonts/fontawesome-webfont.ttf",
+					"css/mui.css",
+					"js/mui.js",
+					"css/app.css",
+					"font-awesome/fonts/fontawesome-webfont.svg",
+					"images/cbd.jpg",
+					"images/banana.jpg",
+					"images/apple.jpg",
+					"images/muwu.jpg",
+					"image/shunwaicun.jpg",
+					"images/grape.jpg"
 				],
 				"refer": [
 					"views/tab-shop.html",
@@ -292,7 +311,14 @@
 			"views/tab-settings.html": {
 				"resources": [
 					"js/mui.js",
-					"css/mui.css"
+					"css/mui.css",
+					"image/shunwaicun.jpg",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"views/tab-settings.js",
+					"js/require.js",
+					"css/app.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -324,7 +350,12 @@
 					"font-awesome/fonts/fontawesome-webfont.woff",
 					"font-awesome/css/font-awesome.min.css",
 					"views/city.html",
-					"font-awesome/fonts/fontawesome-webfont.ttf"
+					"font-awesome/fonts/fontawesome-webfont.ttf",
+					"js/jquery.js",
+					"images/grape.jpg",
+					"common/utils.js",
+					"views/details-comment.js",
+					"css/mui.css"
 				],
 				"refer": [
 					"views/details.html"
@@ -339,9 +370,16 @@
 					"views/sort.html",
 					"fonts/mui.ttf",
 					"css/mui.min.css",
-					"js/require.js"
+					"js/require.js",
+					"font-awesome/fonts/fontawesome-webfont.woff",
+					"font-awesome/css/font-awesome.min.css",
+					"common/utils.js"
 				],
-				"refer": [],
+				"refer": [
+					"views/city.html",
+					"views/details-menu.html",
+					"views/test.html"
+				],
 				"priority": 0
 			},
 			"views/details.html": {
@@ -359,10 +397,19 @@
 					"css/app.css",
 					"font-awesome/font/fontawesome-webfont.woff",
 					"font-awesome/fonts/fontawesome-webfont.ttf",
-					"font-awesome/fonts/fontawesome-webfont.svg"
+					"font-awesome/fonts/fontawesome-webfont.svg",
+					"images/shuijiao.jpg",
+					"images/apple.jpg",
+					"image/shunwaicun.jpg",
+					"images/grape.jpg",
+					"js/jquery.js",
+					"views/details-comment.html",
+					"views/details-product.html"
 				],
 				"refer": [
-					"views/chat.html"
+					"views/chat.html",
+					"views/order.html",
+					"views/details-detail.html"
 				],
 				"priority": 0
 			},
@@ -379,7 +426,8 @@
 					"js/element-maper.js",
 					"font-awesome/css/font-awesome.min.css",
 					"font-awesome/fonts/fontawesome-webfont.woff",
-					"js/vue.js"
+					"js/vue.js",
+					"font-awesome/fonts/fontawesome-webfont.ttf"
 				],
 				"refer": [],
 				"priority": 0
@@ -405,7 +453,8 @@
 					"views/tab-cunzhi-inner.html",
 					"views/tab-cunzhi-inner.js",
 					"css/mui.css",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"css/app.css"
 				],
 				"refer": [
 					"views/cunzhiInner.html"
@@ -415,7 +464,8 @@
 			"views/tab-zhifu.html": {
 				"resources": [
 					"js/mui.min.js",
-					"css/mui.css"
+					"css/mui.css",
+					"css/app.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -427,10 +477,13 @@
 					"fonts/mui.ttf",
 					"js/require.js",
 					"views/shop.js",
-					"js/vue.js"
+					"js/vue.js",
+					"js/jquery-2.1.4.js",
+					"js/jquery.js"
 				],
 				"refer": [
-					"views/product-list.html"
+					"views/product-list.html",
+					"views/search.html"
 				],
 				"priority": 0
 			},
@@ -456,7 +509,185 @@
 					"js/mui.min.js",
 					"fonts/mui.ttf",
 					"js/require.js",
-					"image/shunwaicun.jpg"
+					"image/shunwaicun.jpg",
+					"images/banana.jpg",
+					"images/cbd.jpg",
+					"js/mui.zoom.js",
+					"images/apple.jpg",
+					"css/imageView.css",
+					"js/mui.previewimage.js",
+					"images/grape.jpg",
+					"js/mui.js",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/search.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/app.css",
+					"views/search.js",
+					"js/require.js",
+					"js/vue.js",
+					"js/jquery.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/welcome.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"image/tcwLogo.png"
+				],
+				"refer": [
+					"views/main.html"
+				],
+				"priority": 0
+			},
+			"views/sellerHome.html": {
+				"resources": [
+					"images/cbd.jpg",
+					"images/muwu.jpg",
+					"images/yuantiao.jpg",
+					"images/shuijiao.jpg",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"font-awesome/css/font-awesome.min.css",
+					"font-awesome/fonts/fontawesome-webfont.woff",
+					"images/u\u003d1437710147,1940650266\u0026fm\u003d21\u0026gp\u003d0.jpg",
+					"images/banana.jpg",
+					"images/qincai.jpg",
+					"images/pear.jpg",
+					"images/grape.jpg",
+					"images/orange.jpg",
+					"images/apple.jpg",
+					"images/baicai.jpg",
+					"views/sellerHome.js",
+					"js/require.js",
+					"js/vue.js",
+					"common/utils.js"
+				],
+				"refer": [
+					"views/chat.html",
+					"views/details.html"
+				],
+				"priority": 0
+			},
+			"views/offcanvas.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"views/offcanvas.js"
+				],
+				"refer": [
+					"views/login.html"
+				],
+				"priority": 0
+			},
+			"views/login.html": {
+				"resources": [
+					"views/login.js",
+					"images/cbd.jpg",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/require.js"
+				],
+				"refer": [
+					"views/userInfo.html"
+				],
+				"priority": 0
+			},
+			"views/userInfo.html": {
+				"resources": [
+					"views/userInfo.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/require.js",
+					"js/vue.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/order.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"image/tcwLogo.png",
+					"images/grape.jpg",
+					"images/cbd.jpg",
+					"js/jquery.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/details-comment.html": {
+				"resources": [
+					"css/mui.css",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"image/tcwLogo.png",
+					"views/details-comment.js",
+					"js/vue.js",
+					"js/require.js",
+					"js/jquery.js",
+					"images/grape.jpg",
+					"css/default.css",
+					"common/utils.js",
+					"common/details.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/details-detail.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.css",
+					"css/default.css",
+					"images/grape.jpg"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/details-product.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.css",
+					"images/grape.jpg",
+					"images/shuijiao.jpg",
+					"image/tcwLogo.png"
+				],
+				"refer": [
+					"views/chat.html"
+				],
+				"priority": 0
+			},
+			"views/details-menu.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"css/default.css",
+					"views/details-menu.js",
+					"js/require.js",
+					"js/vue.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/test.html": {
+				"resources": [
+					"css/mui.css"
 				],
 				"refer": [],
 				"priority": 0

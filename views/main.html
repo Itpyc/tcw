@@ -1,41 +1,42 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
-		
-		<link rel="stylesheet" type="text/css" href="../css/mui.css" />l
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css" />
 	</head>
 	<body id="main">
 		<header class="mui-bar mui-bar-nav">
-			<h2 class="mui-title">{{title}}</h2>
+			<a id="personZoom" style="width: 40px;height: 20px;overflow: hidden; border-radius: 10px;">
+				<img class="mui-pull-left" src="http://q.qlogo.cn/qqapp/1104455702/4A6246E1E98CFE02390A4C9FD4259167/40"/>
+			</a>
+			<div class="mui-title" id="title" v-title="title" >
+			</div>
+			
+			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right"></a>
 		</header>
-		<!--<div class="mui-content">
-			<button v-on:click="create()" class="mui-btn mui-btn-red mui-btn-block">登陆</button>
-		</div>
-		<div v-demo.literal="tab-about.html" id="test1" class="mui-btn mui-btn-red">dd</div>-->
 		<nav class="mui-bar mui-bar-tab" id="app">
 			<a class="mui-tab-item mui-active" v-tab.literal="tab-home.html">
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">首页</span>
 			</a>
-			<a class="mui-tab-item" v-tab.literal = "tab-cunzhi.html">
+			<a class="mui-tab-item" v-tab.literal="tab-cunzhi.html">
 				<span class="mui-icon mui-icon-chatboxes"></span>
 				<span class="mui-tab-label">村志</span>
 			</a>
-			<a class="mui-tab-item" v-tab.literal = "tab-zhifu.html">
+			<a class="mui-tab-item" v-tab.literal="tab-zhifu.html">
 				<span class="mui-icon mui-icon-phone"></span>
 				<span class="mui-tab-label">致富经</span>
 			</a>
-			<a class="mui-tab-item" v-tab.literal = "tab-settings.html">
+			<a class="mui-tab-item" v-tab.literal="tab-settings.html">
 				<span class="mui-icon mui-icon-gear"></span>
 				<span class="mui-tab-label">个人中心</span>
 			</a>
 		</nav>
-		
-		<script src="../js/mui.js"  charset="utf-8"></script>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.js" charset="utf-8"></script>
 		<script src="../js/require.js" data-main="main"></script>
 	</body>
 
