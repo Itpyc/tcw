@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<script src="../js/mui.min.js"></script>
-		<link href="../css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<link href="../css/mui.css" rel="stylesheet" />
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="../js/jquery.qrcode.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../layer/layer.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<style type="text/css">
+			.layui-layer {
+				left: 15px;
+			}
+		</style>
 	</head>
 	<body>
-		
-		<div id="popover" class="mui-popover">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell"><a href="#">Item1</a></li>
-				<li class="mui-table-view-cell"><a href="#">Item2</a></li>
-				<li class="mui-table-view-cell"><a href="#">Item3</a></li>
-				<li class="mui-table-view-cell"><a href="#">Item4</a></li>
-				<li class="mui-table-view-cell"><a href="#">Item5</a></li>
-			</ul>
-		</div>
 		<div class="mui-content">
-
-			<ul class="mui-table-view" style="margin-top: 0px;">
+			<!--<ul class="mui-table-view" style="margin-top: 0px;">
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">
 						<img class="mui-media-object mui-pull-left" src="../image/shunwaicun.jpg">
@@ -33,9 +31,47 @@
 						</div>
 					</a>
 				</li>
-			</ul>
+			</ul>-->
+			<div style="height: 120px;width: 100%;background: #DD524D;">
+				<div style="height: 80px;border: 1px red solid;position: relative;">
+					<img style="width: 50px;border-radius: 5px;position: absolute; left: 10px;top: 15px;" src="../images/grape.jpg" />
+					<span style="position: absolute;left: 20%;top: 30%;">
+						<h4 style="color: white;">百姓通村网</h4>
+					</span>
+					<i style="position: absolute;right: 10px;top: 10px;color: white;" class="mui-icon mui-icon-chatboxes"></i>
+				</div>
+				<div style="border: 1px blue solid;opacity: 2;">
+					<nav id="commentList" class="mui-bar mui-bar-tab" style="background: #F0AD4E;position: relative;">
+						<a class="mui-tab-item mui-collapse" id="balance">
+							<div class="" style="color: white;">0</div>
+							<span class="mui-tab-label" style="color: white;">我的余额</span>
+						</a>
+						<a class="mui-tab-item" id="times">
+							<div class="" style="">0</div>
+							<span class="mui-tab-label" style="">抽奖次数</span>
+						</a>
+					</nav>
+				</div>
+			</div>
+			<div id="award" style="margin-top: 15px;" class="mui-hidden">
+				<nav class="mui-bar mui-bar-tab" style="background: ;position: relative;">
+					<a class="mui-tab-item mui-collapse" style="border-right: 1px red solid;" id="rightNow" href="#popover3">
+						<!--<span class="mui-tab-label" style="color: white;">我的余额</span>-->
+						立即抽奖(5)
+					</a>
+					<a class="mui-tab-item" id="donation" style="border-right: 1px red solid;">
+						<!--<span class="mui-tab-label" style="">抽奖次数</span>-->
+						转赠好友
+					</a>
+					<a class="mui-tab-item" id="getMore" style="border-right: 0px red solid;">
+						<!--<span class="mui-tab-label" style="">抽奖次数</span>-->
+						获取更多次数
+					</a>
+				</nav>
+			</div>
+
 			<ul class="mui-table-view" style="margin-top: 10px;">
-				<li class="mui-table-view-cell">
+				<li id="cunzhi" class="mui-table-view-cell">
 					<a class="mui-navigate-right">
 						本村村志
 					</a>
@@ -51,7 +87,7 @@
 					</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
+					<a class="mui-navigate-right" href="#popover3">
 						村志编辑
 					</a>
 				</li>
@@ -64,12 +100,11 @@
 						</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
+					<a id="test" class="mui-navigate-right">
 							资格申请
 						</a>
 				</li>
 			</ul>
-
 			<ul class="mui-table-view" style="margin-top: 10px;">
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">
@@ -86,7 +121,6 @@
 				<button id="logout" type="button" class="mui-btn mui-btn-block mui-btn-danger" style="">退出登录</button>
 			</div>
 		</div>
-		<script src="../js/require.js" data-main = "tab-settings" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/require.js" data-main="tab-settings" type="text/javascript" charset="utf-8"></script>
 	</body>
-
 </html>

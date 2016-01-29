@@ -3,15 +3,54 @@ define(function(require, exports, module) {
 	mui.init({});
 	var menu, main = null;
 	var menuShow = false;
+
+	document.addEventListener('plusready', function() {
+		checkArguments();
+	}, false);
+	// 判断启动方式
+	function checkArguments() {
+		console.log("plus.runtime.launcher: " + plus.runtime.launcher);
+		var args = plus.runtime.arguments;
+		if (args) {
+			// 处理args参数，如打开新页面等
+			alert(args);
+		}
+	}
+	
+	// 处理从后台恢复
+	document.addEventListener('newintent', function() {
+		console.log("addEventListener: newintent");
+		checkArguments();
+	}, false);
+
+
 	mui.plusReady(function() {
-		
-		plus.nativeUI.showWaiting("请耐心等待，正在加载中。。。",{
-			round:'10px'
+
+		document.addEventListener('plusready', function() {
+			checkArguments();
+		}, false);
+		// 判断启动方式
+		function checkArguments() {
+			console.log("plus.runtime.launcher: " + plus.runtime.launcher);
+			var args = plus.runtime.arguments;
+			if (args) {
+				// 处理args参数，如打开新页面等
+			}
+		}
+		// 处理从后台恢复
+		document.addEventListener('newintent', function() {
+			console.log("addEventListener: newintent");
+			checkArguments();
+		}, false);
+
+
+
+		plus.nativeUI.showWaiting("请耐心等待，正在加载中。。。", {
+			round: '10px'
 		});
-		
-		document.getElementById("menu").addEventListener('tap', function() {
+		/*document.getElementById("menu").addEventListener('tap', function() {
 			plus.webview.getWebviewById(vm.pages).evalJS("mui('.mui-popover').popover('toggle');");
-		});
+		});*/
 		main = plus.webview.currentWebview();
 		main.addEventListener('maskClick', closeMenu);
 		//setTimeout的目的是等待窗体动画结束后，再执行create webview操作，避免资源竞争，导致窗口动画不流畅；
@@ -42,7 +81,14 @@ define(function(require, exports, module) {
 				url: 'sellerHome.html',
 				id: 'sellerHome.html'
 			});
-			
+			mui.preload({
+				url: 'order.html',
+				id: 'order.html'
+			});
+			mui.preload({
+				url: 'shoppingCart.html',
+				id: 'shoppingCart.html'
+			});
 			plus.nativeUI.closeWaiting();
 		}, 800);
 
@@ -97,7 +143,7 @@ define(function(require, exports, module) {
 		window.addEventListener("swiperight", showMenu);
 		//主界面向左滑动，若菜单已显示，则关闭菜单；否则，不做任何操作；
 		window.addEventListener("swipeleft", closeMenu);
-		
+
 		var showGuide = plus.storage.getItem("lauchFlag");
 		console.log(showGuide);
 		if (showGuide) {
@@ -125,8 +171,8 @@ define(function(require, exports, module) {
 	/**
 	 * 创建子页面
 	 */
-	var sub_pages = ['tab-home.html', 'tab-cunzhi.html', 'tab-zhifu.html', 'tab-settings.html'];
-	var sub_title = ["首页", "村志", "致富经", "个人中心"];
+	var sub_pages = ['tab-home.html', 'tab-cunzhi.html', 'tab-award.html', 'tab-settings.html'];
+	var sub_title = ["首页", "村志", "抽奖", "个人中心"];
 	self.createSubPages = function() {
 		console.log(sub_pages.valueOf());
 		var sub_style = {
@@ -170,7 +216,7 @@ define(function(require, exports, module) {
 	var homeTitle = "首页<i id='search' class='mui-icon mui-icon-search'></i>";
 	var homeTitle1 = '<div class="mui-input-row"><input id="search" type="text" class="mui-input-clear" placeholder="请输入您要搜索的内容"></div>';
 	var cunzhiTitle = '<span class="">村志</span>';
-	var zhifuTitle = '<span class="">致富经</span>';
+	var zhifuTitle = '<span class="">抽奖</span>';
 	var settingsTitle = '<span class="">个人中心</span>';
 	Vue.directive('title', function(value) {
 		switch (value) {
@@ -187,7 +233,7 @@ define(function(require, exports, module) {
 				$('.mui-title').empty();
 				$('.mui-title').append(cunzhiTitle);
 				break;
-			case "致富经":
+			case "抽奖":
 				$('.mui-title').empty();
 				$('.mui-title').append(zhifuTitle);
 				break;

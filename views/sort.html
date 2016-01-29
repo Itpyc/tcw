@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
@@ -18,12 +17,12 @@
 			<div class="mui-scroll">
 				<!--数据列表-->
 				<ul class="mui-table-view mui-table-view-chevron" id="list">
-					<li class="mui-table-view-cell mui-media" v-for="item in items | orderBy type desc" id="{{item.id}}">
+					<li class="mui-table-view-cell mui-media" v-for="item in items | orderBy type desc" id="{{name}},{{item.shopId}}">
 						<a>
 							<img class="mui-media-object mui-pull-left" src="../image/tcwLogo.png">
 							<div class="mui-media-body">
-								{{type}}
-								{{productName}}--{{item.name}}
+								{{type}}--
+								{{name}}--{{item.name}}--属于{{item.shopId}}
 								<p class="mui-ellipsis">价格：{{item.price}}￥</p>
 								<p class="mui-ellipsis">综合：{{item.distance}}</p>
 								<p class="mui-ellipsis">销量：{{item.sales}}</p>
@@ -33,10 +32,8 @@
 							</div>
 						</a>
 					</li>
-
 				</ul>
 			</div>
-		
 		
 		<!--<header id="footer" style="position: fixed;top: 0px;left: 0px;height: 40px;width: 100%;z-index: 999;">
 			<ul style="list-style: none;margin: 0;border: 1px black solid;padding: 0;position: relative;text-align: center;padding: 0px;background: #F3F3F3;height: 40px;line-height: 40px;">

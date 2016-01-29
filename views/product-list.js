@@ -28,10 +28,10 @@ define(function(require, exports, module) {
 		vm.distance = event.detail.city;
 	});
 	//接收来自于sort.html的事件
-	window.addEventListener('fromSort',function(){
-		closeMenu();		
+	window.addEventListener('fromSort', function() {
+		closeMenu();
 	});
-	
+
 	self.getPosition = function() {
 		plus.nativeUI.showWaiting('正在定位中..');
 		plus.geolocation.getCurrentPosition(function(pos) {
@@ -51,6 +51,8 @@ define(function(require, exports, module) {
 				str = str + street;
 				console.log(str);
 			}
+
+			vm.distance = str;
 		}, function() {
 
 		}, {
@@ -59,9 +61,17 @@ define(function(require, exports, module) {
 
 	}
 	document.getElementById("location").addEventListener('tap', function() {
-		mui.openWindow({
+		/*mui.openWindow({
 			url: 'city.html',
 			id: 'city.html'
+		});*/
+		var cityPicker3 = new mui.PopPicker({
+			layer: 3
+		});
+		cityPicker3.setData(cityData3);
+		console.log('寻找发货地址');
+		cityPicker3.show(function(items) {
+			alert(items);
 		});
 
 	});
@@ -75,6 +85,8 @@ define(function(require, exports, module) {
 		if (!showMenu) {
 			//父webwiew设置遮罩
 			//子菜单向上滑动
+
+
 			menu.show('none', 0, function() {
 				main.setStyle({
 					mask: 'rgba(0,0,0,0.4)',
@@ -90,6 +102,11 @@ define(function(require, exports, module) {
 				});
 				showMenu = true;
 			});
+			self._back = mui.back;
+			mui.back = function() {
+				closeMenu();
+			}
+			
 		}
 	}
 
@@ -100,45 +117,46 @@ define(function(require, exports, module) {
 			showMenu = false;
 			main.setStyle({
 				mask: 'none'
-			})
+			});
+			mui.back = self._back;
 		}
 	}
 
-
 	mui.plusReady(function() {
-		//获取来自搜索界面、shop界面的事件
-		window.addEventListener('productName', function(event) {
-			vm.name = event.detail.data;
-		});
-		menu = mui.preload({
-			url: 'details-menu.html',
-			id: 'details-menu.html',
-			styles: {
-				bottom: 0,
-				height: '60%',
-				width: '100%',
-				zindex: 9997
-			},
-		});
-		setTimeout(function() {
-			self.getPosition();
-		}, 2000);
-		main = plus.webview.currentWebview();
-		sortPage = plus.webview.getWebviewById('sort.html');
-		main.addEventListener('maskClick', function() {
-			closeMenu();
-		});
-		/*subPage = plus.webview.currentWebview().children();*/
-	})
+			//获取来自搜索界面、shop界面的事件
+			menu = mui.preload({
+				url: 'details-menu.html',
+				id: 'details-menu.html',
+				styles: {
+					bottom: 0,
+					height: '60%',
+					width: '100%',
+					zindex: 9997
+				},
+			});
+			setTimeout(function() {
+				self.getPosition();
+			}, 2000);
+			main = plus.webview.currentWebview();
+			sortPage = plus.webview.getWebviewById('sort.html');
+			console.log(main);
+			main.addEventListener('maskClick', function() {
+				closeMenu();
+			});
+			/*mui.back = function() {
+					closeMenu();
+				}*/
 
 
-	//切换状态
+			/*subPage = plus.webview.currentWebview().children();*/
+		})
+		//切换状态
 
 	var sortType = {
 		name: 'sales',
 		desc: -1
 	};
-	
+
 	var targetEl = document.getElementById("distance");
 	$('nav').on('tap', 'a', function(e) {
 		var id = $(this).attr("id");
@@ -147,28 +165,21 @@ define(function(require, exports, module) {
 			openMenu();
 			return;
 		}
-
 		if (id == 'price') {
 			vm.arrow = vm.arrow == 'desc' ? 'up' : 'desc';
-			sortType.desc = 0 -sortType.desc;
-		}else{
+			sortType.desc = 0 - sortType.desc;
+		} else {
 			sortType.desc = -1;
 		}
 		sortType.name = id;
-		mui.fire(sortPage,'noticeFromParent',{
-			data:sortType
-		})
-		
-		
-
-
-	/*	$(this).addClass('header-active');
-		targetEl.classList.remove('header-active');
-		targetEl = this;*/
+		mui.fire(sortPage, 'noticeFromParent', {
+				data: sortType
+			})
+			/*	$(this).addClass('header-active');
+				targetEl.classList.remove('header-active');
+				targetEl = this;*/
 
 	});
-
-
 
 	var vm = new Vue({
 		el: '#list',
@@ -177,6 +188,15 @@ define(function(require, exports, module) {
 			distance: '未定位',
 			arrow: 'up'
 		}
+
+	});
+
+	window.addEventListener('productName', function(event) {
+		console.log(vm.name)
+		vm.name = event.detail.data;
+		/*mui.fire(sortPage,'productInfoFromProductList',{
+			data:event.detail.data
+		})*/
 
 	});
 

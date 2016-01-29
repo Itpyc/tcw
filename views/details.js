@@ -1,36 +1,12 @@
 define(function(require, exports, module) {
 	mui.init({
-		preloadPages: [{
-			url: 'order.html',
-			id: 'order.html'
-		}]
 	});
+	mui('.mui-scroll-wrapper').scroll({});
 	/*window.addEventListener('details',function(event){
 		vm.title = event.detail.id;
 		console.log(vm.title)
 	});*/
-
-	window.addEventListener('productName:sort.html', function(e) {
-		vm.title = e.detail.data;
-	});
-
-	mui('.mui-scroll-wrapper').scroll({});
-	var self = exports;
-	var Vue = require('../js/vue.js');
-	var vm = new Vue({
-		el: '#details',
-		data: {
-			title: ''
-		},
-		methods: {
-			chat: function() {
-				mui.openWindow({
-					url: 'chat.html',
-					id: 'chat'
-				})
-			}
-		}
-	});
+	
 	/*//弹出面板函数
 	var pop = $('.my-popover');
 	var mask = mui.createMask();
@@ -136,61 +112,95 @@ define(function(require, exports, module) {
 
 		}
 	});*/
+
+	var subpages = ['details-product.html', 'details-detail.html', 'details-comment.html'];
+	var subpage_style = {
+		bottom: '0px',
+		top: '45px',
+	};
+	var subList = [];
+	var aniShow = {};
+	//创建子页面，首个选项卡页面显示，其它均隐藏；
+	mui.plusReady(function() {
+		var selfPage = plus.webview.currentWebview();
+		var cart = plus.webview.getWebviewById('shoppingCart.html');
+		for (var i = 0; i < 3; i++) {
+			var temp = {};
+			var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
+			if (i > 0) {
+				sub.hide();
+			} else {
+				temp[subpages[i]] = "true";
+				mui.extend(aniShow, temp);
+			}
+			selfPage.append(sub);
+		}
+		subList = selfPage.children();
+		
+	});
+	//当前激活选项
+	var activeTab = subpages[0];
+	//选项卡点击事件
+	mui('#sliderSegmentedControl1').on('tap', 'a', function(e) {
+		var targetTab = this.getAttribute('href');
+		if (targetTab == activeTab) {
+			return;
+		}
+		//显示目标选项卡
+		//若为iOS平台或非首次显示，则直接显示
+		if (mui.os.ios || aniShow[targetTab]) {
+			plus.webview.show(targetTab);
+		} else {
+			//否则，使用fade-in动画，且保存变量
+			var temp = {};
+			temp[targetTab] = "true";
+			mui.extend(aniShow, temp);
+			plus.webview.show(targetTab, "fade-in", 300);
+		}
+		//隐藏当前;
+		plus.webview.hide(activeTab);
+		//更改当前活跃的选项卡
+		activeTab = targetTab;
+	});
 	
-		var subpages = ['details-product.html', 'details-detail.html', 'details-comment.html'];
-			var subpage_style = {
-				bottom: '0',
-				top: '45px',
-			};
-			var aniShow = {};
-			
-			 //创建子页面，首个选项卡页面显示，其它均隐藏；
-			mui.plusReady(function() {
-				var selfPage = plus.webview.currentWebview();
-				for (var i = 0; i < 3; i++) {
-					var temp = {};
-					var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
-					if (i > 0) {
-						sub.hide();
-					}else{
-						temp[subpages[i]] = "true";
-						mui.extend(aniShow,temp);
-					}
-					selfPage.append(sub);
-				}
+	var self = exports;
+	var Vue = require('../js/vue.js');
+	var vm = new Vue({
+		el: '#details',
+		data: {
+			title: ''
+		},
+		methods: {
+			chat: function() {
+				mui.openWindow({
+					url: 'chat.html',
+					id: 'chat'
+				})
+			}
+		}
+	});
+	
+	//获取来自于sort.html的数据
+	window.addEventListener('productName:sort.html', function(e) {
+		console.log(e.detail.data)
+		//如果网络条件好的话，则全部数据加载，并且将其传值给其他页面
+		//从后台服务器获取数据，读取该商品的详细信息，读取完毕后，关闭等待窗口
+		for(var i=0;i<3;i++){
+			mui.fire(subList[i],'productInfoFromDetails',{
+				data:e.detail.data
 			});
-			 //当前激活选项
-			var activeTab = subpages[0];
-			 //选项卡点击事件
-			mui('#sliderSegmentedControl1').on('tap', 'a', function(e) {
-				var targetTab = this.getAttribute('href');
-				if (targetTab == activeTab) {
-					return;
-				}
-				//显示目标选项卡
-				//若为iOS平台或非首次显示，则直接显示
-				if(mui.os.ios||aniShow[targetTab]){
-					plus.webview.show(targetTab);
-				}else{
-					//否则，使用fade-in动画，且保存变量
-					var temp = {};
-					temp[targetTab] = "true";
-					mui.extend(aniShow,temp);
-					plus.webview.show(targetTab,"fade-in",300);
-				}
-				//隐藏当前;
-				plus.webview.hide(activeTab);
-				//更改当前活跃的选项卡
-				activeTab = targetTab;
-			});
+		}
+		vm.title = e.detail.data;
+	});
+	window.addEventListener('productName:shoppingCart.html', function(e) {
+		
+		vm.title = JSON.stringify(e.detail.data);
+		console.log(vm.title);
+	});
+	document.getElementById("cart").addEventListener('tap', function(event) {
+		mui.openWindow({
+			id: 'shoppingCart.html'
+		});
+	});
 	
-	
-	
-	
-
-
-
-
-
-
 });

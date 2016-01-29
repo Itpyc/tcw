@@ -6832,7 +6832,6 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 					plus.nativeUI.prompt(text, callback, title, defaultText, btnArray);
 				});
 			}
-
 		} else {
 			//H5版本(确认index为0，取消index为1)
 			var result = window.prompt(text);

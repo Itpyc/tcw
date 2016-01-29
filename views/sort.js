@@ -1,9 +1,5 @@
 define(function(require, exports, module) {
 	mui.init({
-		preloadPages: [{
-			url: 'details.html',
-			id: 'details.html'
-		}],
 		pullRefresh: {
 			container: '#pullrefresh',
 			down: {
@@ -15,12 +11,44 @@ define(function(require, exports, module) {
 			}
 		}
 	});
+	mui.plusReady(function() {
+		parentPage = plus.webview.getWebviewById('product-list.html');
+		detailPage = mui.preload({
+			url: 'details.html',
+			id: 'details.html'
+		});
+	});
+	
+	/*mui.plusReady(function(){
+		
+	});*/
+	
+	//接收来自于shop的数据
+	window.addEventListener('productName', function(e) {
+		console.log(e.detail.data);
+		vm.name = e.detail.data;
+	});
+
+	/*window.addEventListener('productInfoFromProductList',function(e){
+		console.log(e.detail.data);
+		vm.name = e.detail.data;
+	});*/
 	var self = exports;
 	var Vue = require('../js/vue.js');
+	
+	//从后台获取商品列表，仅获取简单商品信息列表信息
+	//如果用户点击排序，是重新从后台获取排序之后的，还是将现有的进行排序
+	/*mui.ajax('',{
+		
+	});*/
+	
+	
+	
 	var testData = [];
-	var parentPage = null;
+
 	//测试用的数据，实际可以通过ajax从后台获取
 	testData = [{
+		shopId:'shop01',
 		id: 1,
 		name: "1",
 		price: 13, //价格
@@ -29,6 +57,7 @@ define(function(require, exports, module) {
 		distance: '配送范围内', //距离
 		sellerPos: '北京'
 	}, {
+		shopId:'shop02',
 		id: 2,
 		name: "2",
 		price: 12,
@@ -37,6 +66,7 @@ define(function(require, exports, module) {
 		distance: '超出配送范围', //距离
 		sellerPos: '上海'
 	}, {
+		shopId:'shop03',
 		id: 3,
 		name: "3",
 		price: 14,
@@ -45,6 +75,7 @@ define(function(require, exports, module) {
 		distance: '可送达最近社区', //距离
 		sellerPos: '广州'
 	}, {
+		shopId:'shop04',
 		id: 4,
 		name: "4",
 		price: 9,
@@ -53,6 +84,7 @@ define(function(require, exports, module) {
 		distance: '配送范围内', //距离4
 		sellerPos: '菏泽'
 	}, {
+		shopId:'shop05',
 		id: 5,
 		name: "5",
 		price: 1,
@@ -61,6 +93,7 @@ define(function(require, exports, module) {
 		distance: '超出配送范围', //距离2
 		sellerPos: '上海'
 	}, {
+		shopId:'shop06',
 		id: 6,
 		name: "6",
 		price: 23,
@@ -69,6 +102,7 @@ define(function(require, exports, module) {
 		distance: '超出配送范围', //距离4
 		sellerPos: '济南'
 	}, {
+		shopId: 'shop07',
 		id: 7,
 		name: "7",
 		price: 100,
@@ -77,6 +111,7 @@ define(function(require, exports, module) {
 		distance: '配送范围内', //距离2
 		sellerPos: '上海'
 	}, {
+		shopId: 'shop08',
 		id: 8,
 		name: "8",
 		price: 11,
@@ -85,6 +120,7 @@ define(function(require, exports, module) {
 		distance: '可送达最近社区', //距离
 		sellerPos: '北京'
 	}, {
+		shopId: 'shop09',
 		id: 9,
 		name: "9",
 		price: 1,
@@ -93,6 +129,7 @@ define(function(require, exports, module) {
 		distance: '可送达最近社区', //距离2
 		sellerPos: '上海'
 	}, {
+		shopId: 'shop10',
 		id: 10,
 		name: "10",
 		price: 1,
@@ -101,6 +138,7 @@ define(function(require, exports, module) {
 		distance: '配送范围内', //距离2
 		sellerPos: '北京'
 	}, {
+		shopId: 'shop11',
 		id: 11,
 		name: "11",
 		price: 1,
@@ -113,6 +151,7 @@ define(function(require, exports, module) {
 	var vm = new Vue({
 		el: '#sort',
 		data: {
+			name: '',
 			items: testData,
 			desc: -1,
 			type: 'sales'
@@ -127,15 +166,16 @@ define(function(require, exports, module) {
 	});
 
 
-	mui.plusReady(function() {
-		parentPage = plus.webview.getWebviewById('product-list.html');
-		$('#list').on('tap', 'li', function() {
-			mui.fire(plus.webview.getWebviewById('details.html'), 'productName:sort.html', {
-				data: $(this).attr('id')
-			});
-			mui.openWindow({
-				id: 'details.html'
-			});
+	var parentPage = null;
+	var detailPage = null;
+	
+	//当用户点击某个商品时，跳转到详情页面，将该商品的id传过去，并通知后台提取该商品的详细信息
+	$('#list').on('tap', 'li', function() {
+		mui.fire(detailPage, 'productName:sort.html', {
+			data: $(this).attr('id')
+		});
+		mui.openWindow({
+			id: 'details.html'
 		});
 	});
 
@@ -149,6 +189,12 @@ define(function(require, exports, module) {
 		});
 
 		var filterData = e.detail.data;
+		
+		//将filterData发送向后台，让后台进行筛选，然后返回筛选后的数据
+		
+		//将筛选后的结果放入展示列表中去
+		
+		
 		console.log(JSON.stringify(filterData));
 		var bol = {
 			byPos: true,
@@ -201,12 +247,16 @@ define(function(require, exports, module) {
 
 
 	function pulldownRefresh() {
+		//此处添加一个向服务器获取数据的方法，并且将获取到的数组unshift进展示列表中
 		mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
 	}
 	/**
 	 * 上拉加载具体业务实现
 	 */
 	function pullupRefresh() {
+		
+		//此处添加一个向服务器获取数据的方法，并且将获取到的数组push进展示列表中
+		
 		mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
 	}
 

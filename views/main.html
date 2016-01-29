@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
@@ -14,10 +15,9 @@
 			</a>
 			<div class="mui-title" id="title" v-title="title" >
 			</div>
-			
-			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right"></a>
 		</header>
-		<nav class="mui-bar mui-bar-tab" id="app">
+		
+		<nav class="mui-bar mui-bar-tab" id="app" style="background:#EEEEEE;">
 			<a class="mui-tab-item mui-active" v-tab.literal="tab-home.html">
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">首页</span>
@@ -26,9 +26,10 @@
 				<span class="mui-icon mui-icon-chatboxes"></span>
 				<span class="mui-tab-label">村志</span>
 			</a>
-			<a class="mui-tab-item" v-tab.literal="tab-zhifu.html">
+			
+			<a class="mui-tab-item" v-tab.literal="tab-award.html">
 				<span class="mui-icon mui-icon-phone"></span>
-				<span class="mui-tab-label">致富经</span>
+				<span class="mui-tab-label">抽奖</span>
 			</a>
 			<a class="mui-tab-item" v-tab.literal="tab-settings.html">
 				<span class="mui-icon mui-icon-gear"></span>

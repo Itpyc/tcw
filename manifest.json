@@ -2,7 +2,8 @@
 	"@platforms": [
 		"android",
 		"iPhone",
-		"iPad"],
+		"iPad"
+	],
 	"id": "H57DC6C14",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "vue",/*应用名称，程序桌面图标名称*/
 	"version": {
@@ -104,7 +105,9 @@
 		},
 		"NativeObj": {
 			"description": "原生对象"
-		},"OAuth":{}
+		},
+		"OAuth": {},
+		"Share": {},"Payment":{}
 	},
 	"plus": {
 		"splashscreen": {
@@ -114,10 +117,26 @@
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
 		"distribute": {
-			"plugins": {"oauth":{"qq":{"appid":"1105003240"}},
+			"plugins": {"payment":{"weixin":{"description":"微信支付","appid":"wx32fa88f2f64f49ac"},"alipay":{"description":"阿里支付","scheme":""}},
+				"share": {
+					"qq": {
+						"appid": "1105139134",
+						"description": "QQ分享"
+					},
+					"weixin": {
+						"appid": "wx32fa88f2f64f49ac",
+						"appsecret": "ff135cf8e1d1b4e818227b9540f3d04e",
+						"description": "可选，微信分享"
+					}
+				},
+				"oauth": {
+					"qq": {
+						"appid": "1105139134"
+					}
+				},
 				"maps": {
 					"baidu": {
-						"appkey_ios": "",
+						"appkey_ios": "wlg0Xx9tpGGGL1bLMoEWjYtQ",
 						"appkey_android": "wlg0Xx9tpGGGL1bLMoEWjYtQ",
 						"appkey": "",
 						"description": ""
@@ -137,6 +156,9 @@
 				"keystore": "",/*Android应用打包使用的密钥库文件*/
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
+				"schemes": [
+					"test"
+				],
 				"permissions": [
 					"<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
 					"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
@@ -161,11 +183,13 @@
 					"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
 					"<uses-feature android:name=\"android.hardware.camera\"/>",
 					"<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
-					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"]
+					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+				]
 			},
 			"orientation": [
 				"portrait-primary",
-				"portrait-secondary"],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+				"portrait-secondary"
+			],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
 			"icons": {
 				"ios": {
 					"prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
@@ -237,7 +261,8 @@
 					"js/mui.min.js",
 					"js/login.js",
 					"css/mui.min.css",
-					"js/require.js"
+					"js/require.js",
+					"fonts/mui.ttf"
 				],
 				"refer": [],
 				"priority": 0
@@ -267,7 +292,10 @@
 					"views/city.html",
 					"views/sellerHome.html",
 					"views/welcome.html",
-					"views/offcanvas.html"
+					"views/offcanvas.html",
+					"views/order.html",
+					"views/shoppingCart.html",
+					"views/tab-award.html"
 				],
 				"priority": 0
 			},
@@ -318,9 +346,20 @@
 					"css/mui.min.css",
 					"views/tab-settings.js",
 					"js/require.js",
-					"css/app.css"
+					"css/app.css",
+					"js/jquery.qrcode.min.js",
+					"images/grape.jpg",
+					"js/jquery.js",
+					"js/layer.js",
+					"layer/skin/layer.css",
+					"layer/layer.js"
 				],
-				"refer": [],
+				"refer": [
+					"views/award.html",
+					"views/shareBacode.html",
+					"views/barcode_scan.html",
+					"views/login.html"
+				],
 				"priority": 0
 			},
 			"views/tab-shop.html": {
@@ -373,7 +412,12 @@
 					"js/require.js",
 					"font-awesome/fonts/fontawesome-webfont.woff",
 					"font-awesome/css/font-awesome.min.css",
-					"common/utils.js"
+					"common/utils.js",
+					"js/mui.picker.js",
+					"css/mui.picker.css",
+					"js/city.data-3.js",
+					"js/mui.poppicker.js",
+					"css/mui.poppicker.css"
 				],
 				"refer": [
 					"views/city.html",
@@ -404,12 +448,16 @@
 					"images/grape.jpg",
 					"js/jquery.js",
 					"views/details-comment.html",
-					"views/details-product.html"
+					"views/details-product.html",
+					"images/banana.jpg",
+					"images/orange.jpg",
+					"images/baicai.jpg"
 				],
 				"refer": [
 					"views/chat.html",
 					"views/order.html",
-					"views/details-detail.html"
+					"views/details-detail.html",
+					"views/shoppingCart.html"
 				],
 				"priority": 0
 			},
@@ -465,7 +513,42 @@
 				"resources": [
 					"js/mui.min.js",
 					"css/mui.css",
-					"css/app.css"
+					"css/app.css",
+					"awardImg/body_bg.jpg",
+					"css/default.css",
+					"css/liMarquee.css",
+					"js/jquery.liMarquee.js",
+					"js/jquery-1.7.2-min.js",
+					"fonts/mui.ttf",
+					"image/chest-icon-zuan1.png",
+					"awardImg/red-ss-bg.png",
+					"awardImg/red-ss.png",
+					"js/zepto.min.js",
+					"awardImg/red-ts.png",
+					"awardImg/red-bg.png",
+					"css/animate.css",
+					"css/style.css",
+					"js/red.js",
+					"font-awesome/fonts/fontawesome-webfont.woff",
+					"font-awesome/css/font-awesome.min.css",
+					"awardImg/red-zj-bg.png",
+					"awardImg/red-btn-bg.png",
+					"css/atom.css",
+					"image/chest.png",
+					"image/open-bg-bottom.png",
+					"image/open-bg-top.png",
+					"image/light.png",
+					"css/open.css",
+					"css/global.css",
+					"css/mui.min.css",
+					"image/txt-tips-open.png",
+					"css/reset.css",
+					"image/chest-open-blur.png",
+					"js/vue.js",
+					"js/layer.js",
+					"layer/skin/layer.css",
+					"layer/layer.js",
+					"awardImg/red-bw.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -583,7 +666,8 @@
 					"js/mui.min.js",
 					"css/mui.min.css",
 					"fonts/mui.ttf",
-					"views/offcanvas.js"
+					"views/offcanvas.js",
+					"js/require.js"
 				],
 				"refer": [
 					"views/login.html"
@@ -600,7 +684,8 @@
 					"js/require.js"
 				],
 				"refer": [
-					"views/userInfo.html"
+					"views/userInfo.html",
+					"views/main.html"
 				],
 				"priority": 0
 			},
@@ -624,7 +709,11 @@
 					"image/tcwLogo.png",
 					"images/grape.jpg",
 					"images/cbd.jpg",
-					"js/jquery.js"
+					"js/jquery.js",
+					"views/order.js",
+					"js/vue.js",
+					"js/require.js",
+					"images/orange.jpg"
 				],
 				"refer": [],
 				"priority": 0
@@ -665,7 +754,14 @@
 					"css/mui.css",
 					"images/grape.jpg",
 					"images/shuijiao.jpg",
-					"image/tcwLogo.png"
+					"image/tcwLogo.png",
+					"js/require.js",
+					"views/details-product.js",
+					"js/vue.js",
+					"images/banana.jpg",
+					"images/apple.jpg",
+					"images/baicai.jpg",
+					"images/pear.jpg"
 				],
 				"refer": [
 					"views/chat.html"
@@ -680,7 +776,12 @@
 					"css/default.css",
 					"views/details-menu.js",
 					"js/require.js",
-					"js/vue.js"
+					"js/vue.js",
+					"js/mui.picker.js",
+					"js/mui.poppicker.js",
+					"css/mui.poppicker.css",
+					"css/mui.picker.css",
+					"js/city.data-3.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -688,6 +789,133 @@
 			"views/test.html": {
 				"resources": [
 					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/shoppingCart.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"image/shunwaicun.jpg",
+					"js/vue.js",
+					"views/shoppingCart.js",
+					"js/require.js",
+					"js/jquery.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/award.html": {
+				"resources": [
+					"css/atom.css",
+					"css/open.css",
+					"image/chest.png",
+					"image/open-bg-bottom.png",
+					"image/open-bg-top.png",
+					"image/light.png",
+					"js/zepto.min.js",
+					"css/global.css",
+					"image/txt-tips-open.png",
+					"image/chest-open-blur.png",
+					"css/reset.css",
+					"css/mui.min.css",
+					"js/vue.js",
+					"image/chest-icon-zuan1.png",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/default.css",
+					"css/liMarquee.css",
+					"js/jquery.liMarquee.js",
+					"js/jquery-1.7.2-min.js",
+					"awardImg/body_bg.jpg",
+					"image/chest-icon-zuan.jpg",
+					"images/cbd.jpg",
+					"font-awesome/fonts/fontawesome-webfont.woff",
+					"font-awesome/css/font-awesome.min.css",
+					"awardImg/red-zj-bg.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/shareBacode.html": {
+				"resources": [
+					"css/mui.min.css",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/jquery.qrcode.min.js",
+					"js/jquery.js",
+					"js/barcodeT.js",
+					"image/tcwLogo.jpg"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/barcode_scan.html": {
+				"resources": [
+					"css/mui.min.css",
+					"js/mui.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/tab-award.html": {
+				"resources": [
+					"awardImg/body_bg.jpg",
+					"css/atom.css",
+					"css/default.css",
+					"image/chest.png",
+					"image/open-bg-bottom.png",
+					"image/open-bg-top.png",
+					"image/light.png",
+					"image/chest-icon-zuan1.png",
+					"css/open.css",
+					"css/liMarquee.css",
+					"js/mui.min.js",
+					"css/global.css",
+					"js/zepto.min.js",
+					"js/jquery.liMarquee.js",
+					"css/mui.min.css",
+					"layer/layer.js",
+					"image/txt-tips-open.png",
+					"css/reset.css",
+					"layer/skin/layer.css",
+					"font-awesome/css/font-awesome.min.css",
+					"js/vue.js",
+					"font-awesome/fonts/fontawesome-webfont.ttf",
+					"image/chest-open-blur.png",
+					"awardImg/red-bw.png",
+					"js/mui.js",
+					"font-awesome/fonts/fontawesome-webfont.woff"
+				],
+				"refer": [
+					"views/awardHistory.html",
+					"views/shareBacode.html",
+					"views/pay.html",
+					"views/login.html"
+				],
+				"priority": 0
+			},
+			"views/awardHistory.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/vue.js",
+					"js/mui.min.js",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/pay.html": {
+				"resources": [
+					"image/weixinzhifu.jpg",
+					"image/zhifubao.jpg",
+					"image/bank.jpg",
+					"image/more.jpg",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -705,7 +933,20 @@
 			"priority": 0
 		},
 		"idle": {
-			"resources": []
+			"resources": [
+				"font-awesome/fonts/FontAwesome.otf",
+				"font-awesome/fonts/fontawesome-webfont.eot",
+				"images/logo.png",
+				"oldJs/shoppingCart-old.js",
+				"font-awesome/fonts/fontawesome-webfont.woff2",
+				"views/details-detail.js",
+				"images/60x60.gif",
+				"views/pickPos.html",
+				"js/city.data.js",
+				"images/login-1.png",
+				"oldJs/sort-old.js",
+				"images/iconfont-tianjia.png"
+			]
 		}
 	}
 }

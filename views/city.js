@@ -8,7 +8,7 @@ define(function(require, exports, module) {
 		cityType: '.hotel-city-type',
 		list: '#list'
 	};
-	self.alertPos = function(city) {
+	/*self.alertPos = function(city) {
 		var btnArr = ['是', '否']
 		mui.confirm('当前位置：' + city, '定位', btnArr, function(e) {
 			if (e.index == 0) {
@@ -16,15 +16,34 @@ define(function(require, exports, module) {
 					city: city
 				})
 				mui.back();
-			} else {
-			}
+			} else {}
 		});
-	};
+	};*/
 
 	var backPage = null;
 	mui.plusReady(function() {
-		backPage = plus.webview.currentWebview().opener();
+		backPage = plus.webview.getWebviewById('product-list.html');
 		console.log(backPage.id);
+		document.getElementById("geo").addEventListener('tap', function() {
+			plus.nativeUI.showWaiting('正在定位中..');
+			plus.geolocation.getCurrentPosition(function(pos) {
+				plus.nativeUI.closeWaiting();
+				
+				/*self.alertPos(pos.address.city + "  " + pos.address.street);*/
+				var btnArr = ['是', '否'];
+				mui.confirm('当前位置：' + pos.address.city + "  " + pos.address.street, '定位', btnArr, function(e) {
+					if (e.index == 0) {
+						mui.fire(backPage, 'getCity', {
+							city: pos.address.city + "  " + pos.address.street
+						});
+						mui.back();
+					} else {}
+				});
+			}, function() {}, {
+				provider: 'baidu'
+			});
+		});
+
 	});
 	//元素与名称映射
 	elementMaper.init(self);
@@ -39,34 +58,17 @@ define(function(require, exports, module) {
 		});
 		mui.back();
 	});
-
-
 	var target = document.getElementById("chose");
 
 	mui('.hotel-city-type').on('tap', 'a', function(event) {
 		if (target == this) {
 			alert('相同');
-
 		} else {
 			this.classList.add('active');
 			target.classList.remove('active')
 		}
 		target = this;
 	})
-
-
-	mui.plusReady(function() {
-		document.getElementById("geo").addEventListener('tap', function() {
-			plus.nativeUI.showWaiting('正在定位中..');
-			plus.geolocation.getCurrentPosition(function(pos) {
-				plus.nativeUI.closeWaiting();
-				self.alertPos(pos.address.city+"  "+pos.address.street);
-			}, function() {
-
-			}, {
-				provider: 'baidu'
-			});
-		});
-
-	})
+	/*mui.plusReady(function() {
+	})*/
 });
