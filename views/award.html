@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html id="award">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<!-- <link rel="stylesheet" href="http://imgcache.gtimg.cn/vipstyle/mobile/global/mqqui/v1/css/global.css"> -->
+		<link rel="stylesheet" href="../css/reset.css">
+		<link rel="stylesheet" href="../css/atom.css">
+		<link rel="stylesheet" href="../css/global.css">
+		<link rel="stylesheet" href="../css/open.css">
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/liMarquee.css" />
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
+		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css" />
+		<script src="../js/jquery-1.7.2-min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/jquery.liMarquee.js"></script>
+		<style type="text/css">
+			.str_wrap {
+				background: ;
+				height: 50px;
+				line-height: 45px;
+				font-size: 15px;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+	<body ontouchstart="" class="open-body" style="background: url(../awardImg/body_bg.jpg) repeat-x;" >
+		<div class="mui-content" style="background:url(.../awardImg/body_bg.jpg) repeat-x ;">
+			<div style=" height: 60px;z-index: 9999;bottom: 0;position: fixed;width: 100%;background:url(../awardImg/body_bg.jpg) repeat-x;">
+					<span style="display: inline-block;width: 24%;text-align: center;">
+					<i class="fa fa-gift" style="font-size: 22px;"></i>
+					<p style="">我的奖品</p>
+					</span>
+					<span style="display: inline-block;width: 24%;text-align: center;">
+					<i class="fa fa-chain" style="font-size: 22px;"></i>
+					<p>抽奖次数</p>
+					</span>
+					<span style="display: inline-block;width: 24%;text-align: center;">
+					<i class="fa fa-gift" style="font-size: 22px;"></i>
+					<p>转赠好友</p>
+					</span>
+					<span style="display: inline-block;width: 25%;text-align: center;border-left: #000000 solid 1px;">
+					<i class="fa fa-gift" style="font-size: 22px;"></i>
+					<p>获取更多</p>
+					</span>
+				</div>
+			<div>
+				<div class="str2" style="position: fixed;top: 80%;width: 80%;left: 30px;background: #ECCF88;">
+					<span>恭喜张三</span>
+					<span>恭喜张三</span>
+					<span>恭喜张三</span>
+					<span>恭喜张三</span>
+					<span>恭喜张三</span>
+					<span>恭喜张三</span>
+					<span>恭喜张三</span>
+					<span>恭喜张三</span>
+				</div>
+				<div class="wrapper" style="top: 0px;">
+					<div class="bg rotate"></div>
+					<div class="open-has ">
+						<h3 class="title-close"><span class="user">今天还可抽奖</span>{{times}}次</h3>
+						<a id="close" class="mui-icon mui-icon-close" style="top: 10px;position: fixed;right: 10px;"></a>
+						<!-- <h3 class="title-open">恭喜你，成功领取<span class="user">德水</span>发的宝箱</h3> -->
+						<h3 class="title-open">恭喜中奖啦<span class="user"></span>！</h3>
+						<div class="mod-chest">
+							<div class="chest-close show">
+								<div class="gift"></div>
+								<div class="tips">
+									<i class="arrow"></i>
+								</div>
+							</div>
+							<div class="chest-open ">
+								<div class="mod-chest-cont open-cont">
+									<div class="content">
+										<div class="gift">
+											<div class="icon"><img src="../image/chest-icon-zuan1.png"></div> x {{money}}
+										</div>
+										<div class="func">
+											<button id="again" style="display: inline-block;" class="mui-btn mui-btn-danger">{{tips}}&nbsp;({{num}})</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="open-none" style="display:none">
+						<div class="mod-chest">
+							<div class="chest-open show"></div>
+						</div>
+						<div class="func">
+							<button class="chest-btn">查看领取详情</button>
+						</div>
+					</div>
+					<!--<div class="chest-notice">
+						<label for="notice-checkbox">百姓通村网</label>
+						<div><a>www.tcw5000.com</a></div>
+					</div>-->
+				</div>
+
+
+			</div>
+			<script type="text/javascript" src="../js/zepto.min.js"></script>
+			<script type="text/javascript" src="../js/mui.min.js"></script>
+			<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript">
+				$('.str2').liMarquee({
+					hoverstop: false
+				});
+				var time = 5;
+				var vm = new Vue({
+					el: '#award',
+					data: {
+						times: time,
+						tips: "再抽一次",
+						money: Math.floor(Math.random() * 10),
+						num: 5
+					}
+				});
+				$(".chest-close").click(function() {
+					vm.num = vm.num - 1;
+					console.log('aaaa');
+					//点击抽奖即向后台发送抽奖请求
+					$(this).addClass("shake");
+					var that = this;
+					this.addEventListener("webkitAnimationEnd", function() {
+						$(that).closest(".open-has").addClass("opened");
+						setTimeout(function() {
+							$(that).removeClass("show");
+							$(that).closest(".mod-chest").find(".chest-open").addClass("show");
+							setTimeout(function() {
+								$(".chest-open").addClass("blur");
+							}, 500)
+						}, 200)
+					}, false);
+				})
+				document.getElementById("again").addEventListener('tap', function() {
+					vm.money = Math.floor(Math.random() * 10);
+					console.log('aaa');
+					vm.times = vm.times - 1;
+					if (vm.times <= 0) {
+						vm.tips = "抽奖次数用完"
+						mui.toast('机会用完啦，明天再来吧');
+						return;
+					}
+					$(".chest-close").removeClass('shake');
+					$(".chest-close").closest(".open-has").removeClass("opened");
+					$(".chest-close").closest(".mod-chest").find(".chest-open").removeClass("show");
+					$(".chest-close").addClass("show");
+					$(".chest-open").removeClass("blur");
+				});
+				document.getElementById("close").addEventListener('tap', function() {
+					/*alert('ddd');*/
+					console.log('ddd');
+					mui.back();
+				});
+			</script>
+	</body>
+
+</html>

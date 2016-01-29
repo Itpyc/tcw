@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../css/mui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/default.css"/>
+     <script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+   <header class="mui-bar mui-bar-nav">
+       <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+       <h1 class="mui-title">detail</h1>
+   </header>
+   <div class="my-popover" id="popover">
+			<ul class="mui-table-view">
+				<div style="position: relative;" class="productInfo">
+					<img src="../images/grape.jpg" />
+					<div style="position: absolute; left: 30%;top: 10px;">
+						商品名称
+						<p>商品说明如库存量，价格等</p>
+					</div>
+				</div>
+				<li class="mui-table-view-cell mui-media">
+					<div class="mui-media-body">
+						购买数量:&nbsp;
+						<div class="mui-numbox">
+							<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+							<input class="mui-input-numbox" type="number" />
+							<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="mui-media-body">
+						选择付款方式
+						<ul class="howToPay" style="list-style: none;">
+							<li id="0">支付宝</li>
+							<li id="1">微信支付</li>
+							<li id="2">银行卡</li>
+						</ul>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="mui-media-body">
+						选择取货方式
+						<ul class="howToGet" style="list-style: none;">
+							<li id="0">社区店自取</li>
+							<li id="1">送货上门（加付4元）</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+			<div style="position: fixed;bottom: -10px;width: 100%;padding: 0;">
+				<button id="submit" type="button" class="mui-btn mui-btn-danger mui-btn-block" style="padding: 5px;">确定</button>
+			</div>
+		</div>
+</body>
+</html>

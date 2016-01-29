@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html id="details-menu">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.poppicker.css" />
+		<style type="text/css">
+			.filter {
+				position: fixed;
+				height: 100%;
+				bottom: 0;
+				left: 0px;
+				width: 100%;
+				padding: 0px;
+				box-sizing: border-box;
+				background-color: #efefef;
+				z-index: 9999;
+				box-shadow: 0px -5px 7px 0px rgba(0, 0, 0, 0.1);
+				border: 1px lightcyan solid;
+			}
+			
+			.hotel-price-filter .legend {
+				font-size: 15px;
+				color: #555;
+				padding-bottom: 0px;
+			}
+			
+			.sort-header-item .active {
+				color: blue;
+			}
+			
+			.large-filter {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			.large-filter li {
+				border-radius: 5px;
+				border: solid 1px #ccc;
+				padding: 8px;
+				display: inline-block;
+				margin: 0px 3px 5px 0px;
+				font-size: 12px;
+				background-color: #fff;
+				color: #666;
+				text-align: center;
+				min-width: 60px;
+			}
+			
+			.mui-table-view-cell-copy {
+				position: relative;
+				overflow: hidden;
+				padding: 11px 15px;
+				-webkit-touch-callout: none;
+			}
+			
+			.mui-table-view-cell-copy:after {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				left: 15px;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #c8c7cc;
+			}
+			
+			.amount-active {
+				border: 1px #007AFF solid !important;
+				color: red;
+			}
+		</style>
+	</head>
+	<body style="">
+		<div id="filter" class="filter" style="z-index: -1;">
+			<div style="-webkit-overflow-scrolling: touch;">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell-copy" style="padding-top: 5px;padding-bottom: 5px;" id="price">
+						价格区间(元):
+						<input type="text" id="minPrice" lazy style="width: 20%;height: 20px; margin-left: 5px; background: gainsboro;" /> ——
+						<input type="text" id="maxPrice" lazy style="width: 20%;height: 20px;background: gainsboro;" /> ￥
+					</li>
+					<li class="mui-table-view-cell-copy">
+						<div>发货地:<a style="margin-left: 10px; " id="location">{{sellerPos}}</a></div>
+					</li>
+					<li class="mui-table-view-cell-copy">
+						<div>配送范围:<span style="color: blue;">{{distance}}</span></div>
+						<ul class="large-filter" id="distance">
+							<li class="large-filter" v-change="0">不限</li>
+							<li v-change="1">配送范围内</li>
+							<li v-change="2">超出配送范围</li>
+							<li v-change="3">可送达最近社区</li>
+						</ul>
+					</li>
+					
+					<li class="mui-table-view-cell-copy">
+						<div>起送量:<span style="color: red;">{{deliveryCapacity}}</span></div>
+						<ul class="large-filter" id="amount">
+							<li class="amount-active" v-change="{min:0,max:9999999999}">不限</li>
+							<li v-change="{min:0,max:1000}">1吨以下</li>
+							<li v-change="{min:1001,max:5000}">1-5吨</li>
+							<li v-change="{min:5000,max:9999999999}">5吨以上</li>
+						</ul>
+					</li>
+
+				</ul>
+			</div>
+			
+			<div class="mui-content-padded">
+				<button id="button" v-on:click="" class="mui-btn mui-btn-blue mui-btn-block">确定</button>
+			</div>
+		</div>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="../js/mui.picker.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/require.js" data-main="details-menu" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+		</script>
+	</body>
+
+</html>

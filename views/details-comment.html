@@ -1,0 +1,149 @@
+<!doctype html>
+<html id="details-comment">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/default.css"/>
+		<script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.mui-bar-tab .mui-tab-item.mui-active {
+				color: #DD524D;
+			}
+		</style>
+	</head>
+	<body>
+		<!--<header id="footer" style="position: fixed;top: 0px;left: 0px;height: 40px;width: 100%;z-index: 999;">
+			<ul style="list-style: none;margin: 0;border: 1px black solid;padding: 0;position: relative;text-align: center;padding: 0px;background: #F3F3F3;height: 40px;line-height: 40px;">
+				<li v-sort.literal="distance" id="distance" style="display: inline-block;left: 0%;position: absolute;width: 25%;text-align: right;padding-right:10px ;color: #DD524D;">
+					全部评价
+				</li>
+				<li v-sort.literal="sales"  style="display: inline-block;left: 25%;position: absolute;width: 25%;text-align: right;padding-right:10px ;color: #DD524D;">
+					好评
+				</li>
+				<li v-sort.literal="price" style="display: inline-block;left: 50%;position: absolute;width: 25%;text-align: right;padding-right:10px ;color: #DD524D;">
+					中评
+					<i class="fa fa-sort-{{arrow}}"></i> 
+				</li>
+				<li v-on:click="show()" style="display: inline-block;border-left:1px #DD524D solid !important; left: 75%;position: absolute;width: 25%;background: #DD524D;color: white;">
+					差评
+				</li>
+				<li v-on:click="show()" style="display: inline-block;border-left:1px #DD524D solid !important; left: 75%;position: absolute;width: 25%;background: #DD524D;color: white;">
+					晒图
+				</li>
+			</ul>
+		</header>-->
+		<nav id="commentList" class="mui-bar mui-bar-tab" style="top: 0;">
+			<a class="mui-tab-item mui-active" id="all">
+				<span class="mui-tab-label" style="font-size: 13px;">全部评价</span>
+				<div class="" style="font-size: 12px;">{{badges.all}}</div>
+			</a>
+			<a class="mui-tab-item" id="good">
+				<span class="mui-tab-label" style="font-size: 13px;">好评</span>
+				<div class="" style="font-size: 12px;">{{badges.good}}</div>
+			</a>
+			<a class="mui-tab-item" id="middle">
+				<span class="mui-tab-label" style="font-size: 13px;">中评</span>
+				<div class="" style="font-size: 12px;">{{badges.middle}}</div>
+			</a>
+			<a class="mui-tab-item" id="bad">
+				<span class="mui-tab-label" style="font-size: 13px;">差评</span>
+				<div class="" style="font-size: 12px;">{{badges.bad}}</div>
+			</a>
+			<a class="mui-tab-item" id="picture">
+				<span class="mui-tab-label" style="font-size: 13px;">晒图</span>
+				<div class="" style="font-size: 12px;">{{badges.picture}}</div>
+			</a>
+		</nav>
+		<div class="mui-content mui-scroll-wrapper" style="top: 50px;">
+			<div class="mui-scroll">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-media" v-for="item in items">
+						<img class="mui-media-object mui-pull-left" src="../image/tcwLogo.png">
+						<div class="mui-media-body">
+							{{item.name}}
+							<p class="mui-ellipsis">{{item.content}}</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<!--底部导航-->
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" style="width: 11%;">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">商铺</span>
+			</a>
+			<a id="chat" class="mui-tab-item" style="width: 11%;">
+				<span class="mui-icon mui-icon-chatbubble"></span>
+				<span class="mui-tab-label">咨询</span>
+			</a>
+			<a class="mui-tab-item" style="width: 11%; ">
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-tab-label">收藏</span>
+			</a>
+			<a id="shopCart" class="mui-tab-item" style="width: 33%;border: 1px red solid;font: '微软雅黑';font-size: 15px; background: orange;color: white;">
+				<!--<span class="mui-tab-label" style="width: 10%;">设置</span>-->
+				加入购物车
+			</a>
+			<a id="buyNow" class="mui-tab-item" style="width: 33%; border: 1px red solid;font: '微软雅黑';font-size: 15px;background: #DD524D;color: white;">
+		        立即购买
+		    </a>
+		</nav>
+		
+		
+		
+	<!--弹出面板-->
+		<div class="my-popover" id="popover">
+			<ul class="mui-table-view">
+				<div style="position: relative;" class="productInfo">
+					<img src="../images/grape.jpg" />
+					<div style="position: absolute; left: 30%;top: 10px;">
+						商品名称
+						<p>商品说明如库存量，价格等</p>
+					</div>
+				</div>
+				<li class="mui-table-view-cell mui-media">
+					<div class="mui-media-body">
+						购买数量:&nbsp;
+						<div class="mui-numbox">
+							<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+							<input class="mui-input-numbox" type="number" />
+							<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+						</div>
+					</div>
+				</li>
+				
+				<li class="mui-table-view-cell mui-media">
+					<div class="mui-media-body">
+						选择付款方式
+						<ul class="howToPay" style="list-style: none;">
+							<li id="0">支付宝</li>
+							<li id="1">微信支付</li>
+							<li id="2">银行卡</li>
+						</ul>
+					</div>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<div class="mui-media-body">
+						选择取货方式
+						<ul class="howToGet" style="list-style: none;">
+							<li id="0">社区店自取</li>
+							<li id="1">送货上门（加付4元）</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+			<div style="position: fixed;bottom: -10px;width: 100%;padding: 0;">
+				<button id="submit" type="button" class="mui-btn mui-btn-danger mui-btn-block" style="padding: 5px;">确定</button>
+			</div>
+		</div>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/require.js" data-main="details-comment" type="text/javascript" charset="utf-8"></script>
+		<script src="../common/details.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="UTF-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			.my-hidden {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">充值</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li id="0.1000" class="mui-table-view-cell mui-media mui-radio mui-right">
+					<input name="choseHowMuch" type="radio" checked="checked">
+					<div id="" class="mui-media-object mui-pull-left">
+						200次
+					</div>
+					<div class="mui-media-body" style="margin-left: 150px;">
+						￥1000
+						<p class="mui-ellipsis">
+							<p style="text-decoration: line-through;color: red;">￥1000</p>
+						</p>
+					</div>
+				</li>
+				<li id="0.2000" class="mui-table-view-cell mui-media mui-radio mui-right">
+					<input name="choseHowMuch" type="radio">
+					<div id="" class="mui-media-object mui-pull-left">
+						500
+					</div>
+					<div class="mui-media-body" style="margin-left: 150px;">
+						￥2000
+						<p class="mui-ellipsis">
+							<p style="text-decoration: line-through;color: red;">￥2500</p>
+						</p>
+					</div>
+				</li>
+				<li id="0.05000" class="mui-table-view-cell mui-media mui-radio mui-right my-hidden my-pay">
+					<input name="choseHowMuch" type="radio">
+					<div id="" class="mui-media-object mui-pull-left">
+						1000次
+					</div>
+					<div class="mui-media-body" style="margin-left: 150px;">
+						￥5000
+						<p class="mui-ellipsis">
+							<p style="text-decoration: line-through;color: red;">￥1500</p>
+						</p>
+					</div>
+				</li>
+				<li id="0.10000" class="mui-table-view-cell mui-media mui-radio mui-right my-hidden my-pay">
+					<input name="choseHowMuch" type="radio">
+					<div id="" class="mui-media-object mui-pull-left">
+						1000次
+					</div>
+					<div class="mui-media-body" style="margin-left: 150px;">
+						￥10000
+						<p class="mui-ellipsis">
+							<p style="text-decoration: line-through;color: red;">￥1500</p>
+						</p>
+					</div>
+				</li>
+			</ul>
+			<p id="moreChose" style="text-align: center;margin-top: 10px;">
+				更多选择
+				<i class="mui-icon mui-icon-arrowdown"></i>
+			</p>
+			<div style="margin-top: 10px;margin-bottom: 10px;">支付方式</div>
+
+			<ul class="mui-table-view">
+				<li id="alipay" class="mui-table-view-cell mui-radio mui-right" style="line-height:44px;">
+					<input name="choseHowToPay" type="radio" checked="checked">
+					<img src="../image/zhifubao.jpg" style="width: 40px;height: 40px;border-radius: 10px;" class="mui-pull-left" />
+					<span style="margin-left: 100px;">支付宝支付</span>
+				</li>
+				<li id="wxpay" class="mui-table-view-cell mui-radio mui-right" style="line-height:44px;">
+					<input name="choseHowToPay" type="radio">
+					<img src="../image/weixinzhifu.jpg" style="width: 40px;height: 40px;border-radius: 10px;" class="mui-pull-left" />
+					<span style="margin-left: 100px;">微信支付</span>
+				</li>
+				<li id="bankCard" class="mui-table-view-cell mui-radio mui-right mui-hidden" style="line-height:44px;">
+					<input name="choseHowToPay" type="radio">
+					<img src="../image/bank.jpg" style="width: 40px;height: 40px;border-radius: 10px;" class="mui-pull-left" />
+					<span style="margin-left: 100px;">银行卡支付</span>
+				</li>
+				<li id="others" class="mui-table-view-cell mui-radio mui-right mui-hidden" style="line-height:44px;">
+					<input name="choseHowToPay" type="radio">
+					<img src="../image/more.jpg" style="width: 40px;height: 40px;border-radius: 10px;" class="mui-pull-left" />
+					<span style="margin-left: 100px;">其他</span>
+				</li>
+			</ul>
+			<p id="morePayType" style="text-align: center;margin-top: 10px;">
+				更多支付方式
+				<i class="mui-icon mui-icon-arrowdown"></i>
+			</p>
+
+			<div id="submit" class="mui-content-padded" style="margin-top: 20px;">
+				<button type="button" style="padding: 5px;" class="mui-btn mui-btn-blue mui-btn-block">提交订单</button>
+			</div>
+		</div>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script type="text/javascript">
+			$('#morePayType').on('click', function() {
+				$('#bankCard').toggleClass('mui-hidden');
+				$('#others').toggleClass('mui-hidden');
+			});
+			$('#moreChose').on('click', function() {
+				$('.my-pay').toggleClass('my-hidden');
+			})
+			var pays = {};
+			mui.plusReady(function() {
+				plus.payment.getChannels(function(channels) {
+					for (var i in channels) {
+						var channel = channels[i];
+						pays[channel.id] = channel;
+						checkServices(channel);
+					}
+					console.log(JSON.stringify(pays));
+				}, function() {})
+			});
+
+			function checkServices(pc) {
+				if (!pc.serviceReady) {
+					var txt = null;
+					switch (pc.id) {
+						case "alipay":
+							txt = "检测到系统未安装“支付宝快捷支付服务”，无法完成支付操作，是否立即安装？";
+							break;
+						default:
+							txt = "系统未安装“" + pc.description + "”服务，无法完成支付，是否立即安装？";
+							break;
+					}
+					plus.nativeUI.confirm(txt, function(e) {
+						if (e.index == 0) {
+							pc.installService();
+						}
+					}, pc.description);
+				}
+			}
+			var w = null;
+			//支付订单地址
+			var PAYSERVER = 'http://demo.dcloud.net.cn/payment/?payid=';
+			// 支付
+			function pay(id,amount) {
+				if (w) {
+					return;
+				} //检查是否请求订单中
+				console.log("----- 请求支付 -----");
+				var url = PAYSERVER;
+				if (id == 'alipay' || id == 'wxpay') {
+					url += id;
+				} else {
+					plus.nativeUI.alert("不支持此支付通道！", null, "捐赠");
+					return;
+				}
+				//获取本机的appid
+				var appid = plus.runtime.appid;
+				if (navigator.userAgent.indexOf('StreamApp') >= 0) {
+					appid = 'Stream';
+				}
+				url += '&appid=' + appid + '&total=';
+				w = plus.nativeUI.showWaiting();
+				// 请求支付订单
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function() {
+					switch (xhr.readyState) {
+						case 4:
+							w.close();
+							w = null;
+							if (xhr.status == 200) {
+								console.log("----- 请求订单成功 -----");
+								console.log(xhr.responseText);
+								var order = xhr.responseText;
+								plus.payment.request(pays[id], order, function(result) {
+									console.log("----- 支付成功 -----");
+									console.log(JSON.stringify(result));
+									mui.alert('支付成功');
+								}, function(e) {
+									console.log("----- 支付失败 -----");
+									console.log("[" + e.code + "]：" + e.message);
+									mui.alert('支付失败')
+								});
+							} else {
+								console.log("----- 请求订单失败 -----");
+								console.log(xhr.status);
+							}
+							break;
+						default:
+							break;
+					}
+				}
+				xhr.open('GET', url + amount);
+				xhr.send();
+			}
+			
+			document.getElementById("submit").addEventListener('tap', function() {
+				console.log('sssss');
+				var id = $('input[name="choseHowToPay"]:checked').parent('li').attr('id');
+				
+				var amount = $('input[name="choseHowMuch"]:checked').parent('li').attr('id')
+				console.log(amount);
+				/*pay()*/
+				pay(id,amount);
+			})
+		</script>
+
+	</body>
+
+</html>

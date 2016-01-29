@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/imageView.css" />
+		<style type="text/css">
+			.mui-control-content {
+			}
+			
+			body {
+				font-size: 11px;
+				font-family: 'Open Sans', sans-serif;
+				color: #4A4A4A;
+				/*text-align: center;*/
+			}
+			
+			.box2 {
+				margin: 20px auto;
+				width: 300px;
+				min-height: 150px;
+				padding: 10px;
+				position: relative;
+				background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#f3f3f3), to(#fff), color-stop(.1, #f3f3f3));
+				border-top: 1px solid #ccc;
+				border-right: 1px solid #ccc;
+				-webkit-border-bottom-right-radius: 60px 60px;
+				-webkit-box-shadow: -1px 2px 2px rgba(0, 0, 0, 0.2);
+			}
+			
+			.box2:before {
+				content: '';
+				width: 25px;
+				height: 20px;
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				-webkit-border-bottom-right-radius: 30px;
+				-webkit-box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.3);
+				-webkit-transform: rotate(-20deg) skew(-40deg, -3deg) translate(-13px, -13px);
+			}
+			
+			.box2:after {
+				content: '';
+				z-index: -1;
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				background: rgba(0, 0, 0, 0.2);
+				display: inline-block;
+				-webkit-box-shadow: 20px 20px 8px rgba(0, 0, 0, 0.2);
+				-webkit-transform: rotate(0deg) translate(-45px, -20px) skew(20deg);
+			}
+			
+			.box2 img {
+				width: 100%;
+				margin-top: 15px;
+			}
+			
+			p {
+				margin-top: 15px;
+				text-align: justify;
+			}
+			
+			h1 {
+				font-size: 20px;
+				font-weight: bold;
+				margin-top: 5px;
+				text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+			}
+			
+			.mui-collapse-content {
+				margin: 0px;
+				padding: 0px;
+			}
+			/*	a {
+				text-decoration: none;
+				color: #4A4A4A !important;
+			}*/
+			/*a:hover {
+				text-decoration: underline;
+				color: #6B6B6B !important;
+			}*/
+		</style>
+	</head>
+
+	<body id="cunzhiInner">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title"></h1>
+		</header>
+
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-slider">
+				<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted ">
+					<a class="mui-control-item" href="#item1">正史村志</a>
+					<a class="mui-control-item" href="#item2">实时视频</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div class="mui-slider-group">
+					<div id="item1" class="mui-slider-item mui-control-content mui-active">
+						<!--	<div class="mui-scroll">-->
+						<ul class="mui-table-view">
+							<!--第一个面板-->
+							<li class="mui-table-view-cell mui-collapse">
+								<a class="mui-navigate-right" href="#">村容村貌</a>
+								<div class="mui-collapse-content">
+									<ul class="mui-table-view mui-grid-view">
+										<li class="mui-table-view-cell mui-media mui-col-xs-6">
+											<a href="#">
+												<img class="mui-media-object" src="../image/shunwaicun.jpg" data-preview-src="" data-preview-group="1">
+												<div class="mui-media-body">文字说明1</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-6">
+											<a href="#">
+												<img class="mui-media-object" src="../images/cbd.jpg" data-preview-src="" data-preview-group="1">
+												<div class="mui-media-body">文字说明2</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-6">
+											<a href="#">
+												<img class="mui-media-object" src="../image/shunwaicun.jpg" data-preview-src="" data-preview-group="1">
+												<div class="mui-media-body">文字说明1</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-6">
+											<a href="#">
+												<img class="mui-media-object" src="../images/cbd.jpg" data-preview-src="" data-preview-group="1">
+												<div class="mui-media-body">文字说明2</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-6">
+											<a href="#">
+												<img class="mui-media-object" src="../image/shunwaicun.jpg" data-preview-src="" data-preview-group="1">
+												<div class="mui-media-body">文字说明1</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media mui-col-xs-6">
+											<a href="#">
+												<img class="mui-media-object" src="../images/cbd.jpg" data-preview-src="" data-preview-group="1">
+												<div class="mui-media-body">文字说明2</div>
+											</a>
+										</li>
+									</ul>
+
+								</div>
+							</li>
+							
+							<!--第二个面板-->
+							<li class="mui-table-view-cell mui-collapse">
+								<a class="mui-navigate-right" href="#">本村简介</a>
+								<div class="mui-collapse-content">
+									<div class="box2" style="text-align: center;">
+										<h1>里东村</h1>
+										<img src="../image/shunwaicun.jpg">
+										<p>
+											沥东村会位于大沥镇的中部，与大沥城区相连，广佛高速公路、325国道纵横贯穿其中，是广州、佛山两市之间地中间地带，广佛经济商圈的黄金走廊，交通便利，经济发达，全村面积3.56平方公里，下辖荔庄、江夏、芦村、豪美、龙腹、放尧、水头何七个自然村，户籍人口4528人，流动人口8300人。 沥东村位于佛山市南海区大沥镇，总面积3.56平方公里，下辖共有八个村民小组，常住人口5040人，外来人口约8000人。地理位置得天独厚，325国道、广佛高速公路、桂和公路贯穿境内，是广州、佛山两市之间的中间地带，交通便利。
+										</p>
+										<br />
+									</div>
+
+								</div>
+							</li>
+							<!--第三个面板-->
+							<li class="mui-table-view-cell mui-collapse">
+								<a class="mui-navigate-right" href="#">名人名企</a>
+								<div class="mui-collapse-content">
+									<ul class="mui-table-view">
+										<li class="mui-table-view-cell mui-media">
+											<a href="javascript:;">
+												<img class="mui-media-object mui-pull-right" src="">
+												<div class="mui-media-body">
+													幸福
+													<p class="mui-ellipsis">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media">
+											<a href="javascript:;">
+												<img class="mui-media-object mui-pull-right" src="">
+												<div class="mui-media-body">
+													木屋
+													<p class="mui-ellipsis">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
+												</div>
+											</a>
+										</li>
+										<li class="mui-table-view-cell mui-media">
+											<a href="javascript:;">
+												<img class="mui-media-object mui-pull-right" src="">
+												<div class="mui-media-body">
+													CBD
+													<p class="mui-ellipsis">烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+						<!--	</div>-->
+
+					</div>
+					<div id="item2" class="mui-slider-item mui-control-content">
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell">第2个选项卡子项</li>
+							<li class="mui-table-view-cell">第2个选项卡子项</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</div>
+
+		</div>
+		<script src="../js/mui.zoom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.previewimage.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/require.js" data-main="cunzhiInner.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

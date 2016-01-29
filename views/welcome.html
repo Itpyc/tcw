@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="UTF-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			.item-logo {
+				width: 100%;
+				height: 100%;
+				position: relative;
+			}
+			
+			.item-logo a {
+				width: 200px;
+				height: 200px;
+				display: block;
+				border: 1px solid #FFFFFF;
+				border-color: rgba(255, 255, 255, 0.5);
+				text-align: center;
+				line-height: 200px;
+				border-radius: 50%;
+				font-size: 40px;
+				color: #fff;
+				position: absolute;
+				top: 15%;
+				left: 50%;
+				margin-left: -100px;
+			}
+			
+			.animate {
+				position: absolute;
+				left: 0;
+				bottom: 15%;
+				width: 100%;
+				color: #fff;
+				display: -moz-box;
+			}
+			
+			#close {
+				position: absolute;
+				width: 160px;
+				left: 50%;
+				margin-left: -80px;
+				bottom: 15%;
+				padding: 10px;
+				color: #fff;
+				border-color: #fff;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-slider mui-fullscreen">
+			<div class="mui-slider-group">
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="../image/tcwLogo.png">
+					</a>
+				</div>
+				<div class="mui-slider-item">
+					<div class="item-logo">
+						<a href="#">
+							<img src="../image/tcwLogo.png">
+						</a>
+						<h4 style="position: absolute;top: 50%;left: 13%;color: blue;">百姓通村信息科技有限公司(北京)</h3>
+						<div class="animate">
+							<button id="button"  class="mui-btn mui-btn-warning mui-btn-outlined" style="position: absolute;width: 50%;left: 25%;border: 1px green solid; color: black;">点击进入</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="mui-slider-indicator">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator"></div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				plus.navigator.closeSplashscreen();
+				mui.preload({
+					url:'main.html',
+					id:'main.html'
+				});
+				document.getElementById("button").addEventListener('tap',function(){
+					plus.storage.setItem("lauchFlag","true");
+					plus.nativeUI.showWaiting("正在加载...");
+					setTimeout(function(){
+						plus.nativeUI.closeWaiting();
+						mui.openWindow({
+						id:'main.html',
+						show:{
+							autoShow:true,
+							aniShow:'pop-in',//页面显示动画，默认为”slide-in-right“；
+						}
+					});
+					},1000);
+					
+					
+				});
+				
+			});
+		</script>
+		
+	</body>
+
+</html>

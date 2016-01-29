@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head runat="server">
+		<title></title>
+		<style type="text/css">
+			table {
+				border-collapse: collapse;
+			}
+			
+			td {
+				border: 1px solid #ccc;
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(function() { // chkAll全选事件 
+				$("#chkAll").bind("click", function() {
+					$("[name = chkItem]:checkbox").attr("checked", this.checked);
+				}); // chkItem事件      
+				$("[name = chkItem]:checkbox").bind("click", function() {
+					var $chk = $("[name = chkItem]:checkbox");
+					$("#chkAll").attr("checked", $chk.length == $chk.filter(":checked").length);
+				})
+			});
+		</script>
+	</head>
+
+	<body>
+		<table id="tb">
+			<thead>
+				<tr>
+					<td>
+						<input id="chkAll" type="checkbox" /> </td>
+					<td> 分类名称 </td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<input name="chkItem" type="checkbox" value="今日话题" /> </td>
+					<td> 今日话题 </td>
+				</tr>
+				<tr>
+					<td>
+						<input name="chkItem" type="checkbox" value="视觉焦点" /> </td>
+					<td> 视觉焦点 </td>
+				</tr>
+				<tr>
+					<td>
+						<input name="chkItem" type="checkbox" value="财经" /> </td>
+					<td> 财经 </td>
+				</tr>
+				<tr>
+					<td>
+						<input name="chkItem" type="checkbox" value="汽车" /> </td>
+					<td> 汽车 </td>
+				</tr>
+				<tr>
+					<td>
+						<input name="chkItem" type="checkbox" value="科技" /> </td>
+					<td> 科技 </td>
+				</tr>
+				<tr>
+					<td>
+						<input name="chkItem" type="checkbox" value="房产" /> </td>
+					<td> 房产 </td>
+				</tr>
+				<tr>
+					<td>
+						<input name="chkItem" type="checkbox" value="旅游" /> </td>
+					<td> 旅游 </td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+
+</html>

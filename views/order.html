@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html id="order">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="UTF-8">
+			mui.init();
+		</script>
+		<style type="text/css">
+			body {
+				font-family: "微软雅黑;
+
+			}
+			
+			.myorder {
+				margin: 20px auto;
+				width: 100%;
+				min-height: 100px;
+				padding: 10px;
+				position: relative;
+				background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#fff), to(#f3f3f3), color-stop(.1, #fff));
+				border-top: 1px solid #ccc;
+				border-right: 1px solid #ccc;
+				border-left: 1px solid #ccc;
+				-webkit-border-top-left-radius: 60px 5px;
+				-webkit-border-top-right-radius: 60px 5px;
+				-webkit-border-bottom-right-radius: 60px 10px;
+				-webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.3);
+			}
+			
+			.mui-table-view {
+				margin-bottom: 10px;
+			}
+			
+			.mui-table-view-cell.mui-active:not(a) {
+				background-color: #FFFFFF;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">订单确认</h1>
+		</header>
+		<div class="mui-content mui-scroll-wrapper" style="margin-bottom: 43px;">
+			<div class="mui-scroll">
+				<ul class="mui-table-view" style="margin-bottom: 11px;margin-top: 10px;border-image: url(../images/cbd.jpg) 30 30 round;">
+					<li class="mui-table-view-cell mui-media">
+						<a href="javascript:;">
+							<img class="mui-media-object mui-pull-right" src="">
+							<div class="mui-media-body">
+								<h4 style="display: inline-block;border: 0px red solid;margin-right: 50px;">
+								<i class="mui-icon mui-icon-person-filled" style="color: #DD524D;"></i>
+								张三</h4>
+								<h4 style="display: inline-block;">
+								<i class="mui-icon mui-icon-phone-filled" style="color: #DD524D;"></i>
+								1234567890
+							</h4>
+								<p class="mui-ellipsis">
+									<i class="mui-icon mui-icon-location"></i> 北京市&nbsp;海淀区&nbsp;知春路&nbsp盈都大厦4-16B
+								</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+
+				<!--商品列表-->
+				<ul class="mui-table-view mui-media" v-for="items in accounts">
+
+					<!--<li class="mui-table-view-cell mui-media">
+						<a href="javascript:;">
+							<img class="mui-media-object mui-pull-left" src="../images/orange.jpg">
+							<div class="mui-media-body">
+								{{items.shopId}}
+							</div>
+						</a>
+					</li>-->
+
+					<div style="position: relative; background: #DD524D;">
+						<img src="../image/tcwLogo.png" style="width: 30px;margin-left: 13px;" />
+						<h4 style="display: inline-block;bottom: 3px; position: absolute;margin-left: 6px;">{{items.shopId}}</h4>
+					</div>
+					<!--<li class="mui-table-view-cell" style="border-bottom: 1px red solid;position: relative;margin: 0;">
+							<img src="../image/tcwLogo.png" style="width: 30px;" />
+							<span style="margin-left: 25px;margin-right: 2px;">{{items.shopId}}</span>
+					</li>-->
+					<li class="mui-table-view-cell mui-media" style="max-height: 100px;" v-for="item in items.accounts">
+						<img class=" mui-pull-left" src="../images/grape.jpg" style="width: 60px;height: 60px;">
+						<div class="mui-media-body" style="margin-left: 70px; white-space: nowrap;">
+							来自于{{items.shopId}}的{{item.name}}
+							<p class="mui-ellipsis-2">{{item.num}}</p>
+							<p class="mui-ellipsis" style="color: red;">￥10000</p>
+						</div>
+						</a>
+					</li>
+
+					<li class="mui-table-view-cell" style=""> 购买数量
+					<div class="mui-numbox" style="float: right;height: 30px;width: 100px;">
+						<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+						<input class="mui-input-numbox" type="number" />
+						<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+					</div>
+					</li>
+					<li class="mui-table-view-cell ">
+						<a class="mui-navigate-right">
+							<span>配送方式</span>
+							<span style="position: absolute;right: 40px;">物流</span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class=" mui-navigate-right">
+							<span>发票信息</span>
+							<p style="position: absolute;right: 40px;display: inline-block;">北京百姓通村网&nbsp;公司&nbsp电子发票</p>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-input-row" style="margin-left: -13px;">
+							<label>备注留言</label>
+							<input id="input" type="text" style="" class="mui-input-clear" placeholder="备注留言">
+						</div>
+					</li>
+
+				</ul>
+				<ul class="mui-table-view">
+					<!--li class="mui-table-view-cell" style="">
+						购买数量
+						<div class="mui-numbox" style="float: right;height: 30px;width: 100px;">
+							<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+							<input class="mui-input-numbox" type="number" />
+							<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+						</div>
+						</li>
+						<li class="mui-table-view-cell ">
+							<a class="mui-navigate-right">
+								<span>配送方式</span>
+								<span style="position: absolute;right: 40px;">物流</span>
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class=" mui-navigate-right">
+								<span>发票信息</span>
+								<p style="position: absolute;right: 40px;display: inline-block;">北京百姓通村网&nbsp;公司&nbsp电子发票</p>
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-input-row" style="margin-left: -13px;">
+								<label>备注留言</label>
+								<input id="input" type="text" style="" class="mui-input-clear" placeholder="备注留言">
+							</div>
+						</li>-->
+				</ul>
+
+				<ul class="mui-table-view" style="color: #C0C0C0;">
+					<li class="mui-table-view-cell">
+						商品金额
+						<span style="color: red;" class="mui-pull-right">￥1000.00</span>
+					</li>
+					<li class="mui-table-view-cell">
+						运费
+						<span style="color: red;" class="mui-pull-right">￥10.00</span>
+					</li>
+				</ul>
+
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-checkbox mui-right">
+						<input name="checkbox" type="checkbox">可使用通村币
+					</li>
+					<li class="mui-table-view-cell mui-checkbox mui-right">
+						<input name="checkbox" type="checkbox">代付
+					</li>
+					<li class="mui-table-view-cell mui-checkbox mui-right">
+						<input name="checkbox" type="checkbox">匿名
+					</li>
+
+				</ul>
+			</div>
+
+		</div>
+
+		<footer id="footer" style="position: fixed;bottom: 0px;left: 0px;height: 50px;width: 100%;z-index: 999;">
+			<ul style="list-style: none;margin: 0;border: 1px black solid;padding: 0;position: relative;text-align: center;padding: 0px;background: #F3F3F3;height: 50px;line-height: 50px;">
+				<li style="display: inline-block;left: 0%;position: absolute;width: 70%;text-align: right;padding-right:10px ;color: #DD524D;">
+					合计:100￥
+				</li>
+				<li style="display: inline-block;border-left:1px #DD524D solid !important; left: 70%;position: absolute;width: 30%;background: #DD524D;color: white;">确认</li>
+			</ul>
+		</footer>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/require.js" data-main="order.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

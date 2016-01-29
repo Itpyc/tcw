@@ -1,0 +1,491 @@
+<!DOCTYPE HTML>
+<html id="award">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- <link rel="stylesheet" href="http://imgcache.gtimg.cn/vipstyle/mobile/global/mqqui/v1/css/global.css"> -->
+		<link rel="stylesheet" href="../css/reset.css">
+		<link rel="stylesheet" href="../css/atom.css">
+		<link rel="stylesheet" href="../css/global.css">
+		<link rel="stylesheet" href="../css/open.css">
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/liMarquee.css" />
+		<link rel="stylesheet" type="text/css" href="../css/default.css" />
+		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css" />
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.liMarquee.js"></script>
+		<script src="../layer/layer.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.str_wrap {
+				background: ;
+				height: 50px;
+				line-height: 25px;
+				font-size: 15px;
+				border-radius: 5px;
+			}
+			
+			.layui-layer {
+				left: 15px;
+			}
+		</style>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+	</head>
+
+	<body ontouchstart="" class="open-body" style="background: url(../awardImg/body_bg.jpg) repeat-x;position: relative;">
+		<div class="mui-content" style="background:url(.../awardImg/body_bg.jpg) repeat-x ;">
+			<div style="height: 60px;z-index: ;bottom: 0;position: fixed;width: 100%;background:url(../awardImg/body_bg.jpg) repeat-x;">
+				<span id="myJp" style="display: inline-block;width: 24%;text-align: center;">
+						<i class="fa fa-gift" style="font-size: 22px;color: whitesmoke;"></i>
+						<p style="color: whitesmoke;">我的奖品</p>
+				</span>
+				<span id="myCj" style="display: inline-block;width: 24%;text-align: center;padding-top: 12px;">
+					<a href="#popover">
+						<!--<i class="fa fa-dropbox" style="font-size: 22px; color: whitesmoke;"></i>-->
+						<div style="position: ; font-size: 15px;">10</div>
+						<p style="color: whitesmoke;">抽奖次数</p>
+					</a>
+				</span>
+				<span id="myZz" style="display: inline-block;width: 24%;text-align: center;">
+					<i class="fa fa-slideshare" style="font-size: 22px;color: whitesmoke;"></i>
+					<p style="color: whitesmoke;">转赠好友</p>
+				</span>
+				<span id="getMore" style="display: inline-block;width: 25%;text-align: center;border-left: #000000 solid 1px;">
+					<i class="fa fa-plus-square-o" style="font-size: 22px;color: whitesmoke;"></i>
+					<p style="color: whitesmoke;">获取更多</p>
+				</span>
+			</div>
+
+			<!--<div class="mui-hidden" style="position: fixed;bottom: 65px;background: ;z-index: 9999;width: 100%;border-radius:5px ;">
+				<ul class="mui-table-view" style="width: 25%;left: 24%;border-radius:5px ;">
+					<li class="mui-table-view-cell"><a href="#">
+						本日：10次
+					</a>
+					</li>
+					<li class="mui-table-view-cell"><a href="#">
+						剩余：190次
+					</a>
+					</li>
+					<li class="mui-table-view-cell"><a href="#">more</a>
+					</li>
+				</ul>
+			</div>-->
+			<div id="times" style="position: fixed;bottom: 65px;background: ;z-index: ;border-radius:5px ;margin-left: 10px;margin-right: 10px;" class="mui-hidden">
+				<nav class="mui-bar mui-bar-tab" style="background: ;position: relative;border-radius: 5px;">
+					<a class="mui-tab-item mui-collapse" style="" id="rightNow" href="#popover3">
+						<!--<span class="mui-tab-label" style="color: white;">我的余额</span>-->
+						本日可用:10次
+					</a>
+					<a class="mui-tab-item" id="donation" style="">
+						<!--<span class="mui-tab-label" style="">抽奖次数</span>-->
+						剩余次数:190
+					</a>
+					<a class="mui-tab-item" id="getMore" style="">
+						<!--<span class="mui-tab-label" style="">抽奖次数</span>-->
+						获取更多次数
+					</a>
+				</nav>
+			</div>
+			<div class="mui-hidden" id="more" style="position: fixed;bottom: 65px; left: 75%;z-index: 9999;border-radius: 5px;">
+				<ul class="mui-table-view" style="border-radius: 5px;">
+					<li id="pay" class="mui-table-view-cell">
+						充点小钱
+					</li>
+					<li id="help" class="mui-table-view-cell">
+						求助好友
+					</li>
+				</ul>
+			</div>
+			<div style="position: fixed;top: 70%;text-align: center;background: ;z-index: ;width: 100%;">
+				<button type="button" class="mui-btn mui-btn-danger" style="width: 50%;">查看今日中奖详情</button>
+			</div>
+			<div>
+				<div class="fa fa-bullhorn" style="color: #DD524D;font-size: 25px;position: fixed;top: 2%;"></div>
+				<div class="str2" style="position: fixed;top: 2%;width: 100%;left: 25px;background: #ECCF88;">
+					<span>恭喜张三</span>
+					<span>恭喜张三</span>
+					<span>恭喜张三</span>
+					<span>恭喜张三</span>
+					<span>恭喜张三</span>
+					<span>恭喜张三</span>
+					<span>恭喜张三</span>
+					<span>恭喜张三</span>
+				</div>
+
+				<div class="wrapper" style="top: 0px;z-index: ;">
+					<div class="bg rotate"></div>
+					<div class="open-has ">
+						<h3 class="title-close" style="color: yellow;"><span class="user">今天还可抽奖</span >{{times}}次</h3>
+						<!-- <h3 class="title-open">恭喜你，成功领取<span class="user">德水</span>发的宝箱</h3> -->
+						<h3 class="title-open">恭喜中奖啦<span class="user"></span>！</h3>
+						<div class="mod-chest">
+							<div class="chest-close show">
+								<div class="gift"></div>
+								<div class="tips">
+									<i class="arrow"></i>
+								</div>
+							</div>
+							<div class="chest-open ">
+								<div class="mod-chest-cont open-cont">
+									<div class="content">
+										<div class="gift">
+											<div class="icon"><img src="../image/chest-icon-zuan1.png"></div> x {{money}}
+										</div>
+										<div class="func">
+											<button id="again" style="display: inline-block;" class="mui-btn mui-btn-danger">{{tips}}&nbsp;({{times}})</button>
+											<button id="cancle" type="button" class="mui-btn mui-btn-outlined">取消</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<!--<div class="open-none" style="display:none">
+						<div class="mod-chest">
+							<div class="chest-open show"></div>
+						</div>
+						<div class="func">
+							<button class="chest-btn">查看领取详情</button>
+						</div>
+					</div>-->
+				</div>
+			</div>
+			<script type="text/javascript" src="../js/zepto.min.js"></script>
+			<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript">
+				var state = localStorage.getItem('$state');
+				if (state == null) {
+					mui.confirm('未登陆','登陆提示',['立即登陆','取消'],function(e){
+						if(e.index == 0){
+							mui.openWindow({
+								url:"login.html",
+								id:'login.html'
+							})
+						}else{
+						}
+					});
+				}
+				var main = null;
+				var shares = [];
+				mui.plusReady(function() {
+					main = plus.webview.getWebviewById('tab-award.html');
+					plus.share.getServices(function(s) {
+						if (s && s.length > 0) {
+							for (var i = 0; i < s.length; i++) {
+								var t = s[i];
+								shares[t.id] = t;
+							}
+							console.log(JSON.stringify(shares['qq']));
+						}
+					}, function() {
+						console.log("获取分享服务列表失败");
+					});
+				});
+				var maskToggle = function() {
+					main.setStyle({
+						mask: "rgba(0,0,0,0.5)"
+					});
+					setTimeout(function() {
+						main.setStyle({
+							mask: "none"
+						});
+					}, 1500);
+				}
+				var show1 = function() {
+					var str = '<div><img style="width:100px;height:100px;" src="../awardImg/red-bw.png" /></div><span style="margin-left: 10px;" id="">哎呀， 次数用完啦， 快找好友帮忙吧！';
+					layer.open({
+						type: 1,
+						title: '',
+						closeBtn: 0,
+						shadeClose: true,
+						content: str
+					});
+				}
+				$('.str2').liMarquee({
+					hoverstop: false
+				});
+				var time = 5;
+				var vm = new Vue({
+					el: '#award',
+					data: {
+						times: time,
+						tips: "再抽一次",
+						money: Math.floor(Math.random() * 10),
+						num: 5
+					}
+				});
+				$(".chest-close").on('click', function(e) {
+					console.log('aaaa');
+					//点击抽奖即向后台发送抽奖请求
+					if (vm.times > 0) {
+						maskToggle();
+						console.log(vm.times);
+						vm.times = vm.times - 1;
+						vm.num = vm.num - 1;
+						$(this).addClass("shake");
+						var that = this;
+						this.addEventListener("webkitAnimationEnd", function() {
+							$(that).closest(".open-has").addClass("opened");
+							setTimeout(function() {
+								$(that).removeClass("show");
+								$(that).closest(".mod-chest").find(".chest-open").addClass("show");
+								setTimeout(function() {
+									$(".chest-open").addClass("blur");
+								}, 500);
+							}, 200);
+						}, true);
+					} else {
+						/*show1();*/
+						/*plus.nativeUI.confirm('抽奖机会用完啦，您可以<div>dd</div>')*/
+						return false;
+					}
+				});
+				document.getElementById("again").addEventListener('click', function() {
+					if (vm.times <= 0) {
+						vm.tips = "抽奖次数用完"
+						show1();
+						/*plus.nativeUI.confirm('抽奖机会用完啦，您可以<div>dd</div>')*/
+						return;
+					} else {
+						maskToggle();
+						vm.times = vm.times - 1;
+						vm.money = Math.floor(Math.random() * 10);
+						console.log('aaa');
+						console.log(vm.times);
+						$(".chest-close").removeClass('shake');
+						$(".chest-close").closest(".open-has").removeClass("opened");
+						$(".chest-close").closest(".mod-chest").find(".chest-open").removeClass("show");
+						$(".chest-close").addClass("show");
+						$(".chest-open").removeClass("blur");
+						setTimeout(function() {
+							$(".chest-close").addClass("shake");
+							this.addEventListener("webkitAnimationEnd", function() {
+								$(".chest-close").closest(".open-has").addClass("opened");
+								setTimeout(function() {
+									$(".chest-close").removeClass("show");
+									$(".chest-close").closest(".mod-chest").find(".chest-open").addClass("show");
+									setTimeout(function() {
+										$(".chest-open").addClass("blur");
+									}, 500)
+								}, 200)
+							}, false);
+						}, 10);
+					}
+				});
+				//取消
+				document.getElementById("cancle").addEventListener('click', function() {
+					$(".chest-close").removeClass('shake');
+					$(".chest-close").closest(".open-has").removeClass("opened");
+					$(".chest-close").closest(".mod-chest").find(".chest-open").removeClass("show");
+					$(".chest-close").addClass("show");
+					$(".chest-open").removeClass("blur");
+				});
+				//我的奖品
+				document.getElementById("myJp").addEventListener('click', function() {
+					console.log('tap');
+					mui.openWindow({
+						url: "awardHistory.html",
+						id: 'awardHistory.html'
+					});
+				});
+				//抽奖次数
+				document.getElementById("myCj").addEventListener('click', function() {
+					console.log('ddd');
+					$('#times').toggleClass('mui-hidden');
+				});
+
+				function shareMessage(s, msg) {
+					/*if (pic && pic.realUrl) {
+						msg.pictures = [pic.realUrl];
+					}*/
+					s.send(msg, function() {
+						alert("分享到\"" + s.description + "\"成功！ ");
+					}, function(e) {
+						alert("分享到\"" + s.description + "\"失败: " + e.code + " - " + e.message);
+					});
+				}
+				//判断是否已经授权，如果已经授权则直接分享消息，否则进行授权
+				//传入的id是服务所对应的在shares数组中的坐标位置
+				function shareAction(share, msg) {
+					/*if (!s) {
+						mui.toast("无效的分享服务！");
+						return;
+					}
+					if (s.authenticated) {
+						 alert("---已授权---");
+						shareMessage(s, ex);
+					} else {
+						alert("---未授权---");
+						s.authorize(function() {
+							shareMessage(s, ex);
+						}, function(e) {
+							alert("认证授权失败：" + e.code + " - " + e.message);
+						});
+					}*/
+					var shareMsg = {
+						extra: {
+							scene: msg.ex
+						}
+					};
+					shareMsg.href = "http://www.tcw5000.com/";
+					shareMsg.content = "欢迎访问百姓通村网";
+					shareMsg.thumbs = ['../image/tcwLogo.jpg'];
+					shareMsg.title = '测试分享';
+					if (share) {
+						if (share.authenticated) {
+							shareMessage(share, shareMsg);
+						} else {
+							share.authorize(function() {
+								shareMessage(share, shareMsg);
+							}, function(e) {
+								console.log("认证授权失败：" + e.code + " - " + e.message);
+							});
+						}
+					} else {
+						mui.toast("无法获取分享服务，请检查manifest.json中分享插件参数配置，并重新打包")
+					}
+				}
+				//输入数量
+				var shareNum = function(callback) {
+						layer.open({
+							title: '请输入要转赠的次数',
+							type: 0,
+							skin: 'layui-layer-demo', //样式类名
+							closeBtn: 0, //不显示关闭按钮
+							shift: 2,
+							shadeClose: true, //开启遮罩关闭
+							content: '<input id="times" style="" type="number" />',
+							btn: ['确认', '取消'],
+							yes: function(index) {
+								layer.close(index);
+								return callback();
+							}
+						})
+					}
+					//转赠好友
+				document.getElementById("myZz").addEventListener('click', function() {
+					var ids = [{
+							id: "weixin",
+							ex: "WXSceneSession"
+						}, {
+							id: "weixin",
+							ex: "WXSceneTimeline"
+						}, {
+							id: "qq"
+						}, {
+							id: "qqQun"
+						}],
+						bts = [{
+							title: "发送给微信好友"
+						}, {
+							title: "分享到微信群"
+						}, {
+							title: "转赠给QQ好友"
+						}, {
+							title: "分享到QQ群"
+						}, {
+							title: '当面扫码'
+						}];
+					plus.nativeUI.actionSheet({
+						cancel: "取消",
+						buttons: bts
+					}, function(e) {
+						console.log(e.index);
+						var i = e.index;
+						mui.toast(i);
+						switch (i) {
+							case 1:
+								//此处向后台发送转送请求，包括转赠的次数，用户的id标识、要转向的地方（如微信好友、微信群还是QQ好友QQ群）等，获取成功后则进行转赠，否则返回，不进行下一步动作
+								//通知后台这是发给微信好友的
+								mui.ajax('http://192.168.0.100:3000/users/share', {
+									data: {
+										id: 'zhangsan',
+										num: 11,
+										type: 'weixinhaoyou'
+									},
+									dataType: "text",
+									type: 'get',
+									timeout: 1000,
+									success: function(data) {
+										/*alert(data);*/
+									}
+								});
+								mui.prompt('请输入要赠送的次数', '次数', '转赠次数', ['确认', '取消'], function(e) {
+									if (e.index == 0) {
+										shareAction(shares['weixin'], {
+											ex: "WXSceneSession"
+										})
+									}
+								});
+								break;
+							case 2:
+								/*shareNum(function() {
+									shareAction(shares['weixin'], {
+										ex: "WXSceneSession"
+									})
+								});*/
+								mui.prompt('请输入要赠送的次数', '次数', '转赠次数', ['确认', '取消'], function(e) {
+									console.log('dd')
+									if (e.index == 0) {
+										shareAction(shares['weixin'], {
+											ex: "WXSceneSession"
+										})
+									}
+								})
+								break;
+							case 3:
+								mui.prompt('请输入要赠送的次数', '次数', '转赠次数', ['确认', '取消'], function(e) {
+									console.log('dd')
+									if (e.index == 0) {
+										shareAction(shares['qq'], {
+											content: "test"
+										})
+									}
+								})
+								break;
+							case 4:
+								mui.prompt('请输入要赠送的次数', '次数', '转赠次数', ['确认', '取消'], function(e) {
+									console.log('dd')
+									if (e.index == 0) {
+										shareAction(shares['qq'], {
+											content: "test"
+										})
+									}
+								})
+								break;
+							case 5:
+								//分享给微信群
+								mui.prompt('请输入要赠送的次数', '次数', '转赠次数', ['确认', '取消'], function(e) {
+										console.log('dd')
+										if (e.index == 0) {
+											mui.openWindow({
+												url: 'shareBacode.html',
+												id: 'shareBacode.html'
+											})
+										}
+									})
+									/*shareAction(3);*/
+								break;
+							default:
+								break;
+						}
+					});
+				});
+				//充值
+				document.getElementById("getMore").addEventListener('click', function() {
+					$('#more').toggleClass('mui-hidden');
+				});
+				document.getElementById("pay").addEventListener('click', function() {
+					mui.openWindow({
+						url: 'pay.html',
+						id: 'pay.html'
+					})
+				})
+			</script>
+	</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html id="search">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav" style="display: inline-block;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<div class="mui-title">
+				<a id="select" style="font-size: 14px;">{{type}}</a>
+				<input id="input" type="text" class="mui-input-clear" style="padding-bottom:0px ; max-height: 40px;width: 90%;border: none;border-bottom: 1px red solid;border-radius: 0;  background-color: #f7f7f7;" placeholder="请输入要查询的内容">
+			</div>
+			<a class="mui-icon mui-icon-search mui-pull-right" id="searchBtn"></a>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" style="padding: 5px;">
+					<p>搜索历史</p>
+				</li>
+			</ul>
+			<ul id="showSearchHistory" class="mui-table-view">
+				<li class="mui-table-view-cell" style="padding-left: 13px;" v-for="item in history">
+					{{item}}
+				</li>
+			</ul>
+			<footer class="mui-bar-footer" style="position: fixed;bottom: 0px;width: 100%;">
+				<button id="clearHistory" type="button" class="mui-btn mui-btn-blue " style="width: 80%;right: 10%;left: 10%;bottom: 5px;">清除搜索历史</button>
+			</footer>
+			<div id="popover" class="mui-popover" style="left: 25px;top: 45px;width: 70px; min-width: 70px">
+				<ul class="mui-table-view" style="background-color:#F7F7F7 ; color: #000000;">
+
+					<li id="0" class="mui-table-view-cell">商品</li>
+
+					<li id="1" class="mui-table-view-cell">商铺</li>
+					<li id="2" class="mui-table-view-cell">村志</li>
+				</ul>
+			</div>
+			<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+			<script src="../js/require.js" data-main="search.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

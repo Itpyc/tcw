@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html id="cart">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">购物车</h1>
+			<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" id="edit">编辑</a>
+		</header>
+
+		<nav class="mui-bar mui-bar-tab " style="z-index:9999;">
+			<div class="mui-tab-item" style="width: 67%; ">
+				<div class="mui-checkbox" style="position: absolute;left: 55px;top: 5px;" id="">
+					<input type="checkbox" v-on:click="show" id="all" style="" />
+				</div>
+				<span style="position: absolute;left: 40px; color: #C0C0C0;font-size: 13px;">全选</span>
+				<span class="" style="font-size: 15px;">合计:100(元)</span>
+			</div>
+			<a id="balanceAccount" class="mui-tab-item" style="width: 33%;border: 1px red solid;font: '微软雅黑';font-size: 15px; background: orange;color: white;">
+					 结算({{productNumber}})
+				</a>
+		</nav>
+		<nav class="mui-bar mui-bar-tab mui-hidden" style="z-index:9999;">
+			<div class="mui-tab-item" style="width: 33%; ">
+				<div class="mui-checkbox" style="position: absolute;left: 55px;top: 5px;" id="">
+					<input type="checkbox" v-on:click="show" id="all" style="" />
+				</div>
+				<span style="position: absolute;left: 40px; color: ;font-size: 15px;bottom: 14px;">全选</span>
+			</div>
+			<div id="share" class="mui-tab-item" style="width: 33%;border: 1px red solid;font: '微软雅黑';font-size: 15px; background: orange;color: white;">
+				分享
+			</div>
+			<div id="collection" class="mui-tab-item" style="width: 33%;border: 1px red solid;font: '微软雅黑';font-size: 15px; background: orange;color: white;">
+				收藏
+			</div>
+			<div id="delete" class="mui-tab-item" style="width: 33%;border: 1px red solid;font: '微软雅黑';font-size: 15px; background: #DD524D;color: white;">
+				删除
+			</div>
+		</nav>
+
+		<!--商品列表-->
+		<div class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll" style="">
+				<ul id="{{items.shopId}}" class="mui-table-view" style="margin-bottom: 10px;" v-for="items in list">
+					<li class="mui-table-view-cell" style="border-bottom: 1px red solid;position: relative;margin: 0;">
+						<a class="mui-navigate-right" style="">
+							<div class="mui-checkbox mui-first" style="position: absolute;left: 55px;top: 2px;">
+								<input type="checkbox" value="" id="" v-first="items.shopId" class="first" tags="{{items.shopId}}"/>
+							</div>
+							<span style="margin-left: 25px;margin-right: 2px;">{{items.shopId}}</span>
+						</a>
+					</li>
+					<li id="{{item.id}}" class="mui-table-view-cell mui-media" style="height: 120px;position: relative;margin: 0;" v-for="item in items.products" v-accounts="item.id">
+						<div class="mui-checkbox" style="position: absolute;left: 55px;top: 40px;">
+							<input v-on:click="show" type="checkbox" class="{{items.shopId}}"  />
+						</div>
+						<img src="../image/shunwaicun.jpg" style="width: 100px;height: 100px;left:40px;border-radius: 5px;position: absolute;border: 2px #E0FFFF solid;" />
+						<div v-go-details="item" class="mui-media-body" style="position: absolute;left: 150px;">
+							来自于{{items.shopId}}的{{item.name}}
+							<div class="mui-ellipsis" style="color: #DD524D;">
+								￥12
+								<p style="display: inline-block; text-decoration: line-through;">
+									￥20
+								</p>
+							</div>
+							<div>
+								数量:X{{item.num}}
+							</div>
+						</div>
+						<div class="mui-pull-right mui-delete mui-hidden">
+							<a style="height: 100px; line-height: 100px;" class="mui-btn mui-btn-red">删除</a>
+						</div>
+					</li>
+
+				</ul>
+			</div>
+
+		</div>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" data-main="shoppingCart.js" src="../js/require.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html id="awardHistory">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="UTF-8">
+			mui.init();
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">中奖记录</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view" v-for="items in list">
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">{{items.date}}</a>
+					<div class="mui-collapse-content">
+						<div class="mui-card">
+							<ul class="mui-table-view" v-for="item in items.content">
+								<li class="mui-table-view-cell">
+									恭喜获得：{{item}}元
+								</li>
+
+							</ul>
+						</div>
+						<div style="background: #DD524D;margin-top: 10px;padding-top: 10px;">
+							总计：5元
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el: '#awardHistory',
+				data: {
+					list: []
+				}
+			});
+			vm.list = [{
+				date: '2016年1月28日',
+				content: ['0.01', '0.02', '0.1', '1', '3']
+			}, {
+				date: '2016年1月29日',
+				content: ['0.01', '0.02', '0.1', '1', '3']
+			}, {
+				date: '2016年1月30日',
+				content: ['0.01', '0.02', '0.1', '1', '3']
+			}];
+		</script>
+
+	</body>
+
+</html>
