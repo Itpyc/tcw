@@ -52,9 +52,6 @@ define(function(require, exports, module) {
 		console.log(e.detail.data);
 	});
 	
-	window.addEventListener('load',function(){
-		alert('ddddafa');
-	});
 	
 	var targetPay = null;
 	$('.howToPay').on('tap', 'li', function(e) {
@@ -160,6 +157,28 @@ define(function(require, exports, module) {
 		tempArr = [];
 
 	});
+	
+	var commentInfo = [{
+		nickName:'test01',
+		star:3,
+		date:"2016-2-22",
+		content:'商品还可以，还可以，可以，以。。。'
+	},{
+		nickName:'test02',
+		star:5,
+		date:"2016-2-21",
+		content:'商品非常好，非常好，常好，好~'
+		
+	}]
+	
+	//vue
+	var vm = new Vue({
+		el:'#details',
+		data:{
+			commentInfo:commentInfo
+		}
+	})
+	
 	
 	//监听删除事件
 	window.addEventListener('delete',function(e){

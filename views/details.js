@@ -199,7 +199,8 @@ define(function(require, exports, module) {
 	});
 	document.getElementById("cart").addEventListener('tap', function(event) {
 		mui.openWindow({
-			id: 'shoppingCart.html'
+			id: 'shoppingCart.html',
+			url:'shoppingCart.html'
 		});
 	});
 	

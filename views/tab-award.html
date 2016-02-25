@@ -13,7 +13,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/liMarquee.css" />
 		<link rel="stylesheet" type="text/css" href="../css/default.css" />
 		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css" />
-		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="../js/jquery-1.7.2-min.js"></script>
 		<script type="text/javascript" src="../js/jquery.liMarquee.js"></script>
 		<script src="../layer/layer.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/mui.js" type="text/javascript" charset="utf-8"></script>
@@ -31,12 +31,12 @@
 			}
 		</style>
 		<script type="text/javascript">
-			mui.init();
+			mui.init({});
 		</script>
 	</head>
 
 	<body ontouchstart="" class="open-body" style="background: url(../awardImg/body_bg.jpg) repeat-x;position: relative;">
-		<div class="mui-content" style="background:url(.../awardImg/body_bg.jpg) repeat-x ;">
+		<div class="mui-content" style="background:url(../awardImg/body_bg.jpg) repeat-x ;">
 			<div style="height: 60px;z-index: ;bottom: 0;position: fixed;width: 100%;background:url(../awardImg/body_bg.jpg) repeat-x;">
 				<span id="myJp" style="display: inline-block;width: 24%;text-align: center;">
 						<i class="fa fa-gift" style="font-size: 22px;color: whitesmoke;"></i>
@@ -45,7 +45,7 @@
 				<span id="myCj" style="display: inline-block;width: 24%;text-align: center;padding-top: 12px;">
 					<a href="#popover">
 						<!--<i class="fa fa-dropbox" style="font-size: 22px; color: whitesmoke;"></i>-->
-						<div style="position: ; font-size: 15px;">10</div>
+						<div style="position: ; font-size: 15px;">{{times}}</div>
 						<p style="color: whitesmoke;">抽奖次数</p>
 					</a>
 				</span>
@@ -77,11 +77,11 @@
 				<nav class="mui-bar mui-bar-tab" style="background: ;position: relative;border-radius: 5px;">
 					<a class="mui-tab-item mui-collapse" style="" id="rightNow" href="#popover3">
 						<!--<span class="mui-tab-label" style="color: white;">我的余额</span>-->
-						本日可用:10次
+						本日可用:{{times}}
 					</a>
 					<a class="mui-tab-item" id="donation" style="">
 						<!--<span class="mui-tab-label" style="">抽奖次数</span>-->
-						剩余次数:190
+						剩余次数:{{totalTimes}}
 					</a>
 					<a class="mui-tab-item" id="getMore" style="">
 						<!--<span class="mui-tab-label" style="">抽奖次数</span>-->
@@ -105,16 +105,11 @@
 			<div>
 				<div class="fa fa-bullhorn" style="color: #DD524D;font-size: 25px;position: fixed;top: 2%;"></div>
 				<div class="str2" style="position: fixed;top: 2%;width: 100%;left: 25px;background: #ECCF88;">
-					<span>恭喜张三</span>
-					<span>恭喜张三</span>
-					<span>恭喜张三</span>
-					<span>恭喜张三</span>
-					<span>恭喜张三</span>
-					<span>恭喜张三</span>
-					<span>恭喜张三</span>
-					<span>恭喜张三</span>
+					<span>恭喜张三0中得100元</span>
+					<span>恭喜张三1中得200元</span>
+					<span>恭喜张三2中得50元</span>
+					<span>恭喜张三3中得1000元</span>
 				</div>
-
 				<div class="wrapper" style="top: 0px;z-index: ;">
 					<div class="bg rotate"></div>
 					<div class="open-has ">
@@ -132,7 +127,9 @@
 								<div class="mod-chest-cont open-cont">
 									<div class="content">
 										<div class="gift">
-											<div class="icon"><img src="../image/chest-icon-zuan1.png"></div> x {{money}}
+											<div class="icon" style="margin-right: 10px;">
+												<img src="../awardImg/jinbi.jpg">
+											</div> x {{money}}
 										</div>
 										<div class="func">
 											<button id="again" style="display: inline-block;" class="mui-btn mui-btn-danger">{{tips}}&nbsp;({{times}})</button>
@@ -154,25 +151,159 @@
 					</div>-->
 				</div>
 			</div>
+
 			<script type="text/javascript" src="../js/zepto.min.js"></script>
 			<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
 			<script type="text/javascript">
-				var state = localStorage.getItem('$state');
-				if (state == null) {
-					mui.confirm('未登陆','登陆提示',['立即登陆','取消'],function(e){
-						if(e.index == 0){
-							mui.openWindow({
-								url:"login.html",
-								id:'login.html'
+				/*window.addEventListener('load',function(){
+													alert('ddd');
+												})*/
+				var baseUrl = "http://192.168.0.107:8080/cunzhi/";
+				var vm = new Vue({
+					el: '#award',
+					data: {
+						times: 0,
+						tips: "再抽一次",
+						money: 0,
+						num: 0,
+						totalTimes: 0
+					}
+				});
+				//跑马灯
+				/**
+				 * 跑马灯中的数据定时更新，大概一分钟更新一次（？）
+				 */
+				$('.str2').liMarquee({
+					hoverstop: false
+				});
+				/*****************************************/
+				/**
+				 * 查询用户的抽奖相关信息
+				 */
+				window.addEventListener('awardInfo', function(event) {
+						var info = event.detail.data;
+						vm.times = info.dayCounts;
+						vm.totalTimes = info.allCounts;
+					})
+					/**
+					 * 从后台获取用户抽奖相关数据
+					 * @param {Object} userId
+					 */
+				var getAwardInfo = function(userId) {
+						mui.ajax(baseUrl+'queryUserLotteryDetail.action', {
+							data: {
+								loginName: userId
+							},
+							dataType: 'json',
+							type: 'get',
+							timeout: 1000,
+							success: function(data) {
+								vm.times = data.dayCounts;
+								vm.totalTimes = data.allCounts;
+								/*alert(vm.times);*/
+							},
+							error: function(err) {
+								return err;
+							}
+						})
+					}
+					//更新
+				window.addEventListener('refresh', function(e) {
+					state = localStorage.getItem('$state');
+					getAwardInfo(JSON.parse(state).token);
+				});
+				/*	
+					//如果用户未登陆，则进行登陆操作，如果登陆了则从后台获取该用户的抽奖信息
+					if (state == null) {
+						mui.confirm('未登陆', '登陆提示', ['立即登陆', '取消'], function(e) {
+							if (e.index == 0) {
+								mui.openWindow({
+									url: "login.html",
+									id: 'login.html'
+								})
+							}
+						});
+					} else {
+						var id = JSON.parse(state).id;
+						console.log(id);
+						getAwardInfo(id, function(data) {
+								vm.times = data.time;
+								vm.totalTimes = data.totalTimes;
+								console.log(JSON.stringify(data));
 							})
-						}else{
-						}
-					});
-				}
+					}*/
+				/*
+				 * **********************************************************************
+				 * 抽奖
+				 */
 				var main = null;
 				var shares = [];
+				var award = {};
+				console.log(new Date().toLocaleDateString());
+				var awardDetails = function() {
+						var now = new Date().toLocaleDateString();
+						var detail = {};
+						var arr = localStorage.getItem('awardDetail');
+						arr = JSON.parse(arr) || [];
+						detail.date = now;
+						detail.content = vm.money;
+						arr.push(detail);
+						localStorage.setItem('awardDetail', JSON.stringify(arr));
+						console.log(localStorage.getItem('awardDetail'))
+					}
+					/*var now = new Date().toLocaleDateString();
+						var detail = {};
+						var arr = localStorage.getItem('awardDetail');
+						arr = JSON.parse(arr)||[];
+						detail.date = now;
+						detail.content = vm.money;
+						arr.push(detail);
+						localStorage.setItem('awardDetail',JSON.stringify(arr));
+						console.log(localStorage.getItem('awardDetail'))*/
+					/**
+					 *开始抽奖，向后台传入用户id,后台传回该用户的抽奖次数以及抽到的钱数 
+					 */
+				var getAward = function(state) {
+					/*if (state == null) {
+						mui.confirm('未登陆', '登陆提示', ['立即登陆', '取消'], function(e) {
+							if (e.index == 0) {
+								mui.openWindow({
+									url: "login.html",
+									id: 'login.html'
+								})
+							}
+						});
+					} else {*/
+					//抽奖，用户已经登陆
+					//userLotteryWithLogin.action
+					//loginName
+					//{"money":186.65,"code":"1"}
+					mui.ajax(baseUrl+'http://192.168.0.107:8080/cunzhi/userLotteryWithLogin.action', {
+							data: {
+								loginName: JSON.parse(state).token
+							},
+							dataType: 'json',
+							type: 'get',
+							timeout: 1000,
+							success: function(data) {
+								vm.money = data.money;
+								awardDetails();
+							}
+						})
+						/*}*/
+				}
+				var awardPage = null;
+				var barcodePage = null;
 				mui.plusReady(function() {
 					main = plus.webview.getWebviewById('tab-award.html');
+					barcodePage = mui.preload({
+						url: 'shareBacode.html',
+						id: 'shareBacode.html'
+					});
+					awardPage = mui.preload({
+						url: "awardHistory.html",
+						id: 'awardHistory.html'
+					});
 					plus.share.getServices(function(s) {
 						if (s && s.length > 0) {
 							for (var i = 0; i < s.length; i++) {
@@ -186,46 +317,90 @@
 					});
 				});
 				var maskToggle = function() {
-					main.setStyle({
-						mask: "rgba(0,0,0,0.5)"
-					});
-					setTimeout(function() {
 						main.setStyle({
-							mask: "none"
+							mask: "rgba(0,0,0,0.5)"
 						});
-					}, 1500);
-				}
-				var show1 = function() {
-					var str = '<div><img style="width:100px;height:100px;" src="../awardImg/red-bw.png" /></div><span style="margin-left: 10px;" id="">哎呀， 次数用完啦， 快找好友帮忙吧！';
-					layer.open({
-						type: 1,
-						title: '',
-						closeBtn: 0,
-						shadeClose: true,
-						content: str
-					});
-				}
-				$('.str2').liMarquee({
-					hoverstop: false
-				});
-				var time = 5;
-				var vm = new Vue({
-					el: '#award',
-					data: {
-						times: time,
-						tips: "再抽一次",
-						money: Math.floor(Math.random() * 10),
-						num: 5
+						setTimeout(function() {
+							main.setStyle({
+								mask: "none"
+							});
+						}, 1500);
 					}
-				});
+					/*var show1 = function() {
+						var str = '<div><img style="width:100px;height:100px;" src="../awardImg/red-bw.png" /></div><span style="margin-left: 10px;" id="">哎呀， 次数用完啦， 快找好友帮忙吧！';
+						layer.open({
+							type: 1,
+							title: '',
+							closeBtn: 0,
+							shadeClose: true,
+							content: str
+						});
+					}*/
+					/*
+					 * 抽奖动作
+					 */
 				$(".chest-close").on('click', function(e) {
+					state = localStorage.getItem('$state');
+					/*alert(state);
+					alert(JSON.parse(state).token)*/
+					if (state == null) {
+						mui.confirm('未登陆', '登陆提示', ['立即登陆', '取消'], function(e) {
+							if (e.index == 0) {
+								mui.openWindow({
+									url: "login.html",
+									id: 'login.html'
+								})
+							}
+						});
+						return;
+					}
 					console.log('aaaa');
+					if (vm.times <= 0) {
+						mui.toast('今天抽奖次数用完了，明天再来吧');
+						mui.confirm('您今天得抽奖次数用完了', '提示', ['算了，等明天吧', '没过瘾，再来几次'], function(e) {
+							if (e.index == 1) {
+								plus.nativeUI.actionSheet({
+									title: '获取更多次数',
+									cancel: "取消",
+									buttons: [{
+										title: '求助好友'
+									}, {
+										title: '做任务'
+									}, {
+										title: '积分兑换'
+									}]
+								}, function(e) {})
+							}
+						})
+						return;
+					}
+					if (vm.totalTimes <= 0) {
+						mui.toast('您已经没有抽奖次数了，请充值或者求助好友')
+						return;
+					}
 					//点击抽奖即向后台发送抽奖请求
+					/*getAward(function(data){
+						console.log(JSON.stringify(data));
+						if(data.times > 0){
+							alert('还可以再次抽奖');
+							vm.money = data.money;
+						}
+					});*/
+					getAward(state);
+					console.log(JSON.stringify(award));
+					console.log(award.times);
+					/*if(JSON.stringify(award) == {}){
+						alert('ddd');
+						return;
+					}*/
 					if (vm.times > 0) {
-						maskToggle();
-						console.log(vm.times);
 						vm.times = vm.times - 1;
-						vm.num = vm.num - 1;
+						vm.totalTimes = vm.totalTimes - 1;
+						vm.num = vm.times - 1;
+						maskToggle();
+						console.log(award.times);
+						/*vm.times = vm.times - 1;
+						vm.num = vm.num - 1;*/
 						$(this).addClass("shake");
 						var that = this;
 						this.addEventListener("webkitAnimationEnd", function() {
@@ -239,21 +414,36 @@
 							}, 200);
 						}, true);
 					} else {
-						/*show1();*/
-						/*plus.nativeUI.confirm('抽奖机会用完啦，您可以<div>dd</div>')*/
+						mui.toast('抽奖次数用完了，明天再来吧')
+							/*show1();*/
+							/*plus.nativeUI.confirm('抽奖机会用完啦，您可以<div>dd</div>')*/
 						return false;
 					}
 				});
+				/*
+				 * 再抽一次
+				 */
 				document.getElementById("again").addEventListener('click', function() {
-					if (vm.times <= 0) {
-						vm.tips = "抽奖次数用完"
-						show1();
-						/*plus.nativeUI.confirm('抽奖机会用完啦，您可以<div>dd</div>')*/
+					state = localStorage.getItem('$state');
+					if (state == null) {
+						mui.confirm('未登陆', '登陆提示', ['立即登陆', '取消'], function(e) {
+							if (e.index == 0) {
+								mui.openWindow({
+									url: "login.html",
+									id: 'login.html'
+								})
+							}
+						});
 						return;
-					} else {
-						maskToggle();
+					}
+					getAward(state);
+					if (vm.times > 0) {
 						vm.times = vm.times - 1;
-						vm.money = Math.floor(Math.random() * 10);
+						vm.totalTimes = vm.totalTimes - 1;
+						vm.num = vm.times - 1;
+						maskToggle();
+						/*vm.times = vm.times - 1;
+						vm.money = Math.floor(Math.random() * 10);*/
 						console.log('aaa');
 						console.log(vm.times);
 						$(".chest-close").removeClass('shake');
@@ -285,10 +475,26 @@
 					$(".chest-open").removeClass("blur");
 				});
 				//我的奖品
+				/**
+				 * 从后台加载数据，保存该用户本日的抽奖
+				 */
+				//判断用户登陆情况
+				var state = localStorage.getItem('$state');
+				window.addEventListener('isLogin', function(e) {
+					state = localStorage.getItem('$state');
+					/*getAward(state);*/
+					if(state){
+						getAwardInfo(JSON.parse(state).token);
+					}
+					console.log(state);
+				});
+				
+				
 				document.getElementById("myJp").addEventListener('click', function() {
 					console.log('tap');
+					console.log(awardPage)
+					mui.fire(awardPage, 'refreshAwardHistory');
 					mui.openWindow({
-						url: "awardHistory.html",
 						id: 'awardHistory.html'
 					});
 				});
@@ -297,7 +503,10 @@
 					console.log('ddd');
 					$('#times').toggleClass('mui-hidden');
 				});
-
+				/*
+				 * ******************************************************************************
+				 * 转赠、添加抽奖次数
+				 */
 				function shareMessage(s, msg) {
 					/*if (pic && pic.realUrl) {
 						msg.pictures = [pic.realUrl];
@@ -331,23 +540,44 @@
 							scene: msg.ex
 						}
 					};
-					shareMsg.href = "http://www.tcw5000.com/";
-					shareMsg.content = "欢迎访问百姓通村网";
-					shareMsg.thumbs = ['../image/tcwLogo.jpg'];
-					shareMsg.title = '测试分享';
-					if (share) {
-						if (share.authenticated) {
-							shareMessage(share, shareMsg);
-						} else {
-							share.authorize(function() {
-								shareMessage(share, shareMsg);
-							}, function(e) {
-								console.log("认证授权失败：" + e.code + " - " + e.message);
-							});
+					//向后台发送分享请求
+					//addLotteryShare.action
+					//"loginName shareNum shareType"
+					//{"code":"1","msg":"分享成功","key":"b20e29d93bb3c41c68327c26d417fff64a465285c3424634965fc68776590af90b78158faa01ae8607b9f3ff7531f10e91d4d965b3347d47"}
+					mui.ajax(baseUrl+'addLotteryShare.action', {
+						data: {
+							loginName: JSON.parse(state).token,
+							shareNum: msg.shareNum,
+							shareType: msg.shareType
+						},
+						dataType: 'json',
+						type: 'get',
+						timeout: 1000,
+						success: function(data) {
+							if (data.code == '1') {
+								//href改为checkShareUrl.action的链接
+								shareMsg.href = baseUrl+"checkShareUrl.action?key=" + data.key;
+								shareMsg.content = "抽奖宝箱";
+								shareMsg.thumbs = ['../image/tcwLogo.jpg'];
+								shareMsg.title = '抽奖';
+								if (share) {
+									if (share.authenticated) {
+										shareMessage(share, shareMsg);
+									} else {
+										share.authorize(function() {
+											shareMessage(share, shareMsg);
+										}, function(e) {
+											console.log("认证授权失败：" + e.code + " - " + e.message);
+										});
+									}
+								} else {
+									mui.toast("无法获取分享服务，请检查manifest.json中分享插件参数配置，并重新打包")
+								}
+							} else {
+								mui.toast('操作错误，剩余抽奖次数不够或者其他');
+							}
 						}
-					} else {
-						mui.toast("无法获取分享服务，请检查manifest.json中分享插件参数配置，并重新打包")
-					}
+					})
 				}
 				//输入数量
 				var shareNum = function(callback) {
@@ -397,28 +627,23 @@
 						console.log(e.index);
 						var i = e.index;
 						mui.toast(i);
+						var reg = new RegExp("^[0-9]*$");
 						switch (i) {
 							case 1:
 								//此处向后台发送转送请求，包括转赠的次数，用户的id标识、要转向的地方（如微信好友、微信群还是QQ好友QQ群）等，获取成功后则进行转赠，否则返回，不进行下一步动作
 								//通知后台这是发给微信好友的
-								mui.ajax('http://192.168.0.100:3000/users/share', {
-									data: {
-										id: 'zhangsan',
-										num: 11,
-										type: 'weixinhaoyou'
-									},
-									dataType: "text",
-									type: 'get',
-									timeout: 1000,
-									success: function(data) {
-										/*alert(data);*/
-									}
-								});
 								mui.prompt('请输入要赠送的次数', '次数', '转赠次数', ['确认', '取消'], function(e) {
 									if (e.index == 0) {
-										shareAction(shares['weixin'], {
-											ex: "WXSceneSession"
-										})
+										mui.toast(e.value);
+										if (!reg.test(e.value)) {
+											mui.toast('仅为数字');
+										} else {
+											shareAction(shares['weixin'], {
+												ex: "WXSceneSession",
+												shareNum: e.value,
+												shareType: '1'
+											})
+										}
 									}
 								});
 								break;
@@ -431,9 +656,16 @@
 								mui.prompt('请输入要赠送的次数', '次数', '转赠次数', ['确认', '取消'], function(e) {
 									console.log('dd')
 									if (e.index == 0) {
-										shareAction(shares['weixin'], {
-											ex: "WXSceneSession"
-										})
+										mui.toast(e.value);
+										if (!reg.test(e.value)) {
+											mui.toast('仅为数字');
+										} else {
+											shareAction(shares['weixin'], {
+												ex: "WXSceneSession",
+												shareNum: e.value,
+												shareType: '0'
+											})
+										}
 									}
 								})
 								break;
@@ -441,9 +673,16 @@
 								mui.prompt('请输入要赠送的次数', '次数', '转赠次数', ['确认', '取消'], function(e) {
 									console.log('dd')
 									if (e.index == 0) {
-										shareAction(shares['qq'], {
-											content: "test"
-										})
+										mui.toast(e.value);
+										if (!reg.test(e.value)) {
+											mui.toast('仅为数字');
+										} else {
+											shareAction(shares['qq'], {
+												content: "test",
+												shareNum: e.value,
+												shareType: '1'
+											})
+										}
 									}
 								})
 								break;
@@ -452,19 +691,41 @@
 									console.log('dd')
 									if (e.index == 0) {
 										shareAction(shares['qq'], {
-											content: "test"
+											content: "test",
+											shareNum: e.value,
+											shareType: '0'
 										})
 									}
 								})
 								break;
 							case 5:
-								//分享给微信群
 								mui.prompt('请输入要赠送的次数', '次数', '转赠次数', ['确认', '取消'], function(e) {
 										console.log('dd')
 										if (e.index == 0) {
-											mui.openWindow({
-												url: 'shareBacode.html',
-												id: 'shareBacode.html'
+											mui.ajax(baseUrl+'addLotteryShare.action', {
+												data: {
+													loginName: JSON.parse(state).token,
+													shareNum: e.value,
+													shareType: '1'
+												},
+												dataType: 'json',
+												type: 'get',
+												success: function(data) {
+													if (data.code == "1") {
+														mui.fire(barcodePage, 'creatBarcode', {
+															num: e.value,
+															type: 'send',
+															data: data
+														});
+														mui.openWindow({
+															url: 'shareBacode.html',
+															id: 'shareBacode.html'
+														})
+													} else {
+														alert('您的剩余抽奖次数不足，请重新输入');
+													}
+												},
+												error: function() {}
 											})
 										}
 									})

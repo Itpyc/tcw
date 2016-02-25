@@ -51,7 +51,6 @@ define(function(require, exports, module) {
 				str = str + street;
 				console.log(str);
 			}
-
 			vm.distance = str;
 		}, function() {
 
@@ -134,9 +133,9 @@ define(function(require, exports, module) {
 					zindex: 9997
 				},
 			});
-			setTimeout(function() {
+			/*setTimeout(function() {
 				self.getPosition();
-			}, 2000);
+			}, 2000);*/
 			main = plus.webview.currentWebview();
 			sortPage = plus.webview.getWebviewById('sort.html');
 			console.log(main);

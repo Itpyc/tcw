@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
@@ -8,31 +9,132 @@
 		<script src="js/mui.min.js"></script>
 		<script type="text/javascript" src="js/vue.js"></script>
 		<link href="css/mui.min.css" rel="stylesheet" />
-		<script type="text/javascript" src="js/require.js" data-main="js/login.js" ></script>
-	<!--	<script type="text/javascript" charset="utf-8">
+		<!--	<script type="text/javascript" charset="utf-8">
 			mui.init();
 		</script>-->
 	</head>
-	
+
 	<body>
-		<header class="mui-bar mui-bar-nav mui-badge-inverted">
-			<h2 class="mui-title">登陆</h2>
-		</header>
-		<div class="mui-content" id="login-vm">
-			<form id="myForm" class="mui-input-group mui-card">
-				<div class="mui-input-row">
-					<label>用户名</label>
-					<input type="text" class="mui-input-clear mui-input" placeholder="请输入用户名" v-model='username'/>
-				</div>
-				<div class="mui-input-row">
-					<label>密码</label>
-					<input type="password" class="mui-input mui-input-clear" placeholder="请输入密码" v-model='password'/>
-				</div>
-			</form>
-			<div class="mui-content-padded">
-				<div class="mui-btn mui-btn-primary mui-btn-block" v-on:click="toLogin()">登陆</div>
-			</div>
-		</div>
+		<a href="views/award.html"></a>
+		<script type="text/javascript">
+			mui.plusReady(function(){
+				checkArguments();
+				mui.preload({
+					url:'views/main.html',
+					id:'main.html'
+				})
+			});
+		
+			// 判断启动方式
+			function checkArguments() {
+				console.log("plus.runtime.launcher: " + plus.runtime.launcher);
+				var args = plus.runtime.arguments;
+				console.log(args)
+					//判断是否登陆
+				var stat = localStorage.getItem('$state');
+				if (true) {
+					// 处理args参数，如打开新页面等
+					/*	alert(args);*/
+					//shareId
+					//弹出一个对话框，通知用户领取。如果用户点击领取，则判断是否登陆。
+					//如果登陆，则将登陆用户的id以及args传给后台.如果没有登陆，则跳转到登陆页面，登陆完成后再发送后台进行领取
+					//获取到shareId、shareType
+					//使用shareId从后台获取该链接的分享信息，获取到shareType
+					//判断是否登陆，如果登陆了则直接抽奖，否则输入手机号进行抽奖
+					//根据shareType来判断。1、如果shareType为1，表示来自群组。0为个人。2、如果是来自个人，则进行领取。如果是群组，则进行抽奖。
+					//如果登陆成功，判断是来自于群组还是个人
+					//1、查询该分享的详情
+					mui.ajax('http://192.168.0.100:3000/users/shareDetail', {
+						data: {
+							shareId: args
+						},
+						dataType: 'json',
+						type: 'get',
+						success: function(data) {
+							console.log(data.shareType);
+							if (data.code == "0") {
+								alert(data.msg);
+								return;
+							}
+							if (stat) {
+								//查询分享明细
+								//queryLotteryShareDetail.action
+								//shareId	
+								//"{""shareNum"":0,""fromUser"":""tc0001"",""code"":""1"",""shareType"":""1""}
+								//{""code"":""0"",""msg"":""没有找到对应的分享数据""}"
+								if (data.code == "0") {
+									mui.toast(data.msg);
+									return;
+								}
+								//0来自群组
+								if (data.shareType == "0") {
+									//跳转到抽奖界面,因为用户已经登陆，传过去的值为用户的名字loginName和shareId
+									mui.openWindow({
+										url: 'award.html',
+										id: 'award.html',
+										extras: {
+											loginName: JSON.parse(stat).token,
+											shareId: args,
+											shareDetail: data
+										}
+									});
+								}
+								//1来自个人,则进行领取
+								else if (data.shareType == "1") {
+									mui.confirm("恭喜您获得抽奖次数，请点击领取", '领取抽奖次数', ['立即领取'], function() {
+										//acceptLotteryShare.action
+										//"{""code"":""0"",""msg"":""此次分享类型为群组,不能领取""}
+										//{""allCounts"":250,""code"":""1"",""dayCounts"":5}"
+										mui.ajax('http://192.168.0.100:3000/users/getMore', {
+											data: {
+												loginName: JSON.parse(stat).token,
+												shareId: args
+											},
+											dataType: 'json',
+											type: 'get',
+											timeout: 1000,
+											success: function(data) {
+												if (data.code == "1") {
+													mui.alert('您的抽奖次数已经存入账户,账户剩余次数为: ' + data.allCounts + "次,今日可用次数为: " + data.dayCounts, '恭喜！');
+													mui.fire(awardPage, 'refresh', {
+														data: data
+													});
+												} else {
+													alert(data.msg);
+												}
+											}
+										});
+									});
+								}
+							} else {
+								//跳转到抽奖界面,没有登陆，直接到抽奖界面进行抽奖.传过去的值包括shareId
+								mui.openWindow({
+									url: 'views/award.html',
+									id: 'views/award.html',
+									extras: {
+										shareId: args,
+										shareDetail: data
+									}
+								});
+							}
+						},
+						error: function() {
+						}
+					});
+				}
+			}
+			// 处理从后台恢复
+			document.addEventListener('newintent', function() {
+				console.log("addEventListener: newintent");
+				checkArguments();
+			}, false);
+			
+			mui.back = function(){
+					mui.openWindow({
+						url:'views/main.html'
+					});
+			}
+		</script>
 	</body>
 
 </html>

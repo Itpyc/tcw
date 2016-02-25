@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<script src="../js/mui.min.js"></script>
 		<link href="../css/mui.css" rel="stylesheet" />
-		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="../js/jquery-1.7.2-min.js"></script>
 		<script src="../js/jquery.qrcode.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../layer/layer.js" type="text/javascript" charset="utf-8"></script>
 		<link rel="stylesheet" type="text/css" href="../css/app.css" />
@@ -17,7 +16,7 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body id="tab-settings">
 		<div class="mui-content">
 			<!--<ul class="mui-table-view" style="margin-top: 0px;">
 				<li class="mui-table-view-cell">
@@ -32,11 +31,12 @@
 					</a>
 				</li>
 			</ul>-->
+			
 			<div style="height: 120px;width: 100%;background: #DD524D;">
 				<div style="height: 80px;border: 1px red solid;position: relative;">
 					<img style="width: 50px;border-radius: 5px;position: absolute; left: 10px;top: 15px;" src="../images/grape.jpg" />
 					<span style="position: absolute;left: 20%;top: 30%;">
-						<h4 style="color: white;">百姓通村网</h4>
+						<h4 id="nickName" style="color: white;">{{nickName}}</h4>
 					</span>
 					<i style="position: absolute;right: 10px;top: 10px;color: white;" class="mui-icon mui-icon-chatboxes"></i>
 				</div>
@@ -117,10 +117,12 @@
 						</a>
 				</li>
 			</ul>
+			 
 			<div class="mui-content-padded" style="margin-top: 10px;">
 				<button id="logout" type="button" class="mui-btn mui-btn-block mui-btn-danger" style="">退出登录</button>
 			</div>
 		</div>
+		<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/require.js" data-main="tab-settings" type="text/javascript" charset="utf-8"></script>
 	</body>
 </html>

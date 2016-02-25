@@ -105,7 +105,6 @@
 				更多支付方式
 				<i class="mui-icon mui-icon-arrowdown"></i>
 			</p>
-
 			<div id="submit" class="mui-content-padded" style="margin-top: 20px;">
 				<button type="button" style="padding: 5px;" class="mui-btn mui-btn-blue mui-btn-block">提交订单</button>
 			</div>
@@ -153,7 +152,7 @@
 			//支付订单地址
 			var PAYSERVER = 'http://demo.dcloud.net.cn/payment/?payid=';
 			// 支付
-			function pay(id,amount) {
+			function pay(id, amount) {
 				if (w) {
 					return;
 				} //检查是否请求订单中
@@ -204,15 +203,26 @@
 				xhr.open('GET', url + amount);
 				xhr.send();
 			}
-			
 			document.getElementById("submit").addEventListener('tap', function() {
 				console.log('sssss');
-				var id = $('input[name="choseHowToPay"]:checked').parent('li').attr('id');
-				
-				var amount = $('input[name="choseHowMuch"]:checked').parent('li').attr('id')
-				console.log(amount);
-				/*pay()*/
-				pay(id,amount);
+				var state = localStorage.getItem('$state');
+				var state = localStorage.getItem('$state');
+				if (state == null) {
+					mui.confirm('未登陆', '登陆提示', ['立即登陆', '取消'], function(e) {
+						if (e.index == 0) {
+							mui.openWindow({
+								url: "login.html",
+								id: 'login.html'
+							})
+						}
+					});
+				} else {
+					var id = $('input[name="choseHowToPay"]:checked').parent('li').attr('id');
+					var amount = $('input[name="choseHowMuch"]:checked').parent('li').attr('id')
+					console.log(amount);
+					/*pay(id, amount);*/
+					pay(id, 0);
+				}
 			})
 		</script>
 

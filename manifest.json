@@ -117,15 +117,15 @@
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
 		"distribute": {
-			"plugins": {"payment":{"weixin":{"description":"微信支付","appid":"wx32fa88f2f64f49ac"},"alipay":{"description":"阿里支付","scheme":""}},
+			"plugins": {"payment":{"weixin":{"description":"微信支付","appid":"wxc2dc5c8df920ce74"},"alipay":{"description":"阿里支付","scheme":""}},
 				"share": {
 					"qq": {
 						"appid": "1105139134",
 						"description": "QQ分享"
 					},
 					"weixin": {
-						"appid": "wx32fa88f2f64f49ac",
-						"appsecret": "ff135cf8e1d1b4e818227b9540f3d04e",
+						"appid": "wxc2dc5c8df920ce74",
+						"appsecret": "2f379859c5dc368aa223c75b5a294042",
 						"description": "可选，微信分享"
 					}
 				},
@@ -157,7 +157,7 @@
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
 				"schemes": [
-					"test"
+					"tcw"
 				],
 				"permissions": [
 					"<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
@@ -264,7 +264,10 @@
 					"js/require.js",
 					"fonts/mui.ttf"
 				],
-				"refer": [],
+				"refer": [
+					"views/award.html",
+					"views/main.html"
+				],
 				"priority": 0
 			},
 			"views/main.html": {
@@ -284,7 +287,9 @@
 					"font-awesome/fonts/fontawesome-webfont.woff",
 					"font-awesome/css/font-awesome.min.css",
 					"font-awesome/fonts/fontawesome-webfont.ttf",
-					"js/jquery.js"
+					"js/jquery.js",
+					"images/apple.jpg",
+					"font-awesome/fonts/fontawesome-webfont.svg"
 				],
 				"refer": [
 					"views/shop.html",
@@ -295,7 +300,9 @@
 					"views/offcanvas.html",
 					"views/order.html",
 					"views/shoppingCart.html",
-					"views/tab-award.html"
+					"views/tab-award.html",
+					"views/login.html",
+					"views/award.html"
 				],
 				"priority": 0
 			},
@@ -318,11 +325,22 @@
 					"images/apple.jpg",
 					"images/muwu.jpg",
 					"image/shunwaicun.jpg",
-					"images/grape.jpg"
+					"images/grape.jpg",
+					"common/scroll.js",
+					"image/tcwLogo.jpg",
+					"js/jquery-1.7.2-min.js",
+					"image/tcwLogo.png",
+					"awardImg/red-bw.png",
+					"img2/vegetable.jpg",
+					"img2/水果蔬菜.jpg",
+					"img2/corn.jpg",
+					"images/orange.jpg"
 				],
 				"refer": [
 					"views/tab-shop.html",
-					"views/shop.html"
+					"views/shop.html",
+					"views/sellerHome.html",
+					"views/shoppingCart.html"
 				],
 				"priority": 0
 			},
@@ -352,7 +370,9 @@
 					"js/jquery.js",
 					"js/layer.js",
 					"layer/skin/layer.css",
-					"layer/layer.js"
+					"layer/layer.js",
+					"js/jquery-1.7.2-min.js",
+					"js/vue.js"
 				],
 				"refer": [
 					"views/award.html",
@@ -670,7 +690,8 @@
 					"js/require.js"
 				],
 				"refer": [
-					"views/login.html"
+					"views/login.html",
+					"views/userInfo.html"
 				],
 				"priority": 0
 			},
@@ -685,7 +706,9 @@
 				],
 				"refer": [
 					"views/userInfo.html",
-					"views/main.html"
+					"views/main.html",
+					"views/checkPhoneNumber.html",
+					"views/registerByPhone.html"
 				],
 				"priority": 0
 			},
@@ -761,10 +784,15 @@
 					"images/banana.jpg",
 					"images/apple.jpg",
 					"images/baicai.jpg",
-					"images/pear.jpg"
+					"images/pear.jpg",
+					"awardImg/body_bg.jpg",
+					"awardImg/main_bg.jpg",
+					"font-awesome/fonts/fontawesome-webfont.woff",
+					"font-awesome/css/font-awesome.min.css"
 				],
 				"refer": [
-					"views/chat.html"
+					"views/chat.html",
+					"views/order.html"
 				],
 				"priority": 0
 			},
@@ -834,7 +862,8 @@
 					"images/cbd.jpg",
 					"font-awesome/fonts/fontawesome-webfont.woff",
 					"font-awesome/css/font-awesome.min.css",
-					"awardImg/red-zj-bg.png"
+					"awardImg/red-zj-bg.png",
+					"awardImg/jinbi.jpg"
 				],
 				"refer": [],
 				"priority": 0
@@ -887,7 +916,12 @@
 					"image/chest-open-blur.png",
 					"awardImg/red-bw.png",
 					"js/mui.js",
-					"font-awesome/fonts/fontawesome-webfont.woff"
+					"font-awesome/fonts/fontawesome-webfont.woff",
+					"js/jquery-1.7.2-min.js",
+					"awardImg/btn_start.png",
+					"awardImg/jinbi.jpg",
+					"font-awesome/fonts/fontawesome-webfont.svg",
+					"awardImg/bg.jpg"
 				],
 				"refer": [
 					"views/awardHistory.html",
@@ -918,6 +952,27 @@
 					"css/mui.min.css"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"views/checkPhoneNumber.html": {
+				"resources": [
+					"js/vue.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"views/registerByPhone.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [
+					"views/checkPhoneNumber.html"
+				],
 				"priority": 0
 			}
 		},

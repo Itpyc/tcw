@@ -16,14 +16,12 @@ define(function(require, exports, module) {
 		}]
 	})
 	var auths = {};
-
+	var baseUrl = "http://192.168.0.107:8080/cunzhi/";
 	self.authLogin = function(auth) {
 		if (auth) {
 			auth.login(function(e) {
 				console.log(JSON.stringify(e.target.authResult));
 				self.getInfo(auth);
-
-
 			}, function(e) {
 				mui.toast('获取服务列表失败');
 			})
@@ -47,8 +45,14 @@ define(function(require, exports, module) {
 	}
 
 	var main = null;
+	var pages = [];
 	mui.plusReady(function() {
 		main = plus.webview.currentWebview();
+
+		pages.push(plus.webview.getWebviewById('tab-award.html'));
+		pages.push(plus.webview.getWebviewById('offcanvas.html'));
+		pages.push(plus.webview.getLaunchWebview());
+		pages.push(plus.webview.getWebviewById('tab-settings.html'));
 		//获取第三方服务列表
 		plus.oauth.getServices(function(services) {
 			for (var i in services) {
@@ -58,9 +62,9 @@ define(function(require, exports, module) {
 				auths[service.id] = service;
 			}
 		});
-		document.getElementById("qq").addEventListener('tap', function() {
+		/*document.getElementById("qq").addEventListener('tap', function() {
 			self.authLogin(auths['qq']);
-		});
+		});*/
 	});
 	var accountBox = document.getElementById("account");
 	var passwordBox = document.getElementById("password");
@@ -84,10 +88,13 @@ define(function(require, exports, module) {
 	};
 
 	//存储用户状态
-	var createState = function(name, callback) {
+	var createState = function(data, callback) {
 		var state = getState();
-		state.account = name;
-		state.token = "token123456789";
+		state.account = "data.nickname";
+		/*state.id = "data.id";
+		state.nickname = "data.nickname";*/
+		state.token = data.statusId;
+		/*alert(data.statusId);*/
 		setState(state);
 		return callback();
 	};
@@ -100,9 +107,41 @@ define(function(require, exports, module) {
 		if (loginInfo.account.length < 3) {
 			return callback('账号最短为 3 个字符');
 		}
+
 		if (loginInfo.password.length < 6) {
 			return callback('密码最短为 6 个字符');
 		}
+
+		mui.ajax(baseUrl+'mobileLogin.action', {
+			dataType: 'json',
+			data: {
+				loginName: loginInfo.account,
+				password: loginInfo.password
+			},
+			type: 'get',
+			timeout: 1000,
+			success: function(data) {
+				/*alert(JSON.stringify(data));*/
+				console.log(data.code);
+				if (data.code == "1") {
+					mui.toast('登陆成功');
+					/*for(var i in pages){
+						alert(pages[i])
+						mui.fire(pages[i],'isLogin');
+					}*/
+					localStorage.setItem('nickName',loginInfo.account);
+					
+					return createState(data, callback);
+				} else {
+					mui.toast('登陆失败');
+				}
+
+			},
+			error: function(data) {
+				return callback(data);
+			}
+		})
+
 		//从后台服务器获取，判断用户是否合法
 		/*var users = JSON.parse(localStorage.getItem('$users') || '[]');
 		var authed = users.some(function(user) {
@@ -133,15 +172,15 @@ define(function(require, exports, module) {
 				}
 			});*/
 
-		if (true) {
+		/*if (true) {
 			return createState(loginInfo.account, callback);
 		} else {
 			return callback('用户名或密码错误');
-		}
+		}*/
 	};
 	document.getElementById("login").addEventListener('tap', function() {
-		var target = main.targetPage;
-		console.log(target);
+		/*var target = main.targetPage;
+		console.log(target);*/
 		var loginInfo = {
 			account: accountBox.value,
 			password: passwordBox.value
@@ -151,11 +190,31 @@ define(function(require, exports, module) {
 			if (err) {
 				alert('验证不通过---' + localStorage.getItem('$state'));
 			} else {
+				mui.fire(pages[0], 'isLogin');
+				mui.fire(pages[2], 'isLogin');
+				mui.fire(pages[3],'isLogin');
+				console.log(pages[0].id);
+				console.log(pages[2].id);
+				setTimeout(function() {
+					mui.back();
+				}, 100);
+
 				/*mui.openWindow({
 					url:'main.html',
 					id:'main.html'
 				});*/
 			}
 		});
+		console.log(localStorage.getItem('$state'));
 	});
+
+	//注册
+	document.getElementById("register").addEventListener('tap', function() {
+		mui.openWindow({
+			url: 'registerByPhone.html',
+			id: 'registerByPhone.html'
+		})
+	})
+
+
 });

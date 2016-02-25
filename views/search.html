@@ -8,6 +8,11 @@
 		<script src="../js/mui.min.js"></script>
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<style type="text/css">
+			#popover ul li{
+				
+			}
+		</style>
 	</head>
 	<body>
 		<header class="mui-bar mui-bar-nav" style="display: inline-block;">
@@ -32,11 +37,9 @@
 			<footer class="mui-bar-footer" style="position: fixed;bottom: 0px;width: 100%;">
 				<button id="clearHistory" type="button" class="mui-btn mui-btn-blue " style="width: 80%;right: 10%;left: 10%;bottom: 5px;">清除搜索历史</button>
 			</footer>
-			<div id="popover" class="mui-popover" style="left: 25px;top: 45px;width: 70px; min-width: 70px">
+			<div id="popover" class="mui-popover" style="left: 25px;top: 45px;width: 70px; min-width: 70px; border:1px red solid;">
 				<ul class="mui-table-view" style="background-color:#F7F7F7 ; color: #000000;">
-
 					<li id="0" class="mui-table-view-cell">商品</li>
-
 					<li id="1" class="mui-table-view-cell">商铺</li>
 					<li id="2" class="mui-table-view-cell">村志</li>
 				</ul>

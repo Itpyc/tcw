@@ -1,23 +1,28 @@
 <!doctype html>
 <html lang="en">
+
 	<head>
 		<meta charset="UTF-8" />
 		<title>Document</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css" />
 		<script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<style type="text/css">
 		.mui-content>.mui-table-view:first-child {
 			margin-top: 0px;
 		}
+		
 		.mui-content {
 			padding-bottom: 50px;
 		}
+		
 		.mui-control-content {
 			background-color: white;
 			min-height: 215px;
 		}
+		
 		.mui-control-content .mui-loading {
 			margin-top: 50px;
 		}
@@ -96,12 +101,16 @@
 		.mui-table-view-cell.mui-active {
 			background-color: #FFFFFF;
 		}
+		
+		.star {
+			color: red;
+		}
 	</style>
 
-	<body>
+	<body id="details">
 		<div class="mui-content mui-scroll-wrapper" style="margin-top: -20px;display: ;">
 			<div class="mui-scroll">
-				<div id="slider" class="mui-slider" style="height: 200px">
+				<div id="slider" class="mui-slider" style="height: 300px">
 					<div class="mui-slider-group mui-slider-loop">
 						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 						<div class="mui-slider-item mui-slider-item-duplicate">
@@ -152,12 +161,17 @@
 					<li class="mui-table-view-cell">
 						<h4>百姓同村网</span>
 					<span style="float: right;">
-						<i class="fa fa-share"></i>
+						<i class="mui-icon fa fa-share"></i>
 						<p>分享</p>
 					</span>
 				</li>
 			</ul>
 			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<h2 style="color: red;">
+						￥46.00
+					</h1>
+				</li>
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">
 							配送范围：全国
@@ -176,30 +190,46 @@
 					</a>
 				</li>
 			</ul>
-
-			<ul class="mui-table-view" style="margin-top: 10px;">
-				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-							图文详情
-						</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-							查看评价(100)
-						</a>
-				</li>
-			</ul>
-			
+		    <ul class="mui-table-view" style="margin-top: 10px;">
+		        <li class="mui-table-view-cell">
+		            <a class="mui-navigate-right">
+		            	商品评价(100)
+		            </a>
+		        </li>
+		        <li class="mui-table-view-cell" style="margin-top: ;" v-for="item in commentInfo">
+		            <div style="border-bottom: 0px red solid;margin-top: -10px;">
+		            	<p id="star" style="display: inline-block;border: 0px red solid;width: 42%;">
+		            		<i class="mui-icon fa fa-star star"></i>
+		            		<i class="mui-icon fa fa-star star"></i>
+		            		<i class="mui-icon fa fa-star star"></i>
+		            		<i class="mui-icon fa fa-star star"></i>
+		            		<i class="mui-icon fa fa-star star"></i>
+		            	</p>
+		            	<p style="display: inline-block;width: 35%;text-align: right;font-size: 15px;">{{item.nickName}}</p>
+		            	<p style="display: inline-block;margin-top: 4px;" class="mui-pull-right">{{item.date}}</p>
+		            </div>
+		            
+		            <div id="content" style="margin-top: 3px;">
+		            	<p style="font-size: 15px;">{{item.content}}</p>
+		            </div>
+		        </li>
+		    </ul>
+		    
+		        <ul class="mui-table-view">
+		            <li class="mui-table-view-cell" style="text-align: center;">
+		            	查看全部评价(100)
+		            </li>
+		        </ul>
+		    	<!--<button type="button" class="mui-btn mui-btn-blue mui-btn-block" style="margin: 0px;padding: 0px; ">按钮</button>-->
+		    	<!--<div style="border: 1px red solid;text-align: center;">查看全部评价</div>-->
 			<!--商品详情和卖家信息-->
-			<div  style="margin-top: 10px; background: #FFFFFF; z-index: 10; box-shadow: #000000;" class="mui-slider">
+			<!--<div  style="margin-top: 10px; background: #FFFFFF; z-index: 10; box-shadow: #000000;" class="mui-slider">
 				
 				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					<a class="mui-control-item mui-active" href="#productInfo">商品详情</a>
 					<a class="mui-control-item" href="#sellerInfo">卖家信息	</a>
 				</div>
-				<!--条状-->
 				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
-				<!--显示子页面-->
 				<div class="mui-slider-group">
 					<div id="productInfo" class="mui-slider-item mui-control-content mui-active">
 						<div id="scroll1" class="mui-scroll-wrapper">
@@ -268,7 +298,38 @@
 								</ul>
 							</div>
 						</div>
-					</div>
+					</div>-->
+					
+					<!--商户信息-->
+					    <ul class="mui-table-view" style="margin-top: 10px;">
+					        <li class="mui-table-view-cell mui-media" style="height: ;">
+						        <a href="javascript:;" class="mui-navigate-right">
+						            <img class="mui-media-object mui-pull-left" src="../image/tcwLogo.png">
+						            <div class="mui-media-body">
+						            	百姓通村网官方旗舰店
+						                <p class="mui-ellipsis">唯一官方指定</p>
+						            </div>
+						       		<div style="margin-top: 5px;">
+						       			<span style="width: 33%;display: inline-block; text-align: center;">商品
+						       				<span style="color: red;">10.0</span>
+						       				<i class="fa fa-arrow-up"></i>
+						       			</span>
+							        	<span style="width: 33%;display: inline-block;text-align: center;">服务
+							        	<span style="color: red;">10.0</span>
+						       				<i class="fa fa-arrow-up"></i></span>
+							        	<span style="width: 33%;display: inline-block;text-align: center;">物流
+							        	<span style="color: red;">10.0</span>
+						       				<i class="fa fa-arrow-up"></i></span>
+						       		</div>
+						        </a>
+					   		</li>
+					   		
+					   		<li class="mui-table-view-cell">
+					   			<span>村志</span>
+					   			<span>店铺</span>
+					   			<span>客服</span>
+					   		</li>
+					    </ul>
 					
 					<div id="sellerInfo" class="mui-slider-item mui-control-content">
 						<div id="scroll2" class="mui-scroll-wrapper">

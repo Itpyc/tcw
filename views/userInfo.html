@@ -18,20 +18,28 @@
 			<h1 class="mui-title">标题</h1>
 		</header>
 		<div class="mui-content">
-			<div class="mui-card">
-				<ul class="mui-table-view">
-					<li class="mui-table-view-cell">
-						<a class="mui-navigate-right">
-		                	昵称：{{userInfo.nickname}}
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+		                	昵称：{{userInfo.nickName}}
 		            </a>
-					</li>
-					<li class="mui-table-view-cell">
-						<a class="mui-navigate-right">
-		                	位置：{{userInfo.province}} &nbsp;&nbsp;{{userInfo.city}}
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+		                	位置：{{userInfo.address}} &nbsp;&nbsp;{{userInfo.city}}
 		            </a>
-					</li>
-				</ul>
-			</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+		                	年龄：{{userInfo.age}}
+		            </a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+		                	性别：{{userInfo.sex}} 
+		            </a>
+				</li>
+			</ul>
 		</div>
 		<script src="../js/require.js" data-main="userInfo.js" type="text/javascript" charset="utf-8"></script>
 	</body>

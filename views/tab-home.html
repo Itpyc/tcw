@@ -1,14 +1,48 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<script src="../js/mui.js"></script>
 		<link href="../css/mui.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
 		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css" />
+		<script src="../js/jquery-1.7.2-min.js"></script>
+		<script src="../common/scroll.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			ul,
+			li {
+				margin: 0;
+				padding: 0
+			}
+			
+			#scrollDiv {
+				height: 10px;
+				min-height: 25px;
+				line-height: 25px;
+				overflow: hidden;
+				margin-bottom: 5px;
+			}
+			
+			#scrollDiv li {
+				font-size: 18px;
+				height: 25px;
+				padding-left: 10px;
+			}
+		 #grid .mui-media-object{
+		 		height: 40px;
+		 		width: 40px;
+				border-radius: 55px;
+			}
+			#grid li{
+				border: none;
+				height: 80px;
+			}
+		</style>
 	</head>
+
 	<body>
 		<!--<header class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-person"></a>
@@ -78,129 +112,174 @@
 			<div>
 				<ul id="grid" class="mui-table-view mui-grid-view mui-grid-9" style="background: white; ">
 					<li id="content0" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
-						<a href="#">
-							<span class="fa fa-fighter-jet"></span>
-							<div class="mui-media-body">蔬菜瓜果</div>
-						</a>
-					</li>
-					<li id="content1" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
-						<a href="#">
-							<span class="fa fa-shopping-cart"></span>
-							<div class="mui-media-body">粮油米面</div>
+						<a href="#" style="" >
+							<img class="mui-media-object" src="../images/orange.jpg">
+							<div class="mui-media-body" style="height:;">蔬菜瓜果</div>
 						</a>
 					</li>
 					
+					<li id="content1" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
+						<a href="#">
+							<img class="mui-media-object" src="../images/orange.jpg">
+							<div class="mui-media-body">粮油米面</div>
+						</a>
+					</li>
+
 					<li id="content3" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
 						<a href="#">
-							<span class="fa fa-user"></span>
+							<img class="mui-media-object" src="../images/orange.jpg">
 							<div class="mui-media-body">畜牧水产</div>
 						</a>
 					</li>
 					<li id="content4" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
 						<a href="#">
-							<span class="fa fa-building"></span>
+							<img class="mui-media-object" style="border-radius: 55px;" src="../images/orange.jpg">
 							<div class="mui-media-body">花卉苗木</div>
 						</a>
 					</li>
-					
 					<li id="content2" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
 						<a href="#">
-							<span class="fa fa-mobile"></span>
+							<img class="mui-media-object" src="../images/orange.jpg">
 							<div class="mui-media-body">副食</div>
 						</a>
 					</li>
 					<li id="content0" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3" style="padding: 0px; margin: 0px;">
 						<a href="#">
-							<span class="fa fa-dashboard"></span>
+							<img class="mui-media-object" src="../images/orange.jpg">
 							<div class="mui-media-body">全部分类</div>
 						</a>
 					</li>
 				</ul>
-			</div <div id="ganjifang">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					蔬菜瓜果
-				</li>
-			</ul>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<img class="mui-media-object mui-pull-left" src="img/hbuilder.png">
-						<div class="mui-media-body">
-							主标题
-							<p class='mui-ellipsis'>这里是摘要</p>
+			</div>
+
+			<div style="background-color:white;margin-top: 2px;border-top:1px solid #eeee ;">
+				<img src="../image/tcwLogo.png" style="height: 40px;" />
+				<div style="display: inline-block;" id="scrollDiv">
+					<ul>
+						<li>这是公告标题的第1行</li>
+						<li>这是公告标题的第2行</li>
+						<li>这是公告标题的第3行</li>
+						<li>这是公告标题的第4行</li>
+						<li>这是公告标题的第5行</li>
+						<li>这是公告标题的第6行</li>
+						<li>这是公告标题的第7行</li>
+						<li>这是公告标题的第8行</li>
+					</ul>
+				</div>
+			</div>
+			<div id="ganjifang">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						今日特价
+					</li>
+				</ul>
+				<div class="mui-slider">
+					<div class="mui-slider-group">
+						<!--第一个内容区容器-->
+						<div class="mui-slider-item">
+							<!-- 具体内容 -->
+							<ul id="productList" class="mui-table-view mui-grid-view">
+								<li class="mui-table-view-cell mui-media mui-col-xs-6">
+									<a href="#">
+										<img class="mui-media-object" src="../images/cbd.jpg">
+										<div class="mui-media-body">一号</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-6">
+									<a href="#">
+										<img class="mui-media-object" src="../images/apple.jpg">
+										<div class="mui-media-body">一号</div>
+									</a>
+								</li>
+							</ul>
 						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<img class="mui-media-object mui-pull-left" src="img/hbuilder.png">
-						<div class="mui-media-body">
-							主标题
-							<p class='mui-ellipsis'>这里是摘要</p>
+						<!--第二个内容区-->
+						<div class="mui-slider-item">
+							<!-- 具体内容 -->
+							<ul id="productList" class="mui-table-view mui-grid-view">
+								<li class="mui-table-view-cell mui-media mui-col-xs-6">
+									<a href="#">
+										<img class="mui-media-object" src="../images/cbd.jpg">
+										<div class="mui-media-body">一号</div>
+									</a>
+								</li>
+								<li class="mui-table-view-cell mui-media mui-col-xs-6">
+									<a href="#">
+										<img class="mui-media-object" src="../images/cbd.jpg">
+										<div class="mui-media-body">一号</div>
+									</a>
+								</li>
+							</ul>
 						</div>
-					</a>
-				</li>
-			</ul>
-		</div>
-		<div id="ganjifang">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					粮食
-				</li>
-			</ul>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<img class="mui-media-object mui-pull-left" src="img/hbuilder.png">
-						<div class="mui-media-body">
-							主标题
-							<p class='mui-ellipsis'>这里是摘要</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<img class="mui-media-object mui-pull-left" src="img/hbuilder.png">
-						<div class="mui-media-body">
-							主标题
-							<p class='mui-ellipsis'>这里是摘要</p>
-						</div>
-					</a>
-				</li>
-			</ul>
-		</div>
-		<div id="ganjifang">
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<div id="">
-						肉类
 					</div>
-				</li>
-			</ul>
-			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<img class="mui-media-object mui-pull-left" src="img/hbuilder.png">
-						<div class="mui-media-body">
-							主标题
-							<p class='mui-ellipsis'>这里是摘要</p>
+				</div>
+			</div>
+			<div id="ganjifang">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<div id="">
+							最新鲜
 						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">
-						<img class="mui-media-object mui-pull-left" src="img/hbuilder.png">
-						<div class="mui-media-body">
-							主标题
-							<p class='mui-ellipsis'>这里是摘要</p>
+					</li>
+				</ul>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							<img class="mui-media-object mui-pull-left" src="img/hbuilder.png">
+							<div class="mui-media-body">
+								主标题
+								<p class='mui-ellipsis'>这里是摘要</p>
+							</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							<img class="mui-media-object mui-pull-left" src="img/hbuilder.png">
+							<div class="mui-media-body">
+								主标题
+								<p class='mui-ellipsis'>这里是摘要</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div id="ganjifang">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<div id="">
+							提前购
 						</div>
-					</a>
-				</li>
-			</ul>
+					</li>
+				</ul>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							<img class="mui-media-object mui-pull-left" src="img/hbuilder.png">
+							<div class="mui-media-body">
+								主标题
+								<p class='mui-ellipsis'>这里是摘要</p>
+							</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							<img class="mui-media-object mui-pull-left" src="img/hbuilder.png">
+							<div class="mui-media-body">
+								主标题
+								<p class='mui-ellipsis'>这里是摘要</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
-		</div>
+		<script type="text/javascript">
+			$("#scrollDiv").Scroll({
+				line: 1,
+				speed: 500,
+				timer: 2000
+			});
+		</script>
 		<script src="../js/require.js" data-main="tab-home.js" type="text/javascript" charset="utf-8"></script>
 	</body>
-
 </html>

@@ -1,4 +1,4 @@
-.wrapper{width: 100%;overflow: hidden;position: relative;}
+.wrapper{width: 100%;overflow: hidden;position: absolute;}
 .open-body{width: 100%;overflow: hidden;}
 .open-body .bg{position: absolute;z-index: 1;background:url(../image/light.png) 0px 0px no-repeat;background-size:452px auto;width:452px;height:510px; max-height:100%; left:50%;margin-left:-226px;top:-25px;}
 .open-body .bg.rotate{-webkit-animation: rotate 10s  infinite  linear;}

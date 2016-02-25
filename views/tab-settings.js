@@ -1,5 +1,16 @@
 define(function(require, exports, module) {
 	mui.init();
+	var vm = new Vue({
+		el: '#tab-settings',
+		data: {
+			nickName: '未登陆，请登陆或注册'
+		}
+	});
+	var state = null;
+	window.addEventListener('isLogin', function() {
+		vm.nickName = localStorage.getItem('nickName');
+		state = localStorage.getItem('$state');
+	})
 	var logout = function(callback) {
 		var btnArray = [{
 			title: '退出当前账号'
@@ -13,6 +24,7 @@ define(function(require, exports, module) {
 			switch (e.index) {
 				case 1:
 					console.log('退出当前账号');
+					localStorage.removeItem('$state');
 					return callback('logout');
 					break;
 				case 2:
@@ -26,11 +38,19 @@ define(function(require, exports, module) {
 
 		});
 	};
+	
 	//shares中保存service信息
 	var shares = [];
 	mui.plusReady(function() {
+		state = localStorage.getItem('$state');
+		if(state == null){
+			vm.nickName = "点击登陆或注册";
+		}else{
+			vm.nickName = localStorage.getItem('nickName');
+		}
+		console.log(vm.nickName);
 		//获取服务列表
-		plus.share.getServices(function(s) {
+		/*plus.share.getServices(function(s) {
 			if (s && s.length > 0) {
 				for (var i = 0; i < s.length; i++) {
 					var t = s[i];
@@ -40,7 +60,7 @@ define(function(require, exports, module) {
 			}
 		}, function() {
 			console.log("获取分享服务列表失败");
-		});
+		});*/
 		//注销登陆按钮
 		var logoutBtn = document.getElementById("logout");
 		logoutBtn.addEventListener('tap', function() {
@@ -48,6 +68,7 @@ define(function(require, exports, module) {
 				switch (data) {
 					case 'logout':
 						localStorage.removeItem('$state');
+						localStorage.removeItem('nickName');
 						mui.openWindow({
 							url: 'login.html',
 							id: 'login.html',
@@ -74,34 +95,19 @@ define(function(require, exports, module) {
 
 
 
-	function shareMessage(s, msg) {
-		/*if (pic && pic.realUrl) {
+	/*function shareMessage(s, msg) {
+		if (pic && pic.realUrl) {
 			msg.pictures = [pic.realUrl];
-		}*/
+		}
 		s.send(msg, function() {
 			alert("分享到\"" + s.description + "\"成功！ ");
 		}, function(e) {
 			alert("分享到\"" + s.description + "\"失败: " + e.code + " - " + e.message);
 		});
-	}
+	}*/
 	//判断是否已经授权，如果已经授权则直接分享消息，否则进行授权
 	//传入的id是服务所对应的在shares数组中的坐标位置
-	function shareAction(share, msg) {
-		/*if (!s) {
-			mui.toast("无效的分享服务！");
-			return;
-		}
-		if (s.authenticated) {
-			 alert("---已授权---");
-			shareMessage(s, ex);
-		} else {
-			alert("---未授权---");
-			s.authorize(function() {
-				shareMessage(s, ex);
-			}, function(e) {
-				alert("认证授权失败：" + e.code + " - " + e.message);
-			});
-		}*/
+	/*function shareAction(share, msg) {
 
 		var shareMsg = {
 			extra: {
@@ -185,7 +191,6 @@ define(function(require, exports, module) {
 								type: 'get',
 								timeout: 1000,
 								success: function(data) {
-									/*alert(data);*/
 								}
 							})
 							shareAction(shares['weixin'], {
@@ -210,7 +215,6 @@ define(function(require, exports, module) {
 							break;
 						case 5:
 							//分享给微信群
-							/*shareAction(3);*/
 							mui.openWindow({
 								url: 'shareBacode.html',
 								id: 'shareBacode.html'
@@ -223,38 +227,9 @@ define(function(require, exports, module) {
 				},
 				cancle: function() {}
 			});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			/*	plus.nativeUI.prompt("请输入要转赠的次数", function(e) {
-					if (e.index == 0) {
-						plus.nativeUI.confirm('您要转赠次数为' + e.value, function(e) {
-							if (e.index == 0) {
-								console.log('dafa')
-								
-							} else {
-								mui.toast('取消转赠');
-							}
-
-						}, '确认转赠', bts);
-					}
-				}, "转赠", "次数", bts);*/
 		});
 
-	});
+	});*/
 
 	document.getElementById("times").addEventListener('tap', function() {
 		$('#award').toggleClass('mui-hidden');
@@ -268,8 +243,19 @@ define(function(require, exports, module) {
 			id: 'award.html'
 		})
 	});
-	document.getElementById("cunzhi").addEventListener('tap',function(){
+	document.getElementById("cunzhi").addEventListener('tap', function() {
 		console.log('cunzhi');
 	});
-	
+
+	document.getElementById("nickName").addEventListener('tap', function() {
+		state = localStorage.getItem('$state');
+		if(state == null){
+			mui.openWindow({
+				url:'login.html',
+				id:'login.html'
+			})
+		}
+
+	});
+
 });

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
@@ -21,12 +22,17 @@
 			<div id="code" style="position: absolute;left: 23%;top: 20%;"></div>
 		</div>
 		<script type="text/javascript">
-			$("#code").qrcode({
-				render: "canvas", //table方式 
-				width: 200, //宽度 
-				height: 200, //高度 
-				text: "http://192.168.0.100:3000/share", //任意内容 
-				src:'../image/tcwLogo.jpg'
+			window.addEventListener('creatBarcode', function(e) {
+				var shareContent = e.detail.data;
+				var baseUrl = "http://192.168.0.107:8080/cunzhi/";
+				console.log(JSON.stringify(shareContent));
+				$("#code").qrcode({
+					render: "canvas", //table方式 
+					width: 200, //宽度 
+					height: 200, //高度 
+					text: baseUrl+"share?key="+shareContent.key, //任意内容 
+					src: '../image/tcwLogo.jpg'
+				});
 			});
 		</script>
 	</body>

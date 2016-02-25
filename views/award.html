@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 <html id="award">
-
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
@@ -14,7 +13,6 @@
 		<link rel="stylesheet" href="../css/global.css">
 		<link rel="stylesheet" href="../css/open.css">
 		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
-		<link rel="stylesheet" type="text/css" href="../css/liMarquee.css" />
 		<link rel="stylesheet" type="text/css" href="../css/default.css" />
 		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css" />
 		<script src="../js/jquery-1.7.2-min.js" type="text/javascript" charset="utf-8"></script>
@@ -29,42 +27,15 @@
 			}
 		</style>
 	</head>
-	<body ontouchstart="" class="open-body" style="background: url(../awardImg/body_bg.jpg) repeat-x;" >
-		<div class="mui-content" style="background:url(.../awardImg/body_bg.jpg) repeat-x ;">
-			<div style=" height: 60px;z-index: 9999;bottom: 0;position: fixed;width: 100%;background:url(../awardImg/body_bg.jpg) repeat-x;">
-					<span style="display: inline-block;width: 24%;text-align: center;">
-					<i class="fa fa-gift" style="font-size: 22px;"></i>
-					<p style="">我的奖品</p>
-					</span>
-					<span style="display: inline-block;width: 24%;text-align: center;">
-					<i class="fa fa-chain" style="font-size: 22px;"></i>
-					<p>抽奖次数</p>
-					</span>
-					<span style="display: inline-block;width: 24%;text-align: center;">
-					<i class="fa fa-gift" style="font-size: 22px;"></i>
-					<p>转赠好友</p>
-					</span>
-					<span style="display: inline-block;width: 25%;text-align: center;border-left: #000000 solid 1px;">
-					<i class="fa fa-gift" style="font-size: 22px;"></i>
-					<p>获取更多</p>
-					</span>
-				</div>
-			<div>
-				<div class="str2" style="position: fixed;top: 80%;width: 80%;left: 30px;background: #ECCF88;">
-					<span>恭喜张三</span>
-					<span>恭喜张三</span>
-					<span>恭喜张三</span>
-					<span>恭喜张三</span>
-					<span>恭喜张三</span>
-					<span>恭喜张三</span>
-					<span>恭喜张三</span>
-					<span>恭喜张三</span>
-				</div>
-				<div class="wrapper" style="top: 0px;">
+
+	<body  style="" class="open-body">
+		<div class="mui-content " >
+			<div id="showPhone" class="mui-hidden" style="font-size: 16px;color: red;margin-top: 10px;">您抽奖使用用的手机号码为：{{phoneNum}}</div>
+				<a id="close" class="mui-icon mui-icon-close" style="top: 10px;position: fixed;right: 10px;"></a>
+				<div class="wrapper" style="top: 0px;z-index: ;">
 					<div class="bg rotate"></div>
 					<div class="open-has ">
-						<h3 class="title-close"><span class="user">今天还可抽奖</span>{{times}}次</h3>
-						<a id="close" class="mui-icon mui-icon-close" style="top: 10px;position: fixed;right: 10px;"></a>
+						<h3 class="title-close" style="color: indianred;"><span class="user">剩余分享次数</span >{{time}}次</h3>
 						<!-- <h3 class="title-open">恭喜你，成功领取<span class="user">德水</span>发的宝箱</h3> -->
 						<h3 class="title-open">恭喜中奖啦<span class="user"></span>！</h3>
 						<div class="mod-chest">
@@ -78,10 +49,13 @@
 								<div class="mod-chest-cont open-cont">
 									<div class="content">
 										<div class="gift">
-											<div class="icon"><img src="../image/chest-icon-zuan1.png"></div> x {{money}}
+											<div class="icon" style="margin-right: 10px;">
+												<img src="../awardImg/jinbi.jpg">
+											</div> x {{money}}
 										</div>
 										<div class="func">
-											<button id="again" style="display: inline-block;" class="mui-btn mui-btn-danger">{{tips}}&nbsp;({{num}})</button>
+											<button id="again" style="display: inline-block;" class="mui-btn mui-btn-danger">{{tips}}&nbsp;</button>
+											<button id="cancle" type="button" class="mui-btn mui-btn-outlined">取消</button>
 										</div>
 									</div>
 								</div>
@@ -89,43 +63,170 @@
 
 						</div>
 					</div>
-					<div class="open-none" style="display:none">
+					<!--<div class="open-none" style="display:none">
 						<div class="mod-chest">
 							<div class="chest-open show"></div>
 						</div>
 						<div class="func">
 							<button class="chest-btn">查看领取详情</button>
 						</div>
-					</div>
-					<!--<div class="chest-notice">
-						<label for="notice-checkbox">百姓通村网</label>
-						<div><a>www.tcw5000.com</a></div>
 					</div>-->
+				<div id="phone" class="" style="">
+					<input id="inputNum" type="number" placeholder="请输入手机号" style="width: 80%;margin-left: 10%;margin-top: 0px;" />
+					<button id="submit" type="button" class="mui-btn mui-btn-danger mui-btn-block" style="width: 60%;margin-left: 20%;padding: 4px;">确认</button>
 				</div>
-
 
 			</div>
 			<script type="text/javascript" src="../js/zepto.min.js"></script>
 			<script type="text/javascript" src="../js/mui.min.js"></script>
 			<script src="../js/vue.js" type="text/javascript" charset="utf-8"></script>
 			<script type="text/javascript">
-				$('.str2').liMarquee({
-					hoverstop: false
-				});
 				var time = 5;
 				var vm = new Vue({
 					el: '#award',
 					data: {
-						times: time,
+						time: 0,
 						tips: "再抽一次",
-						money: Math.floor(Math.random() * 10),
-						num: 5
+						money: 0,
+						num: 5,
+						phoneNum: null
 					}
 				});
+				var baseUrl = "http://192.168.0.107:8080/cunzhi/";
+				var shareId = null;
+				var loginName = null;
+				var isCan = false;
+				var shareDetail = null;
+				var main = null;
+				mui.plusReady(function() {
+					main = plus.webview.currentWebview();
+					shareId = plus.webview.currentWebview().shareId;
+					/*alert(shareId+"award.html");*/
+					loginName = plus.webview.currentWebview().loginName;
+					shareDetail = plus.webview.currentWebview().shareDetail;
+					vm.time = shareDetail.shareNum;
+					console.log(vm.time)
+					console.log(JSON.stringify(shareDetail));
+					//判断是否有用户名传来，即是否登陆。
+					if (loginName) {
+						isCan = true;
+						document.getElementById("phone").classList.add('mui-hidden');
+					}
+					//如果登陆了，则直接点击抽奖
+					//如果没有登陆，提示输入手机号，本地验证手机号正确与否
+				});
+				
+				document.getElementById("submit").addEventListener('click', function() {
+						vm.phoneNum = document.getElementById("inputNum").value;
+						console.log(vm.phoneNum);
+						if (!(/^1[3|4|5|7|8][0-9]\d{4,8}$/).test(vm.phoneNum)) {
+							alert('请输入正确的11位手机号码');
+						} else {
+							document.getElementById("showPhone").classList.remove('mui-hidden');
+							document.getElementById("phone").classList.add('mui-hidden');
+						}
+					})
+				
+				var maskToggle = function() {
+						main.setStyle({
+							mask: "rgba(0,0,0,0.5)"
+						});
+						setTimeout(function() {
+							main.setStyle({
+								mask: "none"
+							});
+						}, 1500);
+					}
+					//开始抽奖，发送给后台
+					var myNum = 0;
+				var start = function(msg) {
+					console.log('sssss')
+						//如果用户已经登陆
+						//userLotteryFromShareWithLogin.action
+						//shareId loginName"
+						//{"code":"0","msg":"请您领取分享次数后再抽奖"}
+						//"{""money"":198.3,""code"":""1""}
+						//{""code"":""0"",""msg"":""该分享已被其他人领取""}
+						//{""code"":""0"",""msg"":""分享次数已被用完""}"
+					console.log(isCan);
+					if (loginName != null) {
+						mui.ajax(baseUrl+'userLotteryFromShareWithLogin.action', {
+							data: {
+								loginName: loginName,
+								shareId: shareId
+							},
+							dataType: 'json',
+							type: 'get',
+							success: function(data) {
+								if (data.code == "1") {
+									vm.money = data.money;
+									console.log(vm.time);
+									vm.time = data.shareNum;
+									myNum = myNum + 1;
+								} else {
+									alert(data.msg)
+								}
+							}
+						});
+					}
+					//用户未登陆
+					//userLotteryFromShareNoLogin.action
+					//"shareId phone
+					//"{""money"":198.3,""code"":""1""}
+					//{""code"":""0"",""msg"":""该分享已被其他人领取""}
+					//{""code"":""0"",""msg"":""分享次数已被用完""}"
+					else {
+						if (vm.phoneNum == null) {
+							alert('请您输入手机号码');
+							return;
+						} else {
+							mui.ajax(baseUrl+'userLotteryFromShareNoLogin.action', {
+								data: {
+									phone: vm.phoneNum,
+									shareId: shareId
+								},
+								dataType: 'json',
+								type: 'get',
+								success: function(data) {
+									if (data.code == "1") {
+										vm.money = data.money;
+										vm.time = data.shareNum;
+										myNum = myNum + 1;
+									/*	vm.time = vm.time - 1;*/
+									} else {
+										alert(data.msg)
+									}
+								}
+							});
+						}
+					}
+				}
+				
+				
 				$(".chest-close").click(function() {
-					vm.num = vm.num - 1;
+					//如果用户没有登陆，则判断手机号是否输入了，如果手机号也没有输入，则失败
+					if (loginName == null) {
+						//判断是否输入了手机号
+						if (vm.phoneNum == null) {
+							alert('请您输入手机号码');
+							return;
+						}
+					}
+					//
 					console.log('aaaa');
 					//点击抽奖即向后台发送抽奖请求
+					
+					if(vm.time <= 0){
+						alert('抽奖次数已经用完');
+						return;
+					}
+					if(myNum > 5){
+						alert('您今天最多只能抽5次');
+						return;
+					}
+					start();
+					/*vm.time = vm.time - 1;*/
+					maskToggle();
 					$(this).addClass("shake");
 					var that = this;
 					this.addEventListener("webkitAnimationEnd", function() {
@@ -138,23 +239,57 @@
 							}, 500)
 						}, 200)
 					}, false);
-				})
-				document.getElementById("again").addEventListener('tap', function() {
-					vm.money = Math.floor(Math.random() * 10);
-					console.log('aaa');
-					vm.times = vm.times - 1;
-					if (vm.times <= 0) {
-						vm.tips = "抽奖次数用完"
-						mui.toast('机会用完啦，明天再来吧');
+				});
+				document.getElementById("again").addEventListener('click', function() {
+					//如果用户没有登陆，则判断手机号是否输入了，如果手机号也没有输入，则失败
+					if (loginName == null) {
+						//判断是否输入了手机号
+						if (vm.phoneNum == null) {
+							alert('请您输入手机号码');
+							return;
+						}
+					}
+					if(vm.time <= 0){
+						alert('抽奖次数已经用完');
 						return;
 					}
+					if(myNum > 5){
+						alert('您今天最多只能抽5次');
+						return;
+					}
+					start();
+					/*vm.time = vm.time - 1;*/
+					maskToggle();
+					console.log('hahahaa')
+					$(".chest-close").removeClass('shake');
+					$(".chest-close").closest(".open-has").removeClass("opened");
+					$(".chest-close").closest(".mod-chest").find(".chest-open").removeClass("show");
+					$(".chest-close").addClass("show");
+					$(".chest-open").removeClass("blur");
+					setTimeout(function() {
+						$(".chest-close").addClass("shake");
+						this.addEventListener("webkitAnimationEnd", function() {
+							$(".chest-close").closest(".open-has").addClass("opened");
+							setTimeout(function() {
+								$(".chest-close").removeClass("show");
+								$(".chest-close").closest(".mod-chest").find(".chest-open").addClass("show");
+								setTimeout(function() {
+									$(".chest-open").addClass("blur");
+								}, 500)
+							}, 200)
+						}, false);
+					}, 10);
+				});
+				
+				//取消
+				document.getElementById("cancle").addEventListener('click', function() {
 					$(".chest-close").removeClass('shake');
 					$(".chest-close").closest(".open-has").removeClass("opened");
 					$(".chest-close").closest(".mod-chest").find(".chest-open").removeClass("show");
 					$(".chest-close").addClass("show");
 					$(".chest-open").removeClass("blur");
 				});
-				document.getElementById("close").addEventListener('tap', function() {
+				document.getElementById("close").addEventListener('click', function() {
 					/*alert('ddd');*/
 					console.log('ddd');
 					mui.back();

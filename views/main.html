@@ -1,38 +1,48 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
-		
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
 		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css" />
+		<style type="text/css">
+			.mui-bar {
+				background-color: ;
+			}
+			
+			.mui-tab-item {
+				color: #FFFFFF;
+			}
+		</style>
 	</head>
+	
 	<body id="main">
 		<header class="mui-bar mui-bar-nav">
 			<a id="personZoom" style="width: 40px;height: 20px;overflow: hidden; border-radius: 10px;">
-				<img class="mui-pull-left" src="http://q.qlogo.cn/qqapp/1104455702/4A6246E1E98CFE02390A4C9FD4259167/40"/>
+				<img class="mui-pull-left" src="http://q.qlogo.cn/qqapp/1104455702/4A6246E1E98CFE02390A4C9FD4259167/40" />
 			</a>
-			<div class="mui-title" id="title" v-title="title" >
+			<div class="mui-title" id="title" v-title="title">
+				<div id='search' >搜索所需要的内容<i  class='mui-icon mui-icon-search'></i></div>
 			</div>
+			<a id="toolbars" class="mui-icon mui-icon-bars mui-pull-right"></a>
 		</header>
-		
-		<nav class="mui-bar mui-bar-tab" id="app" style="background:#EEEEEE;">
-			<a class="mui-tab-item mui-active" v-tab.literal="tab-home.html">
-				<span class="mui-icon mui-icon-home"></span>
+		<nav class="mui-bar mui-bar-tab" id="app">
+			<a class="mui-tab-item mui-active" href="tab-home.html">
+				<span class="mui-icon fa fa-home"></span>
 				<span class="mui-tab-label">首页</span>
 			</a>
-			<a class="mui-tab-item" v-tab.literal="tab-cunzhi.html">
-				<span class="mui-icon mui-icon-chatboxes"></span>
+			<a class="mui-tab-item" href="tab-cunzhi.html">
+				<span class="mui-icon fa fa-book"></span>
 				<span class="mui-tab-label">村志</span>
 			</a>
-			
-			<a class="mui-tab-item" v-tab.literal="tab-award.html">
-				<span class="mui-icon mui-icon-phone"></span>
+			<a class="mui-tab-item" id="tab-award" href="tab-award.html">
+				<span class="mui-icon fa fa-gift"></span>
 				<span class="mui-tab-label">抽奖</span>
 			</a>
-			<a class="mui-tab-item" v-tab.literal="tab-settings.html">
-				<span class="mui-icon mui-icon-gear"></span>
+			<a class="mui-tab-item" href="tab-settings.html">
+				<span class="mui-icon fa fa-gear"></span>
 				<span class="mui-tab-label">个人中心</span>
 			</a>
 		</nav>
@@ -40,5 +50,4 @@
 		<script src="../js/mui.js" charset="utf-8"></script>
 		<script src="../js/require.js" data-main="main"></script>
 	</body>
-
 </html>

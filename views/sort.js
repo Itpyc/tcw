@@ -11,23 +11,56 @@ define(function(require, exports, module) {
 			}
 		}
 	});
+	var listArr = [];
 	mui.plusReady(function() {
 		parentPage = plus.webview.getWebviewById('product-list.html');
 		detailPage = mui.preload({
 			url: 'details.html',
 			id: 'details.html'
 		});
-	});
-	
-	/*mui.plusReady(function(){
+
+
+		/*mui.plusReady(function(){
+			
+		});*/
 		
-	});*/
-	
-	//接收来自于shop的数据
-	window.addEventListener('productName', function(e) {
-		console.log(e.detail.data);
-		vm.name = e.detail.data;
+		
+		//接收来自于shop的数据
+		window.addEventListener('productName', function(e) {
+			console.log(e.detail.data);
+			vm.name = e.detail.data;
+			
+			var network = plus.networkinfo.getCurrentType();
+			if(network == 1){
+				mui.toast('未连接网络');
+				return;
+			}
+			console.log(network);
+			
+			plus.nativeUI.showWaiting('正在获取数据')
+
+			mui.ajax('http://192.168.0.100:3000/users/productList', {
+				data: {
+					data: e.detail.data
+				},
+				dataType: 'json',
+				type: 'get',
+				timeout: 1000,
+				success: function(data) {
+					vm.items = data;
+					listArr = data;
+					plus.nativeUI.closeWaiting();
+				},
+				error:function(){
+					/*mui.toast('网络连接失败');*/
+					plus.nativeUI.toast('网络连接失败')
+					plus.nativeUI.closeWaiting();
+				}
+			})
+		});
+
 	});
+	
 
 	/*window.addEventListener('productInfoFromProductList',function(e){
 		console.log(e.detail.data);
@@ -35,20 +68,16 @@ define(function(require, exports, module) {
 	});*/
 	var self = exports;
 	var Vue = require('../js/vue.js');
-	
+
 	//从后台获取商品列表，仅获取简单商品信息列表信息
 	//如果用户点击排序，是重新从后台获取排序之后的，还是将现有的进行排序
 	/*mui.ajax('',{
 		
 	});*/
-	
-	
-	
 	var testData = [];
-
 	//测试用的数据，实际可以通过ajax从后台获取
 	testData = [{
-		shopId:'shop01',
+		shopId: 'shop01',
 		id: 1,
 		name: "1",
 		price: 13, //价格
@@ -57,7 +86,7 @@ define(function(require, exports, module) {
 		distance: '配送范围内', //距离
 		sellerPos: '北京'
 	}, {
-		shopId:'shop02',
+		shopId: 'shop02',
 		id: 2,
 		name: "2",
 		price: 12,
@@ -66,7 +95,7 @@ define(function(require, exports, module) {
 		distance: '超出配送范围', //距离
 		sellerPos: '上海'
 	}, {
-		shopId:'shop03',
+		shopId: 'shop03',
 		id: 3,
 		name: "3",
 		price: 14,
@@ -75,7 +104,7 @@ define(function(require, exports, module) {
 		distance: '可送达最近社区', //距离
 		sellerPos: '广州'
 	}, {
-		shopId:'shop04',
+		shopId: 'shop04',
 		id: 4,
 		name: "4",
 		price: 9,
@@ -84,7 +113,7 @@ define(function(require, exports, module) {
 		distance: '配送范围内', //距离4
 		sellerPos: '菏泽'
 	}, {
-		shopId:'shop05',
+		shopId: 'shop05',
 		id: 5,
 		name: "5",
 		price: 1,
@@ -93,7 +122,7 @@ define(function(require, exports, module) {
 		distance: '超出配送范围', //距离2
 		sellerPos: '上海'
 	}, {
-		shopId:'shop06',
+		shopId: 'shop06',
 		id: 6,
 		name: "6",
 		price: 23,
@@ -152,7 +181,7 @@ define(function(require, exports, module) {
 		el: '#sort',
 		data: {
 			name: '',
-			items: testData,
+			items: null,
 			desc: -1,
 			type: 'sales'
 		}
@@ -164,11 +193,8 @@ define(function(require, exports, module) {
 		vm.type = data.name;
 		console.log(vm.desc);
 	});
-
-
 	var parentPage = null;
 	var detailPage = null;
-	
 	//当用户点击某个商品时，跳转到详情页面，将该商品的id传过去，并通知后台提取该商品的详细信息
 	$('#list').on('tap', 'li', function() {
 		mui.fire(detailPage, 'productName:sort.html', {
@@ -178,7 +204,6 @@ define(function(require, exports, module) {
 			id: 'details.html'
 		});
 	});
-
 	/**
 	 *	接收和筛选 
 	 */
@@ -189,12 +214,12 @@ define(function(require, exports, module) {
 		});
 
 		var filterData = e.detail.data;
-		
+
 		//将filterData发送向后台，让后台进行筛选，然后返回筛选后的数据
-		
+
 		//将筛选后的结果放入展示列表中去
-		
-		
+
+
 		console.log(JSON.stringify(filterData));
 		var bol = {
 			byPos: true,
@@ -203,7 +228,7 @@ define(function(require, exports, module) {
 			byPrice: true
 		};
 		console.log(filterData.sellerPos + "***" + filterData.distance + '***' + filterData.amount.min + '***' + filterData.amount.max + "********" + filterData.minPrice + '***' + filterData.maxPrice);
-		vm.items = testData.filter(function(item) {
+		vm.items = listArr.filter(function(item) {
 			//发货地筛选
 			if (filterData.sellerPos != "不限") {
 				if (filterData.sellerPos == item.sellerPos) {
@@ -254,9 +279,9 @@ define(function(require, exports, module) {
 	 * 上拉加载具体业务实现
 	 */
 	function pullupRefresh() {
-		
+
 		//此处添加一个向服务器获取数据的方法，并且将获取到的数组push进展示列表中
-		
+
 		mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
 	}
 

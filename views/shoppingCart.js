@@ -179,15 +179,15 @@ define(function(require, exports, module) {
 		},
 		methods: {
 			show: function(event) {
-				
-				
+
+
 				/*console.log(event.target.checked);
 				
 				$(event.target).toggleClass('isChecked');*/
-				
-				
-				
-				
+
+
+
+
 				/*if (event.target.id == 'all') {
 					console.log('选中了所有的');
 					if (event.target.checked) {
@@ -206,10 +206,10 @@ define(function(require, exports, module) {
 					}
 				} */
 			}
-			
-			
-			
-			
+
+
+
+
 		}
 	});
 
@@ -275,32 +275,29 @@ define(function(require, exports, module) {
 				this.checked = false;
 			});
 			mui.openWindow({
-				id: 'order.html'
+				id: 'order.html',
+				url:'order.html'
 			});
 		} else {
 			mui.toast('未选择商品');
 		}
 	});
 
-	
-	$('li').on('change','input',function(e){
-		var selectNum = 0; 
-		if($(this).hasClass('isChecked')&&$(this).hasClass('first')){
+
+	$('li').on('change', 'input', function(e) {
+		var selectNum = 0;
+		if ($(this).hasClass('isChecked') && $(this).hasClass('first')) {
 			console.log('dddddafasfafasdfasfdas');
 		}
-		
-		
-		
-		
-		
-		$('li input[type=checkbox]:not(.first)').each(function(){
-			if($(this).hasClass('isChecked')){
+
+		$('li input[type=checkbox]:not(.first)').each(function() {
+			if ($(this).hasClass('isChecked')) {
 				selectNum += 1;
 			}
 		});
 		vm.productNumber = selectNum;
 		console.log(vm.productNumber);
-		
+
 	});
 
 	document.getElementById("edit").addEventListener('tap', function() {
@@ -349,9 +346,7 @@ define(function(require, exports, module) {
 		mui.fire(detailProduct, 'delete', {
 			data: deleteArr
 		});
-
 		deleteArr = [];
-
 	});
 
 });
